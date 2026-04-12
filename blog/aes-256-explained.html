@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AES-256 Encryption Explained in Plain English | Zecure Blog</title>
+  <meta name="description" content="Governments and banks rely on AES-256 to protect their most sensitive data. We explain what it means, why key length matters, and how to generate one safely.">
+  <meta name="keywords" content="AES-256 encryption, aes 256 explained, what is aes encryption, how aes works, generate aes 256 key, symmetric encryption">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/blog/aes-256-explained.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AES-256 Encryption Explained in Plain English">
+  <meta property="og:description" content="What AES-256 actually is, how it works, and why key generation matters more than the algorithm itself.">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"AES-256 Encryption Explained in Plain English","author":{"@type":"Organization","name":"Zecure"},"publisher":{"@type":"Organization","name":"Zecure","url":"https://zecure.net"},"datePublished":"2025-03-01","description":"A plain-English explanation of AES-256 encryption — how it works, why it's trusted, and how to generate secure keys."}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b; --surface: #18181b; --surface2: #27272a;
+      --border: #3f3f46; --border-s: #27272a;
+      --accent: #6366f1; --accent-h: #4f46e5; --accent-s: rgba(99,102,241,0.12);
+      --green: #22c55e; --green-s: rgba(34,197,94,0.1);
+      --amber: #f59e0b; --red: #ef4444;
+      --text: #fafafa; --text-2: #a1a1aa; --text-3: #71717a; --text-4: #52525b;
+      --sans: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --r: 8px; --r-sm: 6px; --r-lg: 12px;
+      color-scheme: dark;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --surface: #fafafa; --surface2: #f4f4f5;
+      --border: #e4e4e7; --border-s: #f4f4f5;
+      --accent: #4f46e5; --accent-h: #4338ca; --accent-s: rgba(79,70,229,0.08);
+      --green: #16a34a; --green-s: rgba(22,163,74,0.08);
+      --amber: #d97706; --red: #dc2626;
+      --text: #09090b; --text-2: #52525b; --text-3: #71717a; --text-4: #a1a1aa;
+      color-scheme: light;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.6; min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--accent-s); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+    header { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-s); }
+    .nav-inner { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; height: 56px; display: flex; align-items: center; gap: 1rem; }
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.9375rem; letter-spacing: -0.01em; }
+    .logo-mark { width: 28px; height: 28px; border-radius: var(--r-sm); background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; }
+    .back-link { margin-left: auto; display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-2); font-size: 0.8125rem; font-weight: 500; text-decoration: none; padding: 0.375rem 0.75rem; border-radius: var(--r-sm); border: 1px solid var(--border); transition: all 0.15s; cursor: pointer; }
+    .back-link:hover { color: var(--text); background: var(--surface2); border-color: var(--text-4); }
+    .icon-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: transparent; border: 1px solid var(--border); border-radius: var(--r-sm); color: var(--text-2); cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+    .icon-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface2); }
+    .icon-btn .sun { display: none; } .icon-btn .moon { display: block; }
+    [data-theme="light"] .icon-btn .sun { display: block; } [data-theme="light"] .icon-btn .moon { display: none; }
+
+    .article-wrap { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .article-hero { padding: 3.5rem 0 2.5rem; }
+    .article-category { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--green-s); color: var(--green); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .article-h1 { font-size: clamp(1.75rem, 4vw, 2.625rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; color: var(--text); margin-bottom: 1rem; }
+    .article-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .article-meta span { font-size: 0.8125rem; color: var(--text-3); display: flex; align-items: center; gap: 0.35rem; }
+    .article-meta .sep { width: 3px; height: 3px; border-radius: 50%; background: var(--text-4); }
+    .article-lead { font-size: 1.0625rem; color: var(--text-2); line-height: 1.75; border-left: 3px solid var(--green); padding-left: 1.25rem; margin-bottom: 2.5rem; }
+    .article-body { padding-bottom: 4rem; }
+    .article-body h2 { font-size: 1.3125rem; font-weight: 600; letter-spacing: -0.015em; color: var(--text); margin: 2.5rem 0 0.875rem; }
+    .article-body h3 { font-size: 1.0625rem; font-weight: 600; color: var(--text); margin: 1.75rem 0 0.625rem; }
+    .article-body p { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; margin-bottom: 1.25rem; }
+    .article-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .article-body ul, .article-body ol { margin: 0.5rem 0 1.25rem 1.5rem; }
+    .article-body li { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; margin-bottom: 0.35rem; }
+    .article-body strong { color: var(--text); font-weight: 600; }
+    .article-body code { font-family: var(--mono); font-size: 0.8125rem; background: var(--surface2); color: var(--accent); padding: 0.15rem 0.45rem; border-radius: 4px; }
+    pre.code-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 1.25rem 1.5rem; overflow-x: auto; margin: 0.5rem 0 1.5rem; }
+    pre.code-block code { background: none; color: var(--text-2); font-size: 0.8125rem; padding: 0; line-height: 1.7; }
+    .tk-kw { color: #818cf8; } .tk-fn { color: #67e8f9; } .tk-st { color: #4ade80; } .tk-cm { color: var(--text-4); }
+    [data-theme="light"] .tk-kw { color: #4f46e5; } [data-theme="light"] .tk-fn { color: #0284c7; } [data-theme="light"] .tk-st { color: #16a34a; }
+
+    .callout { display: flex; gap: 1rem; background: var(--surface); border: 1px solid var(--border-s); border-left: 3px solid var(--accent); border-radius: var(--r-lg); padding: 1.125rem 1.25rem; margin: 1.5rem 0; }
+    .callout-icon { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout p { margin: 0; font-size: 0.875rem; }
+    .callout.warn { border-left-color: var(--amber); } .callout.warn .callout-icon { color: var(--amber); }
+    .callout.good { border-left-color: var(--green); } .callout.good .callout-icon { color: var(--green); }
+
+    /* AES diagram */
+    .aes-diagram { background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto; }
+    .aes-flow { display: flex; align-items: center; gap: 0; flex-wrap: nowrap; min-width: 600px; }
+    .aes-box { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 0.625rem 0.875rem; text-align: center; flex: 1; }
+    .aes-box .label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.2rem; }
+    .aes-box .val { font-family: var(--mono); font-size: 0.75rem; color: var(--text-2); }
+    .aes-box.highlight { background: var(--accent-s); border-color: var(--accent); }
+    .aes-box.highlight .val { color: var(--accent); }
+    .aes-arrow { color: var(--text-4); padding: 0 0.25rem; flex-shrink: 0; font-size: 1.1rem; }
+
+    .key-sizes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 1rem 0 1.5rem; }
+    .ks-cell { background: var(--surface); padding: 1rem; text-align: center; }
+    .ks-bits { font-family: var(--mono); font-size: 1.375rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+    .ks-bits.active { color: var(--accent); }
+    .ks-rounds { font-size: 0.75rem; color: var(--text-3); margin-bottom: 0.3rem; }
+    .ks-tag { display: inline-block; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.1rem 0.5rem; border-radius: 100px; }
+    .ks-tag.gov { background: var(--accent-s); color: var(--accent); }
+    .ks-tag.ok { background: var(--green-s); color: var(--green); }
+
+    .stat-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 1.5rem 0 2rem; }
+    .stat-cell { background: var(--surface); padding: 1.25rem; text-align: center; }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-size: 0.75rem; color: var(--text-3); }
+
+    hr.divider { border: none; border-top: 1px solid var(--border-s); margin: 2.5rem 0; }
+
+    .related { padding: 2.5rem 0 4rem; border-top: 1px solid var(--border-s); }
+    .related-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 1.25rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .related-card { display: block; background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 1.25rem; text-decoration: none; transition: border-color 0.15s, background 0.15s; cursor: pointer; }
+    .related-card:hover { border-color: var(--border); background: var(--surface2); }
+    .related-cat { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .related-card-title { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 0.4rem; }
+    .related-card-date { font-size: 0.75rem; color: var(--text-3); }
+
+    .article-cta { background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .article-cta h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .article-cta p { font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--sans); font-size: 0.875rem; font-weight: 500; padding: 0.6rem 1.375rem; border-radius: var(--r); cursor: pointer; transition: all 0.15s; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; border: none; }
+    .btn-primary:hover { background: var(--accent-h); }
+  </style>
+</head>
+<body>
+<script>
+  (function() {
+    const t = localStorage.getItem('zecure-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="../index.html" class="logo" aria-label="Zecure home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </span>
+      Zecure
+    </a>
+    <a href="../index.html#blog" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      All posts
+    </a>
+    <button class="icon-btn" id="theme-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+      <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="article-wrap">
+    <article>
+      <header class="article-hero">
+        <div class="article-category">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          Explainer
+        </div>
+        <h1 class="article-h1">AES-256 Encryption Explained in Plain English</h1>
+        <div class="article-meta">
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            March 2025
+          </span>
+          <span class="sep"></span>
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            8 min read
+          </span>
+          <span class="sep"></span>
+          <span>By Zecure Team</span>
+        </div>
+        <p class="article-lead">Governments and banks use AES-256 to protect their most sensitive data — nuclear launch codes, financial transactions, medical records. Here's what it actually means, why key length matters, and how to generate one safely.</p>
+      </header>
+
+      <div class="article-body">
+
+        <h2>What Is AES?</h2>
+        <p>AES stands for <strong>Advanced Encryption Standard</strong>. It's a symmetric block cipher — "symmetric" meaning the same key encrypts and decrypts the data, and "block cipher" meaning it operates on fixed-size chunks (128-bit blocks) rather than a continuous stream.</p>
+        <p>AES was selected by NIST in 2001 after a 5-year public competition. The original algorithm — called Rijndael — was submitted by two Belgian cryptographers, Joan Daemen and Vincent Rijmen. It was designed to be efficient on hardware and software, resistant to all known attacks, and remain secure for decades.</p>
+        <p><strong>Twenty-four years later, not a single successful cryptanalytic attack has broken AES in practice.</strong> The only known vulnerability is weak key management — generating a bad key, or failing to protect it.</p>
+
+        <h2>The Three Key Sizes</h2>
+        <p>AES comes in three variants, differentiated by key length:</p>
+
+        <div class="key-sizes">
+          <div class="ks-cell">
+            <div class="ks-bits">128-bit</div>
+            <div class="ks-rounds">10 rounds</div>
+            <span class="ks-tag ok">Good</span>
+          </div>
+          <div class="ks-cell">
+            <div class="ks-bits">192-bit</div>
+            <div class="ks-rounds">12 rounds</div>
+            <span class="ks-tag ok">Strong</span>
+          </div>
+          <div class="ks-cell">
+            <div class="ks-bits active">256-bit</div>
+            <div class="ks-rounds">14 rounds</div>
+            <span class="ks-tag gov">NSA Suite B</span>
+          </div>
+        </div>
+
+        <p>AES-128 is already considered computationally unbreakable — there are only ~3.4×10<sup>38</sup> possible keys; exhaustive search is impossible with current or foreseeable technology. AES-256 doubles the key length, raising the keyspace to 1.16×10<sup>77</sup> — roughly the number of atoms in the observable universe squared. It's the version approved by the NSA for Top Secret information.</p>
+
+        <div class="callout">
+          <span class="callout-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </span>
+          <p>Even a theoretical quantum computer running Grover's algorithm would reduce AES-256's effective security from 256 bits to 128 bits — still unbreakable. AES-256 is considered quantum-resistant for practical purposes.</p>
+        </div>
+
+        <h2>How AES Actually Works</h2>
+        <p>AES transforms a 128-bit block of plaintext into a 128-bit block of ciphertext through a series of mathematical <em>rounds</em>. Each round applies four operations to a 4×4 byte grid (the "state"):</p>
+
+        <ol>
+          <li><strong>SubBytes</strong> — replaces each byte with a non-linear substitution from a fixed lookup table (the S-box), removing linear relationships in the data</li>
+          <li><strong>ShiftRows</strong> — cyclically shifts each row of the state by a different amount, providing diffusion across columns</li>
+          <li><strong>MixColumns</strong> — multiplies each column by a fixed polynomial, mixing the bytes within each column</li>
+          <li><strong>AddRoundKey</strong> — XORs the state with a subkey derived from the main key via the key schedule</li>
+        </ol>
+
+        <p>These operations are carefully chosen so that changing a single input bit flips roughly half the output bits (the "avalanche effect"). After 14 rounds for AES-256, the relationship between plaintext and ciphertext is completely opaque.</p>
+
+        <div class="aes-diagram" aria-label="AES encryption flow diagram">
+          <div class="aes-flow">
+            <div class="aes-box">
+              <div class="label">Plaintext</div>
+              <div class="val">128-bit block</div>
+            </div>
+            <div class="aes-arrow">→</div>
+            <div class="aes-box highlight">
+              <div class="label">Key XOR</div>
+              <div class="val">+Round Key</div>
+            </div>
+            <div class="aes-arrow">→</div>
+            <div class="aes-box">
+              <div class="label">Round ×14</div>
+              <div class="val">Sub · Shift · Mix · Add</div>
+            </div>
+            <div class="aes-arrow">→</div>
+            <div class="aes-box highlight">
+              <div class="label">Ciphertext</div>
+              <div class="val">128-bit block</div>
+            </div>
+          </div>
+        </div>
+
+        <h2>The Key Is the Secret — Not the Algorithm</h2>
+        <p>AES is public. The algorithm, the S-boxes, every detail of how it works — all published and freely available. That's intentional: security through obscurity isn't security. Kerckhoffs's principle states that a cryptosystem should be secure even if everything about the system, except the key, is public knowledge.</p>
+        <p><strong>This means the entire security of AES-256 rests on one thing: the key.</strong> A 256-bit key is 32 bytes of data. If an attacker gets that key — through phishing, a vulnerable server, or your code — all encrypted data is immediately decryptable. The cryptography is irrelevant.</p>
+
+        <div class="callout warn">
+          <span class="callout-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </span>
+          <p><strong>Common mistake:</strong> Deriving an AES key from a password by hashing it directly. <code>SHA256(password)</code> seems like it produces 256 bits, but if the input is a weak password, the key is weak too. Always use a proper KDF like PBKDF2, bcrypt, or Argon2 with a salt when deriving keys from passwords.</p>
+        </div>
+
+        <h2>Generating a Proper AES-256 Key</h2>
+        <p>A legitimate AES-256 key must be <strong>32 bytes of cryptographically random data</strong>. In practice, this is usually represented as 64 hexadecimal characters or a 44-character base64 string.</p>
+
+        <pre class="code-block"><code><span class="tk-cm">// Node.js — generate a cryptographically secure AES-256 key</span>
+<span class="tk-kw">const</span> { randomBytes } = require(<span class="tk-st">'crypto'</span>);
+<span class="tk-kw">const</span> key = <span class="tk-fn">randomBytes</span>(32).<span class="tk-fn">toString</span>(<span class="tk-st">'hex'</span>);
+<span class="tk-cm">// → e.g. "a3f2...8b1c" (64 hex chars = 256 bits)</span>
+
+<span class="tk-cm">// Browser — same using Web Crypto API</span>
+<span class="tk-kw">const</span> keyBytes = <span class="tk-kw">new</span> <span class="tk-fn">Uint8Array</span>(32);
+<span class="tk-fn">crypto.getRandomValues</span>(keyBytes);
+<span class="tk-kw">const</span> keyHex = <span class="tk-fn">Array.from</span>(keyBytes)
+  .<span class="tk-fn">map</span>(b => b.<span class="tk-fn">toString</span>(16).<span class="tk-fn">padStart</span>(2, <span class="tk-st">'0'</span>))
+  .<span class="tk-fn">join</span>(<span class="tk-st">''</span>);</code></pre>
+
+        <div class="callout good">
+          <span class="callout-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <p>Zecure's AES-256 key generator does exactly this — <code>getRandomValues(new Uint8Array(32))</code> — then encodes to hex. The key is generated entirely in your browser; it's never sent anywhere.</p>
+        </div>
+
+        <h2>AES Modes: ECB vs. CBC vs. GCM</h2>
+        <p>AES is a block cipher — it encrypts exactly 128 bits at a time. For real data (which isn't always exactly 128 bits), you need a "mode of operation" that specifies how to chain multiple blocks:</p>
+
+        <ul>
+          <li><strong>ECB (Electronic Codebook)</strong> — encrypts each block independently. <em>Never use this.</em> Identical plaintext blocks produce identical ciphertext blocks, revealing patterns in the data.</li>
+          <li><strong>CBC (Cipher Block Chaining)</strong> — XORs each block with the previous ciphertext before encryption. Requires a random IV (initialization vector). Better than ECB, but padding oracle attacks are a concern.</li>
+          <li><strong>GCM (Galois/Counter Mode)</strong> — the modern standard. Provides both confidentiality <em>and</em> integrity (authenticated encryption). Use GCM unless you have a specific reason not to.</li>
+        </ul>
+
+        <h2>Where AES-256 Is Used</h2>
+
+        <div class="stat-strip">
+          <div class="stat-cell">
+            <div class="stat-num">HTTPS</div>
+            <div class="stat-label">TLS 1.3 uses AES-256-GCM as the default cipher</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">AWS S3</div>
+            <div class="stat-label">Server-side encryption (SSE-S3) uses AES-256</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">FileVault</div>
+            <div class="stat-label">macOS disk encryption uses AES-256-XTS</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">Signal</div>
+            <div class="stat-label">End-to-end message encryption uses AES-256-CBC</div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <h2>Summary</h2>
+        <p>AES-256 is not going to be broken anytime soon. The algorithm itself is sound; attacks happen at the implementation level — weak keys, ECB mode, missing authentication, exposed key material. If you're implementing AES-256 in your application:</p>
+        <ol>
+          <li>Use GCM mode, not ECB or CBC</li>
+          <li>Generate keys with a CSPRNG (<code>randomBytes</code> or <code>getRandomValues</code>)</li>
+          <li>Never hardcode keys in source code</li>
+          <li>Rotate keys periodically and on suspected compromise</li>
+          <li>Store keys in a secrets manager (AWS Secrets Manager, HashiCorp Vault), not env files committed to git</li>
+        </ol>
+
+        <div class="article-cta">
+          <h3>Generate a secure AES-256 key</h3>
+          <p>Get a cryptographically random 256-bit key instantly — hex or base64 encoded, generated locally in your browser.</p>
+          <a href="../index.html" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Open Zecure Generator
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <section class="related" aria-label="Related articles">
+      <p class="related-title">More from the blog</p>
+      <div class="related-grid">
+        <a href="unbreakable-password-2025.html" class="related-card">
+          <div class="related-cat">Security Guide</div>
+          <div class="related-card-title">How to Create an Unbreakable Password in 2025</div>
+          <div class="related-card-date">Apr 2025</div>
+        </a>
+        <a href="api-keys-vs-passwords.html" class="related-card">
+          <div class="related-cat">Developer</div>
+          <div class="related-card-title">API Keys vs. Passwords: What's the Difference?</div>
+          <div class="related-card-date">Feb 2025</div>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+</script>
+</body>
+</html>
