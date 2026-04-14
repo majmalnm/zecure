@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two-Factor Authentication Explained: TOTP, SMS, and Hardware Keys | Zecure Blog</title>
+  <meta name="description" content="Not all 2FA is equal. SMS codes can be intercepted. TOTP apps are better. Hardware keys are best. Here's how each method works and when to use it.">
+  <meta name="keywords" content="two factor authentication, 2fa explained, totp authenticator, sms 2fa risks, hardware security key, yubikey, google authenticator, fido2, webauthn">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/blog/two-factor-authentication-explained.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Two-Factor Authentication Explained: TOTP, SMS, and Hardware Keys">
+  <meta property="og:description" content="SMS 2FA can be defeated by SIM swapping. TOTP is better. Hardware keys are phishing-proof. Here's how they all work.">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Two-Factor Authentication Explained: TOTP, SMS, and Hardware Keys","author":{"@type":"Organization","name":"Zecure"},"publisher":{"@type":"Organization","name":"Zecure","url":"https://zecure.net"},"datePublished":"2025-09-01","description":"A clear breakdown of 2FA methods — SMS, TOTP, and hardware keys — how they work, and which one you should actually use."}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b; --surface: #18181b; --surface2: #27272a;
+      --border: #3f3f46; --border-s: #27272a;
+      --accent: #6366f1; --accent-h: #4f46e5; --accent-s: rgba(99,102,241,0.12);
+      --green: #22c55e; --green-s: rgba(34,197,94,0.1);
+      --amber: #f59e0b; --red: #ef4444;
+      --text: #fafafa; --text-2: #a1a1aa; --text-3: #71717a; --text-4: #52525b;
+      --sans: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --r: 8px; --r-sm: 6px; --r-lg: 12px;
+      color-scheme: dark;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --surface: #fafafa; --surface2: #f4f4f5;
+      --border: #e4e4e7; --border-s: #f4f4f5;
+      --accent: #4f46e5; --accent-h: #4338ca; --accent-s: rgba(79,70,229,0.08);
+      --green: #16a34a; --green-s: rgba(22,163,74,0.08);
+      --amber: #d97706; --red: #dc2626;
+      --text: #09090b; --text-2: #52525b; --text-3: #71717a; --text-4: #a1a1aa;
+      color-scheme: light;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.6; min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--accent-s); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+    body > header { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-s); }
+    .nav-inner { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; height: 56px; display: flex; align-items: center; gap: 1rem; }
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.9375rem; letter-spacing: -0.01em; }
+    .logo-mark { width: 28px; height: 28px; border-radius: var(--r-sm); background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; }
+    .back-link { margin-left: auto; display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-2); font-size: 0.8125rem; font-weight: 500; text-decoration: none; padding: 0.375rem 0.75rem; border-radius: var(--r-sm); border: 1px solid var(--border); transition: all 0.15s; cursor: pointer; }
+    .back-link:hover { color: var(--text); background: var(--surface2); border-color: var(--text-4); }
+    .icon-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: transparent; border: 1px solid var(--border); border-radius: var(--r-sm); color: var(--text-2); cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+    .icon-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface2); }
+    .icon-btn .sun { display: none; } .icon-btn .moon { display: block; }
+    [data-theme="light"] .icon-btn .sun { display: block; } [data-theme="light"] .icon-btn .moon { display: none; }
+
+    .article-wrap { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .article-hero { padding: 3.5rem 0 2.5rem; }
+    .article-category { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--green-s); color: var(--green); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .article-h1 { font-size: clamp(1.75rem, 4vw, 2.625rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; color: var(--text); margin-bottom: 1rem; }
+    .article-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .article-meta span { font-size: 0.8125rem; color: var(--text-3); display: flex; align-items: center; gap: 0.35rem; }
+    .article-meta .sep { width: 3px; height: 3px; border-radius: 50%; background: var(--text-4); }
+    .article-lead { font-size: 1.0625rem; color: var(--text-2); line-height: 1.75; border-left: 3px solid var(--green); padding-left: 1.25rem; margin-bottom: 2.5rem; }
+    .article-body { padding-bottom: 4rem; }
+    .article-body h2 { font-size: 1.3125rem; font-weight: 600; letter-spacing: -0.015em; color: var(--text); margin: 2.5rem 0 0.875rem; }
+    .article-body h3 { font-size: 1.0625rem; font-weight: 600; color: var(--text); margin: 1.75rem 0 0.625rem; }
+    .article-body p { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; margin-bottom: 1.25rem; }
+    .article-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .article-body ul, .article-body ol { margin: 0.5rem 0 1.25rem 1.5rem; }
+    .article-body li { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; margin-bottom: 0.35rem; }
+    .article-body strong { color: var(--text); font-weight: 600; }
+    .article-body code { font-family: var(--mono); font-size: 0.8125rem; background: var(--surface2); color: var(--accent); padding: 0.15rem 0.45rem; border-radius: 4px; }
+    pre.code-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 1.25rem 1.5rem; overflow-x: auto; margin: 0.5rem 0 1.5rem; }
+    pre.code-block code { background: none; color: var(--text-2); font-size: 0.8125rem; padding: 0; line-height: 1.7; }
+    .tk-kw { color: #818cf8; } .tk-fn { color: #67e8f9; } .tk-st { color: #4ade80; } .tk-cm { color: var(--text-4); }
+    [data-theme="light"] .tk-kw { color: #4f46e5; } [data-theme="light"] .tk-fn { color: #0284c7; } [data-theme="light"] .tk-st { color: #16a34a; }
+
+    .callout { display: flex; gap: 1rem; background: var(--surface); border: 1px solid var(--border-s); border-left: 3px solid var(--accent); border-radius: var(--r-lg); padding: 1.125rem 1.25rem; margin: 1.5rem 0; }
+    .callout-icon { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout p { margin: 0; font-size: 0.875rem; }
+    .callout.warn { border-left-color: var(--amber); } .callout.warn .callout-icon { color: var(--amber); }
+    .callout.good { border-left-color: var(--green); } .callout.good .callout-icon { color: var(--green); }
+
+    .method-compare { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 1.25rem 0 1.75rem; }
+    @media (max-width: 600px) { .method-compare { grid-template-columns: 1fr; } }
+    .mc-col { background: var(--surface); }
+    .mc-head { background: var(--surface2); padding: 0.875rem 1rem; }
+    .mc-type { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .mc-name { font-size: 0.9375rem; font-weight: 600; color: var(--text); }
+    .mc-body { padding: 1rem; }
+    .mc-row { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid var(--border-s); font-size: 0.8125rem; gap: 0.5rem; }
+    .mc-row:last-child { border-bottom: none; }
+    .mc-row-label { color: var(--text-3); }
+    .mc-row-val { font-weight: 500; text-align: right; }
+    .bad-val { color: var(--red); }
+    .ok-val { color: var(--amber); }
+    .good-val { color: var(--green); }
+    .mc-col.sms .mc-type { color: var(--red); }
+    .mc-col.totp .mc-type { color: var(--amber); }
+    .mc-col.hw .mc-type { color: var(--green); }
+
+    .totp-flow { background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 1.5rem; margin: 1.5rem 0; }
+    .totp-step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1rem; }
+    .totp-step:last-child { margin-bottom: 0; }
+    .totp-num { flex-shrink: 0; width: 24px; height: 24px; background: var(--accent-s); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; margin-top: 1px; }
+    .totp-text { font-size: 0.875rem; color: var(--text-2); line-height: 1.6; }
+    .totp-text strong { color: var(--text); }
+
+    .stat-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 1.5rem 0 2rem; }
+    .stat-cell { background: var(--surface); padding: 1.25rem; text-align: center; }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-size: 0.75rem; color: var(--text-3); }
+
+    hr.divider { border: none; border-top: 1px solid var(--border-s); margin: 2.5rem 0; }
+
+    .related { padding: 2.5rem 0 4rem; border-top: 1px solid var(--border-s); }
+    .related-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 1.25rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .related-card { display: block; background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 1.25rem; text-decoration: none; transition: border-color 0.15s, background 0.15s; }
+    .related-card:hover { border-color: var(--border); background: var(--surface2); }
+    .related-cat { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .related-card-title { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 0.4rem; }
+    .related-card-date { font-size: 0.75rem; color: var(--text-3); }
+
+    .article-cta { background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .article-cta h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .article-cta p { font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--sans); font-size: 0.875rem; font-weight: 500; padding: 0.6rem 1.375rem; border-radius: var(--r); cursor: pointer; transition: all 0.15s; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; border: none; }
+    .btn-primary:hover { background: var(--accent-h); }
+  </style>
+</head>
+<body>
+<script>
+  (function() {
+    const t = localStorage.getItem('zecure-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="../index.html" class="logo" aria-label="Zecure home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </span>
+      Zecure
+    </a>
+    <a href="../index.html#blog" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      All posts
+    </a>
+    <button class="icon-btn" id="theme-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+      <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="article-wrap">
+    <article>
+      <header class="article-hero">
+        <div class="article-category">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Security Guide
+        </div>
+        <h1 class="article-h1">Two-Factor Authentication Explained: TOTP, SMS, and Hardware Keys</h1>
+        <div class="article-meta">
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            September 2025
+          </span>
+          <span class="sep"></span>
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            7 min read
+          </span>
+          <span class="sep"></span>
+          <span>By Zecure Team</span>
+        </div>
+        <p class="article-lead">A strong password protects you from guessing and cracking. But if the site gets breached and your password hash leaks, you need a second line of defence. Not all two-factor methods are equal — here's what separates them.</p>
+      </header>
+
+      <div class="article-body">
+
+        <h2>Why a Password Alone Isn't Enough</h2>
+        <p>Data breaches expose credentials constantly. Have I Been Pwned currently lists over 13 billion breached accounts. When a site is compromised, even a hashed password can be cracked if it's weak enough — and even a strong password becomes useless if you reuse it across sites.</p>
+        <p>Two-factor authentication (2FA) adds a second check: something you <em>know</em> (your password) plus something you <em>have</em> (a device or key). Even if an attacker gets your password, they can't log in without the second factor.</p>
+
+        <div class="stat-strip">
+          <div class="stat-cell">
+            <div class="stat-num">99.9%</div>
+            <div class="stat-label">of automated account attacks blocked by any form of 2FA (Microsoft)</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">13B+</div>
+            <div class="stat-label">breached accounts indexed on Have I Been Pwned</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">0%</div>
+            <div class="stat-label">phishing success rate against hardware key users in Google's internal study</div>
+          </div>
+        </div>
+
+        <h2>Method Comparison at a Glance</h2>
+
+        <div class="method-compare">
+          <div class="mc-col sms">
+            <div class="mc-head">
+              <div class="mc-type">Weakest</div>
+              <div class="mc-name">SMS codes</div>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="mc-row-label">Phishing-proof</span><span class="mc-row-val bad-val">No</span></div>
+              <div class="mc-row"><span class="mc-row-label">SIM-swap risk</span><span class="mc-row-val bad-val">High</span></div>
+              <div class="mc-row"><span class="mc-row-label">Works offline</span><span class="mc-row-val bad-val">No</span></div>
+              <div class="mc-row"><span class="mc-row-label">Setup effort</span><span class="mc-row-val good-val">None</span></div>
+            </div>
+          </div>
+          <div class="mc-col totp">
+            <div class="mc-head">
+              <div class="mc-type">Better</div>
+              <div class="mc-name">TOTP app</div>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="mc-row-label">Phishing-proof</span><span class="mc-row-val ok-val">Partial</span></div>
+              <div class="mc-row"><span class="mc-row-label">SIM-swap risk</span><span class="mc-row-val good-val">None</span></div>
+              <div class="mc-row"><span class="mc-row-label">Works offline</span><span class="mc-row-val good-val">Yes</span></div>
+              <div class="mc-row"><span class="mc-row-label">Setup effort</span><span class="mc-row-val ok-val">Low</span></div>
+            </div>
+          </div>
+          <div class="mc-col hw">
+            <div class="mc-head">
+              <div class="mc-type">Best</div>
+              <div class="mc-name">Hardware key</div>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="mc-row-label">Phishing-proof</span><span class="mc-row-val good-val">Yes</span></div>
+              <div class="mc-row"><span class="mc-row-label">SIM-swap risk</span><span class="mc-row-val good-val">None</span></div>
+              <div class="mc-row"><span class="mc-row-label">Works offline</span><span class="mc-row-val good-val">Yes</span></div>
+              <div class="mc-row"><span class="mc-row-label">Setup effort</span><span class="mc-row-val ok-val">Medium</span></div>
+            </div>
+          </div>
+        </div>
+
+        <h2>SMS 2FA: Better Than Nothing, But Not Much</h2>
+        <p>SMS-based 2FA sends a one-time code to your phone number. It's the most widely deployed form of 2FA and the weakest in practice.</p>
+
+        <h3>SIM swapping</h3>
+        <p>An attacker calls your carrier, pretends to be you, and convinces them to transfer your phone number to a new SIM card. Your number now routes to their device. They receive your SMS codes. This attack has been used to drain cryptocurrency wallets, hijack social media accounts, and access email. <strong>It requires no hacking — just social engineering a carrier customer support rep.</strong></p>
+
+        <h3>SS7 interception</h3>
+        <p>The Signaling System 7 protocol that underlies global phone infrastructure has known vulnerabilities that allow SMS messages to be intercepted by anyone with access to the SS7 network — including state-level actors and, in some regions, criminal groups.</p>
+
+        <div class="callout warn">
+          <span class="callout-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </span>
+          <p>NIST (SP 800-63B) deprecated SMS-based 2FA for government systems in 2017 due to these vulnerabilities. Use SMS 2FA only as a last resort — it's still better than no 2FA, but switch to TOTP or hardware keys when possible.</p>
+        </div>
+
+        <h2>TOTP: The Right Default for Most People</h2>
+        <p><strong>Time-based One-Time Passwords</strong> (TOTP, defined in RFC 6238) are what apps like Google Authenticator, Authy, and 1Password generate. The six-digit code changes every 30 seconds.</p>
+
+        <h3>How TOTP works</h3>
+        <div class="totp-flow">
+          <div class="totp-step">
+            <span class="totp-num">1</span>
+            <div class="totp-text">When you enable 2FA, the site generates a <strong>shared secret</strong> (a random 20-byte key) and shows it as a QR code.</div>
+          </div>
+          <div class="totp-step">
+            <span class="totp-num">2</span>
+            <div class="totp-text">Your authenticator app scans the QR code and stores the secret locally on your device.</div>
+          </div>
+          <div class="totp-step">
+            <span class="totp-num">3</span>
+            <div class="totp-text">Every 30 seconds, both your app and the server compute <strong>HMAC-SHA1(secret, floor(time / 30))</strong> and derive a 6-digit code from the result.</div>
+          </div>
+          <div class="totp-step">
+            <span class="totp-num">4</span>
+            <div class="totp-text">When you log in, you enter the code. The server computes the same value and checks if they match. <strong>No network call required to generate the code.</strong></div>
+          </div>
+        </div>
+
+        <p>TOTP doesn't depend on your phone number — it's immune to SIM swapping. But it's not fully phishing-proof: if you're tricked into typing your code into a fake login page, the attacker can relay it to the real site in real time (a "real-time phishing" attack).</p>
+
+        <h3>Choosing a TOTP app</h3>
+        <ul>
+          <li><strong>Ente Auth</strong> — open source, encrypted cloud backup, cross-platform. Best overall.</li>
+          <li><strong>Aegis (Android)</strong> — open source, local encrypted backup, no cloud dependency.</li>
+          <li><strong>1Password / Bitwarden</strong> — integrates TOTP into your password manager. Convenient but combines "something you know" with 2FA.</li>
+          <li><strong>Google Authenticator</strong> — no backup by default (now has Google account sync). Losing your phone meant losing all codes.</li>
+          <li><strong>Authy</strong> — has cloud backup, but proprietary and has had security incidents.</li>
+        </ul>
+
+        <div class="callout good">
+          <span class="callout-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <p><strong>Always save your backup codes</strong> when setting up TOTP. Store them in a password manager or printed in a secure location. Without them, losing your phone locks you out permanently if the site doesn't offer account recovery.</p>
+        </div>
+
+        <h2>Hardware Keys: The Phishing-Proof Standard</h2>
+        <p>Hardware security keys (YubiKey, Google Titan, Nitrokey) implement the FIDO2/WebAuthn standard. They're USB or NFC devices you physically touch to authenticate.</p>
+
+        <h3>Why hardware keys can't be phished</h3>
+        <p>FIDO2 uses <strong>public-key cryptography</strong> and binds authentication to the site's origin. When you register a key with <code>example.com</code>, the key creates a keypair specific to that exact domain. When you authenticate, it signs a challenge that includes the domain.</p>
+        <p>If a phishing site at <code>examp1e.com</code> tries to steal your login, your key refuses — the domain doesn't match. The attacker gets nothing usable. This is fundamentally different from TOTP, where the code is domain-agnostic and can be relayed.</p>
+
+        <h3>Passkeys: hardware key logic without the hardware</h3>
+        <p>Passkeys (the newer consumer-facing FIDO2 implementation) bring the same phishing-resistant cryptography to your phone or laptop. Your device generates a keypair per site; the private key never leaves the device. iCloud Keychain, Google Password Manager, and 1Password all support passkeys.</p>
+        <p>If a site offers passkeys, use them — they combine the security of hardware keys with the convenience of biometrics (Face ID, fingerprint) and cloud sync.</p>
+
+        <hr class="divider">
+
+        <h2>Which Should You Use?</h2>
+        <ul>
+          <li><strong>For your most critical accounts</strong> (email, banking, password manager): hardware key or passkey. This is the tier where a breach costs the most.</li>
+          <li><strong>For everything else</strong>: TOTP app. Set it up on every account that offers it. The improvement over SMS alone is substantial.</li>
+          <li><strong>SMS 2FA</strong>: better than nothing. Enable it if it's the only option, but switch when better options become available.</li>
+          <li><strong>Recovery codes</strong>: store them for every account, regardless of method. Loss of your device shouldn't mean permanent lockout.</li>
+        </ul>
+
+        <div class="article-cta">
+          <h3>Start with a strong password</h3>
+          <p>2FA is your safety net — but a strong, unique password is still the first line of defense. Generate one instantly.</p>
+          <a href="../index.html" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Open Zecure Generator
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <section class="related" aria-label="Related articles">
+      <p class="related-title">More from the blog</p>
+      <div class="related-grid">
+        <a href="password-manager-vs-browser.html" class="related-card">
+          <div class="related-cat">Security Guide</div>
+          <div class="related-card-title">Password Manager vs. Browser: Which Is Safer?</div>
+          <div class="related-card-date">Jun 2025</div>
+        </a>
+        <a href="unbreakable-password-2025.html" class="related-card">
+          <div class="related-cat">Security Guide</div>
+          <div class="related-card-title">How to Create an Unbreakable Password in 2025</div>
+          <div class="related-card-date">Apr 2025</div>
+        </a>
+        <a href="password-entropy-explained.html" class="related-card">
+          <div class="related-cat">Explainer</div>
+          <div class="related-card-title">Password Entropy Explained: Why Randomness Is the Only Thing That Matters</div>
+          <div class="related-card-date">Jul 2025</div>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+</script>
+</body>
+</html>

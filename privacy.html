@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Zecure</title>
+  <meta name="description" content="Zecure's privacy policy. We generate everything in your browser — no data is collected, stored, or transmitted to any server.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/privacy.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b; --surface: #18181b; --surface2: #27272a;
+      --border: #3f3f46; --border-s: #27272a;
+      --accent: #6366f1; --accent-h: #4f46e5; --accent-s: rgba(99,102,241,0.12);
+      --green: #22c55e; --green-s: rgba(34,197,94,0.1);
+      --amber: #f59e0b; --red: #ef4444;
+      --text: #fafafa; --text-2: #a1a1aa; --text-3: #71717a; --text-4: #52525b;
+      --sans: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --r: 8px; --r-sm: 6px; --r-lg: 12px;
+      color-scheme: dark;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --surface: #fafafa; --surface2: #f4f4f5;
+      --border: #e4e4e7; --border-s: #f4f4f5;
+      --accent: #4f46e5; --accent-h: #4338ca; --accent-s: rgba(79,70,229,0.08);
+      --green: #16a34a; --green-s: rgba(22,163,74,0.08);
+      --amber: #d97706; --red: #dc2626;
+      --text: #09090b; --text-2: #52525b; --text-3: #71717a; --text-4: #a1a1aa;
+      color-scheme: light;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.6; min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--accent-s); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-s); }
+    .nav-inner { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; height: 56px; display: flex; align-items: center; gap: 1rem; }
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.9375rem; letter-spacing: -0.01em; }
+    .logo-mark { width: 28px; height: 28px; border-radius: var(--r-sm); background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; }
+    .back-link { margin-left: auto; display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-2); font-size: 0.8125rem; font-weight: 500; text-decoration: none; padding: 0.375rem 0.75rem; border-radius: var(--r-sm); border: 1px solid var(--border); transition: all 0.15s; cursor: pointer; }
+    .back-link:hover { color: var(--text); background: var(--surface2); border-color: var(--text-4); }
+    .icon-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: transparent; border: 1px solid var(--border); border-radius: var(--r-sm); color: var(--text-2); cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+    .icon-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface2); }
+    .icon-btn .sun { display: none; } .icon-btn .moon { display: block; }
+    [data-theme="light"] .icon-btn .sun { display: block; } [data-theme="light"] .icon-btn .moon { display: none; }
+
+    /* Layout */
+    .page-wrap { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Hero */
+    .page-hero { padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--border-s); margin-bottom: 2.5rem; }
+    .page-tag { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--accent-s); color: var(--accent); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .page-h1 { font-size: clamp(1.75rem, 4vw, 2.375rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; color: var(--text); margin-bottom: 0.75rem; }
+    .page-meta { font-size: 0.8125rem; color: var(--text-3); }
+    .page-meta a { color: var(--text-3); }
+
+    /* TL;DR banner */
+    .tldr { display: flex; gap: 1rem; background: var(--green-s); border: 1px solid rgba(34,197,94,0.2); border-radius: var(--r-lg); padding: 1.25rem 1.5rem; margin-bottom: 2.5rem; }
+    [data-theme="light"] .tldr { background: rgba(22,163,74,0.06); border-color: rgba(22,163,74,0.2); }
+    .tldr-icon { flex-shrink: 0; color: var(--green); margin-top: 2px; }
+    .tldr-body { }
+    .tldr-body strong { display: block; font-size: 0.875rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+    .tldr-body p { font-size: 0.875rem; color: var(--text-2); margin: 0; line-height: 1.6; }
+
+    /* Body */
+    .legal-body { padding-bottom: 4rem; }
+    .legal-body h2 { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin: 2.25rem 0 0.75rem; padding-top: 2.25rem; border-top: 1px solid var(--border-s); }
+    .legal-body h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+    .legal-body p { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; margin-bottom: 1rem; }
+    .legal-body ul { margin: 0.25rem 0 1rem 1.25rem; }
+    .legal-body li { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; margin-bottom: 0.25rem; }
+    .legal-body strong { color: var(--text); font-weight: 600; }
+    .legal-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .legal-body code { font-family: var(--mono); font-size: 0.8125rem; background: var(--surface2); color: var(--accent); padding: 0.15rem 0.45rem; border-radius: 4px; }
+
+    /* Contact box */
+    .contact-box { background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 1.5rem; margin-top: 1rem; }
+    .contact-box p { margin: 0; font-size: 0.9rem; color: var(--text-2); }
+    .contact-box a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .contact-box a:hover { text-decoration: underline; }
+
+    /* Footer */
+    .page-footer { border-top: 1px solid var(--border-s); padding: 2rem 0; margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; align-items: center; }
+    .page-footer p { font-size: 0.8rem; color: var(--text-3); }
+    .page-footer a { font-size: 0.8rem; color: var(--text-3); text-decoration: none; }
+    .page-footer a:hover { color: var(--text-2); }
+    .footer-links { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-left: auto; }
+  </style>
+</head>
+<body>
+<script>
+  (function() {
+    const t = localStorage.getItem('zecure-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="index.html" class="logo" aria-label="Zecure home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </span>
+      Zecure
+    </a>
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to generator
+    </a>
+    <button class="icon-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+      <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="page-wrap">
+
+    <div class="page-hero">
+      <div class="page-tag">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Legal
+      </div>
+      <h1 class="page-h1">Privacy Policy</h1>
+      <p class="page-meta">Last updated: April 12, 2026 &nbsp;·&nbsp; Effective: April 12, 2026 &nbsp;·&nbsp; Questions? <a href="mailto:info@zecure.net">info@zecure.net</a></p>
+    </div>
+
+    <div class="tldr">
+      <span class="tldr-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
+      <div class="tldr-body">
+        <strong>Plain-English summary (TL;DR)</strong>
+        <p>Zecure generates passwords and keys entirely inside your browser using the Web Crypto API. We have no backend, no database, and no analytics. We do not collect, store, or transmit any of the values you generate — or any personal information about you. The only external request this page makes is loading fonts from Google Fonts.</p>
+      </div>
+    </div>
+
+    <div class="legal-body">
+
+      <h2>1. Who We Are</h2>
+      <p>Zecure ("<strong>we</strong>", "<strong>us</strong>", or "<strong>our</strong>") operates the website at <a href="https://zecure.net">zecure.net</a> — a free, browser-based password and cryptographic key generator.</p>
+      <p>For any privacy-related enquiries, contact us at <a href="mailto:info@zecure.net">info@zecure.net</a>.</p>
+
+      <h2>2. Information We Do Not Collect</h2>
+      <p>Because all generation is performed client-side (in your browser), we have no technical means of collecting the following, and we do not attempt to:</p>
+      <ul>
+        <li>Passwords or keys you generate</li>
+        <li>Any text you copy to your clipboard</li>
+        <li>Your IP address (no server-side logging)</li>
+        <li>Browser fingerprint or device identifiers</li>
+        <li>Your name, email address, or any account information (there is no account system)</li>
+        <li>Cookies for tracking purposes</li>
+      </ul>
+
+      <h2>3. Information That May Be Collected</h2>
+      <p>The following limited, non-personal data may be processed as a side-effect of normal web infrastructure:</p>
+
+      <p><strong>3.1 Google Fonts</strong><br>
+      This site loads Inter and JetBrains Mono from Google Fonts (<code>fonts.googleapis.com</code>). When your browser requests a font file, Google's servers receive your IP address and <code>User-Agent</code> header as part of the standard HTTP request. This is governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>. To avoid this entirely, you may use the site offline after the fonts have been cached, or self-host the fonts.</p>
+
+      <p><strong>3.2 Hosting infrastructure</strong><br>
+      If you access Zecure through GitHub Pages or any CDN, that provider's standard access logs (IP address, timestamp, requested URL, response code) may be retained per their own privacy policy. Zecure does not have access to these logs.</p>
+
+      <p><strong>3.3 localStorage</strong><br>
+      Zecure stores a single key in your browser's <code>localStorage</code>: your theme preference (<code>zecure-theme</code>, value: <code>"dark"</code> or <code>"light"</code>). This data never leaves your device. You can clear it at any time by clearing your browser's site data.</p>
+
+      <h2>4. How Generated Values Are Handled</h2>
+      <p>All passwords, keys, and tokens are generated using <code>window.crypto.getRandomValues()</code> — the browser's built-in cryptographically secure pseudo-random number generator (CSPRNG). The entire process runs inside your browser's JavaScript sandbox:</p>
+      <ul>
+        <li>No network request is made during or after generation</li>
+        <li>Generated values are never written to disk, sent to a server, or logged</li>
+        <li>Values exist only in memory and are discarded when the page is refreshed or closed</li>
+        <li>The copy-to-clipboard action writes to the local OS clipboard only — nothing else</li>
+      </ul>
+
+      <h2>5. Cookies</h2>
+      <p>Zecure does not set any cookies. No session cookies, no tracking cookies, no third-party cookies. The theme preference described in Section 3.3 is stored in <code>localStorage</code>, not a cookie.</p>
+
+      <h2>6. Third-Party Links</h2>
+      <p>The blog articles on this site contain links to external resources (NIST, Google, GitHub, etc.). Once you follow a link to another website, this Privacy Policy no longer applies. We encourage you to review the privacy policy of any site you visit.</p>
+
+      <h2>7. Children's Privacy</h2>
+      <p>Zecure does not collect personal information from anyone, including children under 13 (or the applicable age of digital consent in your jurisdiction). Because no data is collected at all, there is no special risk to younger users. If you believe a child has provided us with personal information, please contact us at <a href="mailto:info@zecure.net">info@zecure.net</a> and we will take appropriate action.</p>
+
+      <h2>8. Your Rights</h2>
+      <p>Because we do not collect personal data, many data-subject rights (access, rectification, erasure) are satisfied by design — there is nothing for us to retrieve, correct, or delete. If you are a resident of the EU/EEA (GDPR), UK (UK GDPR), or California (CCPA), and believe we hold any data about you, please contact <a href="mailto:info@zecure.net">info@zecure.net</a> and we will respond within 30 days.</p>
+
+      <h2>9. Data Security</h2>
+      <p>Given that no personal data is transmitted to or stored on any server operated by Zecure, there is no central data store to breach. The security of generated values is entirely within your control once they leave the browser. We recommend:</p>
+      <ul>
+        <li>Storing generated passwords in a reputable password manager</li>
+        <li>Never sharing generated keys via unencrypted channels (plain email, SMS)</li>
+        <li>Treating any generated secret as sensitive from the moment it is created</li>
+      </ul>
+
+      <h2>10. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, the "Last updated" date at the top of this page will be revised. Continued use of the service after a change constitutes acceptance of the updated policy. For significant changes, we will update the version in the <a href="CHANGELOG.md">CHANGELOG</a>.</p>
+
+      <h2>11. Contact</h2>
+      <p>If you have questions, concerns, or requests related to this Privacy Policy, please reach out:</p>
+      <div class="contact-box">
+        <p>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline;vertical-align:text-bottom;margin-right:0.4rem"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,14 22,4"/></svg>
+          Email: <a href="mailto:info@zecure.net">info@zecure.net</a><br>
+          <span style="margin-left:1.4rem">We aim to respond to all enquiries within 5 business days.</span>
+        </p>
+      </div>
+
+    </div>
+
+    <footer class="page-footer">
+      <p>&copy; 2025 Zecure.net</p>
+      <div class="footer-links">
+        <a href="index.html">Generator</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="blog/unbreakable-password-2025.html">Blog</a>
+        <a href="mailto:info@zecure.net">info@zecure.net</a>
+      </div>
+    </footer>
+
+  </div>
+</main>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+</script>
+</body>
+</html>
