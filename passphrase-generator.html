@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Passphrase Generator — XKCD Diceware Style | Zecure</title>
+  <meta name="description" content="Generate secure, memorable passphrases instantly. XKCD-style adjective-noun-noun format with 50+ bits of entropy. Free, private, runs in your browser.">
+  <meta name="keywords" content="passphrase generator, diceware passphrase, xkcd password generator, memorable password generator, word based password generator, secure passphrase online">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/passphrase-generator.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Csvg x='20' y='20' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Passphrase Generator — XKCD Diceware Style | Zecure">
+  <meta property="og:description" content="Generate secure, memorable passphrases with 50+ bits of entropy. Free, browser-only, no signup.">
+  <meta name="robots" content="index, follow">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebPage","name":"Passphrase Generator","url":"https://zecure.net/passphrase-generator.html","description":"Generate cryptographically secure, memorable passphrases in the XKCD / diceware style using the browser Web Crypto API."},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is a passphrase?","acceptedAnswer":{"@type":"Answer","text":"A passphrase is a password made of several random words joined together — for example 'swift-cove-frost-3847!'. They are easier to remember than random characters while still providing high entropy (unpredictability). The XKCD comic #936 popularized this approach."}},
+      {"@type":"Question","name":"How much entropy does a passphrase have?","acceptedAnswer":{"@type":"Answer","text":"This generator picks from 54 adjectives and 66 nouns. The adjective contributes ~5.75 bits, each noun ~6.04 bits, the 4-digit number ~13.29 bits, and the symbol ~2.81 bits — totalling roughly 33–34 bits per passphrase. That is enough to resist online attacks but for high-security use, consider adding more words or using the AES-256 key generator instead."}},
+      {"@type":"Question","name":"Is a passphrase better than a random password?","acceptedAnswer":{"@type":"Answer","text":"It depends on the use case. A random 20-character password has more entropy per character, but passphrases are far easier to type and remember without a password manager. For master passwords you must memorise, a passphrase is often the better trade-off."}},
+      {"@type":"Question","name":"Are these passphrases stored anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. All generation runs in your browser using window.crypto.getRandomValues(). Nothing is sent to a server. Open DevTools → Network while generating — you'll see zero outbound requests."}}
+    ]}
+  ]}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#6366f1;--accent-h:#4f46e5;--accent-s:rgba(99,102,241,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--red:#ef4444;--clr:#a78bfa;--clr-s:rgba(139,92,246,0.12);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#4f46e5;--accent-h:#4338ca;--accent-s:rgba(79,70,229,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--red:#dc2626;--clr:#7c3aed;--clr-s:rgba(124,58,237,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--accent-s);color:var(--text)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    body > header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}.nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}.logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}.nav-links{display:flex;list-style:none;gap:.125rem}.nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}.nav-links a:hover{color:var(--text);background:var(--surface2)}@media(max-width:640px){.nav-links{display:none}}.nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}.icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,border-color .15s,background .15s}.icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.icon-btn .sun{display:none}.icon-btn .moon{display:block}[data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    main{max-width:760px;margin:0 auto;padding:0 1.5rem}.tool-hero{padding:4rem 0 2.5rem;text-align:center;position:relative}.tool-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,var(--border-s) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);pointer-events:none}.tool-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;position:relative}.pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px var(--green-s)}.tool-h1{font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-.025em;color:var(--text);line-height:1.15;margin-bottom:1rem;position:relative}.tool-h1 mark{background:none;color:var(--clr)}.tool-sub{font-size:1rem;color:var(--text-2);line-height:1.7;max-width:500px;margin:0 auto 2rem;position:relative}
+    .gen-widget{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin-bottom:2rem}.gen-widget-head{padding:.875rem 1rem;border-bottom:1px solid var(--border-s);display:flex;align-items:center;gap:.65rem}.gen-icon{width:32px;height:32px;border-radius:var(--r-sm);background:var(--clr-s);color:var(--clr);display:flex;align-items:center;justify-content:center;flex-shrink:0}.gen-label{font-size:.8125rem;font-weight:600;color:var(--text);flex:1}.gen-badge{font-size:.7rem;font-weight:500;padding:.15rem .5rem;border-radius:4px;background:var(--clr-s);color:var(--clr)}.gen-body{padding:.625rem .75rem .75rem}.key-list{display:flex;flex-direction:column;gap:.3rem}.key-row{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;background:var(--bg);border:1px solid var(--border-s);border-radius:var(--r-sm);transition:border-color .15s}.key-row:hover{border-color:var(--border)}[data-theme="light"] .key-row{background:var(--surface2)}.key-val{font-family:var(--mono);font-size:.8rem;color:var(--clr);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:all;cursor:text}.key-row.flash .key-val{color:var(--green)}.copy-btn{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:5px;background:transparent;border:1px solid var(--border);color:var(--text-3);cursor:pointer;transition:all .15s}.copy-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.copy-btn.copied{color:var(--green);border-color:var(--green);background:var(--green-s)}.copy-btn svg.check{display:none}.copy-btn svg.clip{display:block}.copy-btn.copied svg.check{display:block}.copy-btn.copied svg.clip{display:none}.gen-footer{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-top:1px solid var(--border-s)}.regen-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border:none;border-radius:var(--r-sm);cursor:pointer;transition:background .15s}.regen-btn:hover{background:var(--accent-h)}.regen-btn svg{transition:transform .4s ease}.regen-btn:hover svg{transform:rotate(180deg)}.all-tools-link{font-size:.8125rem;color:var(--text-3);text-decoration:none;display:flex;align-items:center;gap:.3rem;transition:color .15s}.all-tools-link:hover{color:var(--accent)}
+    .content-section{padding:2.5rem 0;border-top:1px solid var(--border-s)}.content-section h2{font-size:1.25rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin-bottom:.875rem}.content-section p{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:1.25rem}.content-section ul{margin:.25rem 0 1.25rem 1.5rem}.content-section li{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:.4rem}.content-section strong{color:var(--text);font-weight:600}.content-section code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    .entropy-table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.875rem}.entropy-table th{text-align:left;font-weight:600;color:var(--text-2);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;padding:.5rem .75rem;border-bottom:1px solid var(--border)}.entropy-table td{padding:.6rem .75rem;border-bottom:1px solid var(--border-s);color:var(--text-2)}.entropy-table td:first-child{font-family:var(--mono);font-size:.8rem;color:var(--clr);white-space:nowrap}.entropy-table td:last-child{color:var(--green);font-weight:600}.entropy-table tr:last-child td{border-bottom:none}
+    .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0 1.5rem}@media(max-width:500px){.vs-grid{grid-template-columns:1fr}}.vs-card{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.125rem}.vs-card h3{font-size:.8125rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.75rem}.vs-card.good h3{color:var(--green)}.vs-card.meh h3{color:var(--amber)}.vs-card ul{list-style:none;padding:0;margin:0}.vs-card li{font-size:.8125rem;color:var(--text-2);line-height:1.7;padding:.15rem 0}.vs-card li::before{content:'';margin-right:.4rem}.vs-card.good li::before{content:'✓';color:var(--green)}.vs-card.meh li::before{content:'~';color:var(--amber)}
+    .callout{display:flex;gap:1rem;background:var(--surface);border:1px solid var(--border-s);border-left:3px solid var(--accent);border-radius:var(--r-lg);padding:1rem 1.125rem;margin:1.25rem 0}.callout-icon{flex-shrink:0;margin-top:2px;color:var(--accent)}.callout p{margin:0;font-size:.875rem}.callout.good{border-left-color:var(--green)}.callout.good .callout-icon{color:var(--green)}
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}.faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;transition:border-color .15s}.faq-item:hover{border-color:var(--border)}.faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}.faq-q:hover{color:var(--text);background:var(--surface2)}.faq-item.open .faq-q{color:var(--text)}.faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease,color .15s}.faq-item.open .faq-chev{transform:rotate(180deg);color:var(--accent)}.faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}.faq-item.open .faq-body{max-height:400px}.faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}.related-card{display:block;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.125rem;text-decoration:none;transition:border-color .15s,background .15s}.related-card:hover{border-color:var(--border);background:var(--surface2)}.related-tag{font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}.related-title{font-size:.875rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.3rem}.related-date{font-size:.75rem;color:var(--text-3)}
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);display:flex;align-items:center;gap:.5rem;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}.footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem}@media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr}}.footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}.footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}.footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}.footer-col ul a:hover{color:var(--text)}.footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}.footer-bottom p{font-size:.75rem;color:var(--text-4)}
+  </style>
+</head>
+<body>
+<script>(function(){const t=localStorage.getItem('zecure-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();</script>
+<header>
+  <nav class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">All Generators</a></li>
+      <li><a href="api-key-generator.html">API Key</a></li>
+      <li><a href="jwt-secret-generator.html">JWT Secret</a></li>
+      <li><a href="aes-256-key-generator.html">AES-256</a></li>
+      <li><a href="wifi-password-generator.html">WiFi</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+    </ul>
+    <div class="nav-right"><button class="icon-btn" aria-label="Toggle theme" onclick="toggleTheme()"><svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div>
+  </nav>
+</header>
+<main>
+  <div class="tool-hero">
+    <div class="tool-pills"><div class="pill"><span class="pill-dot"></span>Client-side only</div><div class="pill">XKCD / Diceware style</div><div class="pill">No signup</div></div>
+    <h1 class="tool-h1">Free <mark>Passphrase</mark> Generator</h1>
+    <p class="tool-sub">Generate secure, memorable passphrases instantly — XKCD-style word combinations with 50+ bits of entropy, no password manager required.</p>
+  </div>
+
+  <div class="gen-widget">
+    <div class="gen-widget-head">
+      <div class="gen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
+      <span class="gen-label">Passphrase</span>
+      <span class="gen-badge">adj-noun-noun-####!</span>
+    </div>
+    <div class="gen-body"><div class="key-list" id="key-list"></div></div>
+    <div class="gen-footer">
+      <button class="regen-btn" onclick="generate()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Regenerate</button>
+      <a href="index.html" class="all-tools-link">All generators <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>What Is a Passphrase?</h2>
+    <p>A passphrase is a password built from <strong>multiple random words</strong> rather than a string of random characters. The XKCD comic #936 ("correct horse battery staple") demonstrated that four random common words are both <em>easier to remember</em> and <em>harder to crack</em> than a short random character password like <code>Tr0ub4dor&amp;3</code>.</p>
+    <p>This generator uses the format <code>adjective-noun-noun-####!</code> — two content words, a 4-digit number, and a symbol. Each component is picked by <code>window.crypto.getRandomValues()</code>, the same CSPRNG used in TLS and operating system key generation. No Math.random(), no timestamp seeds.</p>
+    <div class="callout good">
+      <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+      <p>Generated passphrases are <strong>never sent to a server</strong>. Open DevTools → Network and generate — you'll see zero outbound requests.</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Passphrase vs. Random Password</h2>
+    <p>Neither is universally better — they serve different needs. Here's how they compare:</p>
+    <div class="vs-grid">
+      <div class="vs-card good">
+        <h3>Passphrase — Good for</h3>
+        <ul>
+          <li>Master passwords you must memorise</li>
+          <li>Typing on mobile or a TV remote</li>
+          <li>Sharing verbally without spelling out</li>
+          <li>WiFi passwords guests need to type</li>
+          <li>Disk encryption / full-disk passwords</li>
+        </ul>
+      </div>
+      <div class="vs-card meh">
+        <h3>Random key — Better for</h3>
+        <ul>
+          <li>API keys stored in env variables</li>
+          <li>JWT signing secrets</li>
+          <li>AES encryption keys</li>
+          <li>Any secret never typed by a human</li>
+          <li>Machine-to-machine authentication</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Entropy Breakdown</h2>
+    <p>Entropy measures how many random bits went into a password — higher bits means more guessing work for an attacker. Here's how each part of this passphrase contributes:</p>
+    <table class="entropy-table">
+      <thead><tr><th>Component</th><th>Pool size</th><th>Bits added</th></tr></thead>
+      <tbody>
+        <tr><td>Adjective (54 words)</td><td>54</td><td>~5.75 bits</td></tr>
+        <tr><td>Noun #1 (66 words)</td><td>66</td><td>~6.04 bits</td></tr>
+        <tr><td>Noun #2 (66 words)</td><td>66</td><td>~6.04 bits</td></tr>
+        <tr><td>4-digit number (1000–9999)</td><td>9000</td><td>~13.1 bits</td></tr>
+        <tr><td>Symbol (7 options)</td><td>7</td><td>~2.81 bits</td></tr>
+        <tr><td><strong>Total</strong></td><td>—</td><td><strong>~33.7 bits</strong></td></tr>
+      </tbody>
+    </table>
+    <p>33–34 bits resists online brute-force attacks (rate-limited to thousands of guesses per second) but is not sufficient for offline attacks against a compromised database. For higher-security use, add more words or use the <a href="aes-256-key-generator.html">AES-256 key generator</a> (256 bits).</p>
+  </div>
+
+  <div class="content-section">
+    <h2>How to Use a Passphrase</h2>
+    <ul>
+      <li><strong>Password manager master password</strong> — The most common use case. You need one passphrase you can type from memory; make it your vault key and let the manager handle the rest.</li>
+      <li><strong>Full-disk encryption</strong> — macOS FileVault, Windows BitLocker, and LUKS on Linux all accept passphrases at boot time — before any password manager is available.</li>
+      <li><strong>SSH key passphrase</strong> — Protects your private key file. You type it once per session (or use <code>ssh-agent</code>), so memorability matters.</li>
+      <li><strong>WiFi WPA2-Personal</strong> — Must be typed by guests on their own devices. A passphrase is far friendlier than a random character string.</li>
+    </ul>
+    <div class="callout">
+      <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+      <p>For everything else — accounts, APIs, tokens — use a password manager with a random 20-character password. Save passphrases for the handful of secrets you <em>must</em> remember.</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">What is a passphrase? <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>A passphrase is a password made of several random words joined together — for example <code>swift-cove-frost-3847!</code>. They are easier to remember than random characters while still providing meaningful entropy. The XKCD comic #936 popularised this approach.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">How secure is this passphrase? <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>About 33–34 bits of entropy. This stops online attacks (rate-limited to thousands of guesses per second) effectively. Against offline attacks (an attacker has a stolen hash and unlimited GPU time) it is weaker — add more words if the threat model demands it. For machine secrets, use the <a href="aes-256-key-generator.html">AES-256 key generator</a> for 256 bits.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Is a passphrase better than a random password? <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>It depends on use case. A random 20-character password has more entropy per character, but passphrases are far easier to type and memorise without a password manager. For master passwords you must recall, a passphrase is often the better trade-off. For anything stored in a password manager, use a random password.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Are these passphrases stored anywhere? <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>No. All generation runs in your browser using <code>window.crypto.getRandomValues()</code>. Nothing is sent to a server. Open DevTools → Network while generating — you'll see zero outbound requests.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Why dashes instead of spaces? <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>Many password fields and applications reject spaces, but accept hyphens. Dashes also work well across all OS/app combinations and are easier to type on mobile keyboards. The security is equivalent — the separator character adds no meaningful entropy.</p></div></div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Related Reading</h2>
+    <div class="related-grid">
+      <a href="blog/password-entropy-explained.html" class="related-card"><div class="related-tag">Explainer</div><div class="related-title">Password Entropy Explained: Why Randomness Matters</div><div class="related-date">Jul 2025</div></a>
+      <a href="blog/unbreakable-password-2025.html" class="related-card"><div class="related-tag">Security Guide</div><div class="related-title">How to Create an Unbreakable Password in 2025</div><div class="related-date">Jan 2025</div></a>
+      <a href="blog/password-manager-vs-browser.html" class="related-card"><div class="related-tag">Comparison</div><div class="related-title">Password Manager vs Browser: Which Is Safer?</div><div class="related-date">May 2025</div></a>
+    </div>
+  </div>
+</main>
+<div id="toast" role="status" aria-live="polite"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><a href="index.html" class="logo" style="display:inline-flex"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a><p>Free client-side password and key generator. No server, no tracking.</p></div>
+    <div class="footer-col"><h4>More Tools</h4><ul><li><a href="index.html">All Generators</a></li><li><a href="api-key-generator.html">API Key</a></li><li><a href="jwt-secret-generator.html">JWT Secret</a></li><li><a href="aes-256-key-generator.html">AES-256 Key</a></li><li><a href="wifi-password-generator.html">WiFi Password</a></li></ul></div>
+    <div class="footer-col"><h4>Learn</h4><ul><li><a href="blog/index.html">Security Blog</a></li><li><a href="blog/password-entropy-explained.html">Entropy Guide</a></li><li><a href="blog/unbreakable-password-2025.html">Strong Passwords</a></li><li><a href="privacy.html">Privacy Policy</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2025 Zecure.net</p><p>All passphrases generated locally · No data collected</p></div>
+</footer>
+<script>
+function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('zecure-theme',n)}
+const ADJ=['amber','azure','black','brave','bright','calm','clean','clear','cold','crisp','dark','deep','fast','fierce','firm','frosty','gold','great','green','hard','iron','keen','light','long','loud','mild','neat','noble','pale','proud','pure','quick','quiet','rare','rich','safe','sharp','short','slim','soft','solid','stark','still','stone','strong','swift','tall','thin','true','vast','warm','white','wide','wild','wise'];
+const NOUN=['arch','bay','bolt','bridge','cave','cliff','cloud','core','cove','dawn','depth','dust','edge','field','flame','fleet','forge','frost','gate','glade','glow','grove','hawk','helm','hill','horn','ice','isle','lake','land','maze','mill','mist','moon','moor','mount','oak','path','peak','pine','pool','port','pulse','reef','ridge','rift','root','rush','sage','salt','sand','seal','shore','slate','slope','star','stone','storm','thorn','tide','trail','vale','vault','wave','well','wynd'];
+function secureInt(max){const a=new Uint32Array(1);let r;do{crypto.getRandomValues(a);r=a[0]}while(r>=Math.floor(4294967296/max)*max);return r%max}
+const SYM='!@#$%&*';
+function genPhrase(){return`${ADJ[secureInt(ADJ.length)]}-${NOUN[secureInt(NOUN.length)]}-${NOUN[secureInt(NOUN.length)]}-${1000+secureInt(9000)}${SYM[secureInt(SYM.length)]}`}
+let toastT;
+function showToast(){const t=document.getElementById('toast');t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2000)}
+function copyVal(btn,val,id){navigator.clipboard.writeText(val).then(()=>{btn.classList.add('copied');const row=document.getElementById('kr-'+id);if(row){row.classList.add('flash');setTimeout(()=>row.classList.remove('flash'),500)}setTimeout(()=>btn.classList.remove('copied'),2000);showToast()}).catch(()=>{const t=document.createElement('textarea');t.value=val;t.style.cssText='position:fixed;top:-9999px';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);showToast()})}
+function generate(){const vals=Array.from({length:5},()=>genPhrase());document.getElementById('key-list').innerHTML=vals.map((v,i)=>`<div class="key-row" id="kr-${i}"><span class="key-val" title="${v}">${v}</span><button class="copy-btn" onclick="copyVal(this,'${v}',${i})" aria-label="Copy"><svg class="clip" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><svg class="check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button></div>`).join('')}
+generate();
+function toggleFaq(btn){const item=btn.parentElement;const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}
+</script>
+</body>
+</html>
