@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bcrypt vs Argon2: Which Password Hash Should You Use? | Zecure Blog</title>
+  <meta name="description" content="bcrypt and Argon2id are the two most widely recommended password hashing algorithms. We compare memory hardness, tuning, real-world performance, and which to use for new projects.">
+  <meta name="keywords" content="bcrypt vs argon2, password hashing algorithm, argon2id, password storage security, pbkdf2, scrypt, best password hash">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/blog/bcrypt-vs-argon2.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="bcrypt vs Argon2: Which Password Hash Should You Use?">
+  <meta property="og:description" content="bcrypt and Argon2id are the top two password hashing algorithms. We compare memory hardness, tuning, and which to choose for new and existing projects.">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"bcrypt vs Argon2: Which Password Hash Should You Use?","author":{"@type":"Organization","name":"Zecure"},"publisher":{"@type":"Organization","name":"Zecure","url":"https://zecure.net"},"datePublished":"2025-04-15","dateModified":"2025-04-15","description":"A practical comparison of bcrypt and Argon2id password hashing algorithms — covering memory hardness, tuning parameters, GPU resistance, and recommendations for new and existing projects."}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#6366f1;--accent-h:#4f46e5;--accent-s:rgba(99,102,241,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--amber-s:rgba(245,158,11,0.1);--red:#ef4444;--red-s:rgba(239,68,68,0.1);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#4f46e5;--accent-h:#4338ca;--accent-s:rgba(79,70,229,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--amber-s:rgba(217,119,6,0.08);--red:#dc2626;--red-s:rgba(220,38,38,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--accent-s);color:var(--text)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    body>header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}.nav-inner{max-width:800px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1rem}.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}.logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}.back-link{margin-left:auto;display:inline-flex;align-items:center;gap:.35rem;color:var(--text-2);font-size:.8125rem;font-weight:500;text-decoration:none;padding:.375rem .75rem;border-radius:var(--r-sm);border:1px solid var(--border);transition:all .15s;cursor:pointer}.back-link:hover{color:var(--text);background:var(--surface2);border-color:var(--text-4)}.icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,border-color .15s,background .15s}.icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.icon-btn .sun{display:none}.icon-btn .moon{display:block}[data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    .article-wrap{max-width:800px;margin:0 auto;padding:0 1.5rem}.article-hero{padding:3.5rem 0 2.5rem}.article-category{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent-s);color:var(--accent);font-size:.75rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.25rem .75rem;border-radius:100px;margin-bottom:1.25rem}.article-h1{font-size:clamp(1.75rem,4vw,2.625rem);font-weight:700;line-height:1.15;letter-spacing:-.025em;color:var(--text);margin-bottom:1rem}.article-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}.article-meta span{font-size:.8125rem;color:var(--text-3);display:flex;align-items:center;gap:.35rem}.article-meta .sep{width:3px;height:3px;border-radius:50%;background:var(--text-4)}.article-lead{font-size:1.0625rem;color:var(--text-2);line-height:1.75;border-left:3px solid var(--accent);padding-left:1.25rem;margin-bottom:2.5rem}.article-body{padding-bottom:4rem}.article-body h2{font-size:1.3125rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin:2.5rem 0 .875rem}.article-body h3{font-size:1.0625rem;font-weight:600;color:var(--text);margin:1.75rem 0 .625rem}.article-body p{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:1.25rem}.article-body a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}.article-body ul,.article-body ol{margin:.5rem 0 1.25rem 1.5rem}.article-body li{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:.35rem}.article-body strong{color:var(--text);font-weight:600}.article-body code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    .callout{display:flex;gap:1rem;background:var(--surface);border:1px solid var(--border-s);border-left:3px solid var(--accent);border-radius:var(--r-lg);padding:1.125rem 1.25rem;margin:1.5rem 0}.callout-icon{flex-shrink:0;margin-top:2px;color:var(--accent)}.callout p{margin:0;font-size:.875rem}.callout.warn{border-left-color:var(--amber)}.callout.warn .callout-icon{color:var(--amber)}.callout.good{border-left-color:var(--green)}.callout.good .callout-icon{color:var(--green)}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin:1rem 0 1.5rem}.compare-col{background:var(--surface)}.compare-header{padding:.875rem 1.125rem;font-size:.8125rem;font-weight:600;border-bottom:1px solid var(--border-s)}.compare-header.bcrypt{color:var(--amber);background:var(--amber-s)}.compare-header.argon2{color:var(--green);background:var(--green-s)}.compare-row{display:flex;align-items:flex-start;gap:.625rem;padding:.75rem 1.125rem;border-bottom:1px solid var(--border-s);font-size:.875rem;color:var(--text-2)}.compare-row:last-child{border-bottom:none}.compare-icon{flex-shrink:0;margin-top:2px}.compare-icon.yes{color:var(--green)}.compare-icon.no{color:var(--red)}.compare-icon.maybe{color:var(--amber)}
+    .spec-table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.875rem}.spec-table th{text-align:left;font-weight:600;color:var(--text-2);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;padding:.5rem .75rem;border-bottom:1px solid var(--border)}.spec-table td{padding:.6rem .75rem;border-bottom:1px solid var(--border-s);color:var(--text-2)}.spec-table td:first-child{font-weight:600;color:var(--text)}.spec-table td:last-child{font-family:var(--mono);font-size:.8rem;color:var(--accent)}.spec-table tr:last-child td{border-bottom:none}
+    hr.divider{border:none;border-top:1px solid var(--border-s);margin:2.5rem 0}
+    .related{padding:2.5rem 0 4rem;border-top:1px solid var(--border-s)}.related-title{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:1.25rem}.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}.related-card{display:block;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.25rem;text-decoration:none;transition:border-color .15s,background .15s;cursor:pointer}.related-card:hover{border-color:var(--border);background:var(--surface2)}.related-cat{font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}.related-card-title{font-size:.9rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.4rem}.related-card-date{font-size:.75rem;color:var(--text-3)}
+    .article-cta{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:2rem;text-align:center;margin:2.5rem 0}.article-cta h3{font-size:1.125rem;font-weight:600;margin-bottom:.5rem}.article-cta p{font-size:.875rem;color:var(--text-2);margin-bottom:1.25rem}.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.875rem;font-weight:500;padding:.6rem 1.375rem;border-radius:var(--r);cursor:pointer;transition:all .15s;text-decoration:none}.btn-primary{background:var(--accent);color:#fff;border:none}.btn-primary:hover{background:var(--accent-h)}
+  </style>
+</head>
+<body>
+<script>(function(){const t=localStorage.getItem('zecure-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();</script>
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="../index.html" class="logo" aria-label="Zecure home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </span>
+      Zecure
+    </a>
+    <a href="../index.html#blog" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      All posts
+    </a>
+    <button class="icon-btn" id="theme-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+      <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="article-wrap">
+    <article>
+      <header class="article-hero">
+        <div class="article-category">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Developer
+        </div>
+        <h1 class="article-h1">bcrypt vs Argon2: Which Password Hash Should You Use?</h1>
+        <div class="article-meta">
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            April 2025
+          </span>
+          <span class="sep"></span>
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10 min read
+          </span>
+          <span class="sep"></span>
+          <span>By Zecure Team</span>
+        </div>
+        <p class="article-lead">bcrypt and Argon2id are the two algorithms most developers encounter when building authentication systems. They're both designed to make brute-force attacks expensive — but they take very different approaches, and the choice matters for the security of your users' passwords.</p>
+      </header>
+
+      <div class="article-body">
+
+        <h2>Why Password Hashing Is Not Like Regular Hashing</h2>
+        <p>When you store a password, you should never store it in plaintext — or even as a regular cryptographic hash like SHA-256. Regular hashes are designed to be fast to compute. An attacker with a stolen database of SHA-256 hashes can try billions of guesses per second on a GPU.</p>
+        <p>Password hashing is different: it's intentionally slow and resource-intensive, making brute-force attacks computationally impractical. Both bcrypt and Argon2 are password hashing functions — but they differ in how they achieve this.</p>
+
+        <h2>How bcrypt Works</h2>
+        <p>bcrypt was published in 1999 and is based on the Blowfish cipher. It introduced the concept of a configurable cost factor (originally called " rounds") that determines how slow the hash is to compute. Each increment of the cost factor doubles the computation time.</p>
+        <p>A bcrypt hash looks like this:</p>
+        <p><code>$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/X4.S0PKrHqhPWHfeG</code></p>
+        <p>The <code>$2b$</code> denotes the version, <code>$12$</code> is the cost factor, and the rest is the 184-bit hash output.</p>
+        <p>bcrypt has one significant limitation: it uses only ~4 KB of memory internally. This makes it relatively cheap to attack with ASICs or FPGAs, because the memory requirement is low enough that an attacker can parallelise massively — running thousands of guesses simultaneously on specialised hardware.</p>
+
+        <h2>How Argon2 Works</h2>
+        <p>Argon2 was the winner of the Password Hashing Competition in 2015 and comes in three variants — Argon2d, Argon2i, and Argon2id. For password storage, you want <strong>Argon2id</strong>, which blends both approaches: Argon2d (data-dependent, resistant to GPU/ASIC attacks) and Argon2i (data-independent, resistant to side-channel attacks).</p>
+        <p>Argon2id has three tunable parameters:</p>
+        <ul>
+          <li><strong>Memory cost (m)</strong> — How much RAM to use per hash (e.g., 64 MB)</li>
+          <li><strong>Time cost (t)</strong> — Number of iterations to perform</li>
+          <li><strong>Parallelism (p)</strong> — Number of parallel threads</li>
+        </ul>
+        <p>The key advantage of Argon2 over bcrypt is that it requires a configurable amount of memory per hash — making it expensive to parallelise on ASICs and GPUs, which have limited memory bandwidth per compute unit.</p>
+
+        <div class="spec-table">
+          <thead><tr><th>Parameter</th><th>bcrypt</th><th>Argon2id (recommended)</th></tr></thead>
+          <tbody>
+            <tr><td>Hash size</td><td>184 bits (23 bytes)</td><td>256 bits (32 bytes)</td></tr>
+            <tr><td>Memory cost</td><td>Fixed ~4 KB</td><td>Configurable (e.g., 64 MB)</td></tr>
+            <tr><td>Time cost</td><td>Cost factor (2<sup>n</sup> iterations)</td><td>Configurable iterations</td></tr>
+            <tr><td>GPU resistance</td><td>Low — easily parallelisable</td><td>High — memory-hard design</td></tr>
+            <tr><td>Side-channel risk</td><td>Low</td><td>Minimal (Argon2id hybrid)</td></tr>
+            <tr><td>Adopted</td><td>Wide — most frameworks</td><td>Growing — modern stack</td></tr>
+          </tbody>
+        </div>
+
+        <h2>Side-by-Side Comparison</h2>
+
+        <div class="compare-grid" aria-label="bcrypt vs Argon2id comparison">
+          <div class="compare-col">
+            <div class="compare-header bcrypt">bcrypt</div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Mature, battle-tested since 1999
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Widely supported in every language and framework
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Simple to implement correctly — single parameter to tune
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon no" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Low memory cost (~4 KB) — vulnerable to GPU/ASIC attacks
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon maybe" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Maximum security plateaus at cost factor 12–14 on modern hardware
+            </div>
+          </div>
+          <div class="compare-col">
+            <div class="compare-header argon2">Argon2id</div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Memory-hard — resistant to GPU, FPGA, and ASIC attacks
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Three dimensions of tunability (memory, time, parallelism)
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Modern standard — winner of the Password Hashing Competition (2015)
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon no" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Fewer production-ready library options than bcrypt
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon maybe" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Requires careful tuning of three parameters — easy to get wrong
+            </div>
+          </div>
+        </div>
+
+        <h2>Real-World Attack Costs</h2>
+        <p>Here's what the difference means in practice. A high-end GPU (NVIDIA H100) can compute approximately:</p>
+        <ul>
+          <li><strong>bcrypt</strong> (cost 12): ~70,000 guesses/second</li>
+          <li><strong>Argon2id</strong> (64 MB, 3 iterations): ~500 guesses/second</li>
+        </ul>
+        <p>The attacker with Argon2id gets 140× fewer guesses per second per GPU — and that's before accounting for the fact that the GPU's memory bandwidth limits how many can run in parallel. For a 6-character lowercase password (26<sup>6</sup> ≈ 309 million combinations), bcrypt at cost 12 would take ~74 minutes to exhaust; Argon2id would take ~7 days. For longer passwords, the gap widens dramatically.</p>
+
+        <div class="callout warn">
+          <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+          <p>PBKDF2 (e.g., Django's default) is still widely used but has the same fundamental weakness as bcrypt — it's fast to compute and easy to parallelise on GPUs. If you're choosing a new algorithm, bcrypt or Argon2id are both strictly better.</p>
+        </div>
+
+        <h2>Which Should You Use?</h2>
+        <p>The answer depends on your situation:</p>
+
+        <h3>Use Argon2id if...</h3>
+        <ul>
+          <li>You're building a new system and can make a fresh choice</li>
+          <li>Security overhead of Argon2id (memory/CPU cost) is acceptable for your application</li>
+          <li>You're using a modern framework with built-in Argon2 support (PHP 7.2+, Python's argon2-cffi, Go's cryptoargon2)</li>
+          <li>You want the best available protection against GPU-accelerated brute-force attacks</li>
+        </ul>
+
+        <h3>Use bcrypt if...</h3>
+        <ul>
+          <li>You're on an older framework where Argon2 support is lacking or immature</li>
+          <li>You're maintaining an existing system where bcrypt is already in use — migration costs often outweigh the security benefit</li>
+          <li>Your deployment environment has strict memory constraints (Argon2id with 64 MB per hash may not suit serverless)</li>
+          <li>You need maximum compatibility across languages and runtimes</li>
+        </ul>
+
+        <div class="callout good">
+          <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <p>If you're starting fresh and your stack supports it — use <strong>Argon2id</strong>. If you're using bcrypt, don't panic — it's still secure when configured with a high enough cost factor (12 or above on modern hardware). The most important thing is not to use a fast hash like SHA-256 or MD5.</p>
+        </div>
+
+        <h2>Tuning Parameters</h2>
+        <p>Both algorithms require tuning to match your security needs and hardware constraints. The goal is to make hashing as slow as tolerable for legitimate users while making attacks prohibitively expensive.</p>
+
+        <h3>bcrypt tuning</h3>
+        <p>The only tunable parameter is the cost factor. The right cost factor depends on your server hardware — aim for a hashing time of 200–500ms. On a modern server, cost 12 takes ~250ms; cost 13 takes ~500ms. Recalibrate as hardware improves.</p>
+
+        <h3>Argon2id tuning</h3>
+        <p>The OWASP 2023 guidelines recommend:</p>
+        <ul>
+          <li><strong>Memory:</strong> 64 MB minimum (19 MB minimum)</li>
+          <li><strong>Iterations:</strong> 3 minimum</li>
+          <li><strong>Parallelism:</strong> 1 or greater</li>
+        </ul>
+        <p>For higher-security applications, use 128 MB or more. The Argon2 documentation recommends calibrating so that a single hash takes roughly 1 second on your target hardware.</p>
+
+        <h2>What About Existing Systems?</h2>
+        <p>If you're currently using bcrypt or PBKDF2, you don't necessarily need to migrate immediately. The key question is whether your cost/tuning parameters are adequate for modern hardware. Run a benchmark — if a single hash takes less than 100ms, your parameters are too low.</p>
+        <p>When you do migrate, the standard approach is to re-hash on login: when a user next successfully authenticates, verify their password against the old hash, then generate a new hash with the updated algorithm and store it. This avoids forced password resets.</p>
+
+        <hr class="divider">
+
+        <h2>Summary</h2>
+        <p>Argon2id is the stronger algorithm — its memory-hard design makes GPU and ASIC attacks dramatically more expensive. bcrypt is still secure with proper tuning, but its low memory cost means a determined attacker with commodity hardware can still make many guesses per second.</p>
+        <p>For new projects, Argon2id is the clear choice. For existing projects, upgrading your cost factors on bcrypt is a pragmatic intermediate step that delivers meaningful security improvement without a full migration. Whichever you use, ensure your parameters are calibrated to modern hardware — a hash that completes in milliseconds is not providing adequate protection.</p>
+
+        <div class="article-cta">
+          <h3>Generate a strong random password to use</h3>
+          <p>Secure passwords are the foundation of good authentication. Generate unique random passwords for every account and store them in a password manager.</p>
+          <a href="../index.html" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Open Zecure Generator
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <section class="related" aria-label="Related articles">
+      <p class="related-title">More from the blog</p>
+      <div class="related-grid">
+        <a href="env-secrets-management.html" class="related-card">
+          <div class="related-cat">Developer</div>
+          <div class="related-card-title">How to Safely Store Environment Variables and Secrets</div>
+          <div class="related-card-date">Aug 2025</div>
+        </a>
+        <a href="jwt-secrets-explained.html" class="related-card">
+          <div class="related-cat">Developer</div>
+          <div class="related-card-title">What Is a JWT Secret and How Does It Work?</div>
+          <div class="related-card-date">Apr 2025</div>
+        </a>
+        <a href="password-entropy-explained.html" class="related-card">
+          <div class="related-cat">Explainer</div>
+          <div class="related-card-title">Password Entropy Explained: Why Randomness Is the Only Thing That Matters</div>
+          <div class="related-card-date">Jul 2025</div>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('zecure-theme',n)}
+</script>
+</body>
+</html>

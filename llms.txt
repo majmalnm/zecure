@@ -1,0 +1,51 @@
+# Zecure — Free Password & Key Generator
+
+https://zecure.net/ — Free Password Generator — Generate cryptographically secure random passwords and secret keys instantly. 100% private, client-side only, no signup.
+
+## Generator Tools
+
+https://zecure.net/password-generator.html — Free Password Generator — Generate strong random passwords with configurable length (8–64 chars) and character types (uppercase, lowercase, numbers, symbols). Client-side only.
+
+https://zecure.net/passphrase-generator.html — Free Passphrase Generator — Generate XKCD-style memorable word-based passphrases with high entropy. Format: adjective-noun-noun-####!. Runs entirely in the browser.
+
+https://zecure.net/api-key-generator.html — Free API Key Generator — Generate cryptographically secure UUID v4 API keys, RFC 4122 compliant. 100% client-side, no account needed.
+
+https://zecure.net/jwt-secret-generator.html — Free JWT Secret Generator — Generate 64-character cryptographically secure JWT signing secrets suitable for HS256, HS384, and HS512 algorithms. Client-side only.
+
+https://zecure.net/wifi-password-generator.html — Free WiFi Password Generator — Generate strong WPA2 WiFi passwords (63 characters) using full printable ASCII charset. Free, private, no account needed.
+
+https://zecure.net/aes-256-key-generator.html — Free AES-256 Key Generator — Generate random 256-bit AES encryption keys (64 hex characters) using the Web Crypto API. Safe for production use.
+
+## Security Blog
+
+https://zecure.net/blog/ — Security Blog — Plain-English guides on passwords, encryption, API keys, JWT secrets, and 2FA for developers and security-conscious users.
+
+https://zecure.net/blog/how-to-create-strong-random-password.html — How to Create a Strong Random Password: A Complete Guide — Length beats complexity. This guide covers entropy, character diversity, what to avoid, and the best tools to use. Includes a practical checklist.
+
+https://zecure.net/blog/random-password-vs-passphrase.html — Random Password vs. Passphrase: Which Should You Use? — A practical comparison of random character passwords and XKCD-style passphrases. Covers entropy, memorability, use cases, and when to use each format.
+
+https://zecure.net/blog/bcrypt-vs-argon2.html — bcrypt vs Argon2: Which Password Hash Should You Use? — bcrypt and Argon2id are the two leading password hashing algorithms. This guide compares memory hardness, GPU resistance, tuning, and gives recommendations for new and existing projects.
+
+https://zecure.net/blog/password-entropy-explained.html — Password Entropy Explained: Why Randomness Is the Only Thing That Matters — Entropy measures password strength in bits. This guide explains how it's calculated, what the numbers mean in practice, and how to use them to evaluate any password scheme.
+
+https://zecure.net/blog/unbreakable-password-2025.html — How to Create an Unbreakable Password in 2025 — Modern security research on what actually makes passwords crack-resistant. Covers NIST guidelines, password managers, 2FA, and common mistakes to avoid.
+
+https://zecure.net/blog/password-manager-vs-browser.html — Password Manager vs. Browser: Which Is Safer? — Browser password savers are convenient but expose credentials to malware, physical access, and account breaches. Dedicated managers use zero-knowledge encryption. Here's the honest comparison.
+
+https://zecure.net/blog/two-factor-authentication-explained.html — Two-Factor Authentication Explained: Why SMS 2FA Is Not Enough — 2FA is essential, but SMS-based codes can be intercepted via SIM swapping. This guide explains TOTP authenticator apps, hardware keys (YubiKey), and what to choose.
+
+https://zecure.net/blog/api-keys-vs-passwords.html — API Keys vs. Passwords: What's the Difference? — API keys are not passwords and shouldn't be treated as such. Different format, different storage, different rotation strategy. Here's how to handle each correctly.
+
+https://zecure.net/blog/jwt-secrets-explained.html — What Is a JWT Secret and How Does It Work? — JWT tokens power authentication in millions of apps, but a weak or leaked secret makes them trivially forgeable. This guide covers signing algorithms, secret requirements, and safe storage.
+
+https://zecure.net/blog/env-secrets-management.html — How to Safely Store Environment Variables and Secrets — Environment variables are a common source of leaks when committed to version control. This guide covers .gitignore, secret managers (AWS SSM, HashiCorp Vault), and CI/CD best practices.
+
+https://zecure.net/blog/aes-256-explained.html — AES-256 Encryption Explained in Plain English — AES-256 is the cipher used by governments and banks. This guide explains what key length means, how the cipher works, and how to generate and store AES keys safely.
+
+https://zecure.net/blog/wifi-password-security.html — WPA2, WEP, and Why Your WiFi Password Matters — WEP was cracked in 2007 and takes seconds to break today. WPA2 is only as strong as the password you choose. This guide covers WiFi security protocols and how to set a strong key.
+
+## Legal
+
+https://zecure.net/privacy.html — Privacy Policy — Zecure is a client-side only service. No passwords, keys, or personal data are ever sent to a server. This page explains what data (if any) is collected.
+
+https://zecure.net/terms.html — Terms of Service — The terms governing use of Zecure's free password and key generation tools.
