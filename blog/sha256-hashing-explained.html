@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHA-256 Explained: How Cryptographic Hashing Works | Zecure Blog</title>
+  <meta name="description" content="A plain-English guide to SHA-256 and cryptographic hashing. Learn what SHA-256 is, how it works, where it's used, and why you should never use it to store passwords.">
+  <meta name="keywords" content="sha256 explained, what is sha256, how sha256 works, sha-256 hash, sha256 vs sha512, cryptographic hash function, sha256 security">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/blog/sha256-hashing-explained.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="SHA-256 Explained: How Cryptographic Hashing Works">
+  <meta property="og:description" content="Plain-English guide to SHA-256 — what it is, how it works, where it's used, and its limitations for password storage.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Csvg x='20' y='20' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E%3C/svg%3E">
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"SHA-256 Explained: How Cryptographic Hashing Works","author":{"@type":"Organization","name":"Zecure"},"publisher":{"@type":"Organization","name":"Zecure","url":"https://zecure.net"},"datePublished":"2026-04-16","dateModified":"2026-04-16","description":"A plain-English guide to SHA-256: what it is, how the algorithm works, where it is used in real systems, and why you should never use it for password storage."}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#6366f1;--accent-h:#4f46e5;--accent-s:rgba(99,102,241,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--amber-s:rgba(245,158,11,0.1);--red:#ef4444;--red-s:rgba(239,68,68,0.1);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#4f46e5;--accent-h:#4338ca;--accent-s:rgba(79,70,229,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--amber-s:rgba(217,119,6,0.08);--red:#dc2626;--red-s:rgba(220,38,38,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--accent-s);color:var(--text)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+    body>header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}.nav-inner{max-width:800px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1rem}.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}.logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}.back-link{margin-left:auto;display:inline-flex;align-items:center;gap:.35rem;color:var(--text-2);font-size:.8125rem;font-weight:500;text-decoration:none;padding:.375rem .75rem;border-radius:var(--r-sm);border:1px solid var(--border);transition:all .15s}.back-link:hover{color:var(--text);background:var(--surface2);border-color:var(--text-4)}.icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:all .15s}.icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.icon-btn .sun{display:none}.icon-btn .moon{display:block}[data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    .article-wrap{max-width:800px;margin:0 auto;padding:0 1.5rem}.article-hero{padding:3.5rem 0 2.5rem}.article-category{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent-s);color:var(--accent);font-size:.75rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.25rem .75rem;border-radius:100px;margin-bottom:1.25rem}.article-h1{font-size:clamp(1.75rem,4vw,2.625rem);font-weight:700;line-height:1.15;letter-spacing:-.025em;color:var(--text);margin-bottom:1rem}.article-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}.article-meta span{font-size:.8125rem;color:var(--text-3);display:flex;align-items:center;gap:.35rem}.article-meta .sep{width:3px;height:3px;border-radius:50%;background:var(--text-4)}.article-lead{font-size:1.0625rem;color:var(--text-2);line-height:1.75;border-left:3px solid var(--accent);padding-left:1.25rem;margin-bottom:2.5rem}.article-body{padding-bottom:4rem}.article-body h2{font-size:1.3125rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin:2.5rem 0 .875rem}.article-body h3{font-size:1.0625rem;font-weight:600;color:var(--text);margin:1.75rem 0 .625rem}.article-body p{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:1.25rem}.article-body a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}.article-body ul,.article-body ol{margin:.5rem 0 1.25rem 1.5rem}.article-body li{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:.35rem}.article-body strong{color:var(--text);font-weight:600}.article-body code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    .callout{display:flex;gap:1rem;background:var(--surface);border:1px solid var(--border-s);border-left:3px solid var(--accent);border-radius:var(--r-lg);padding:1.125rem 1.25rem;margin:1.5rem 0}.callout-icon{flex-shrink:0;margin-top:2px;color:var(--accent)}.callout p{margin:0;font-size:.875rem}.callout.warn{border-left-color:var(--amber)}.callout.warn .callout-icon{color:var(--amber)}.callout.danger{border-left-color:var(--red)}.callout.danger .callout-icon{color:var(--red)}.callout.good{border-left-color:var(--green)}.callout.good .callout-icon{color:var(--green)}
+    pre.code-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.125rem 1.25rem;overflow-x:auto;margin:.5rem 0 1.5rem}pre.code-block code{background:none;color:var(--text-2);font-size:.8125rem;padding:0;line-height:1.7}.tk-cm{color:var(--text-4)}.tk-kw{color:#818cf8}.tk-st{color:#4ade80}.tk-fn{color:#38bdf8}[data-theme="light"] .tk-kw{color:#4f46e5}[data-theme="light"] .tk-st{color:#16a34a}[data-theme="light"] .tk-fn{color:#0284c7}
+    .hash-demo{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin:1.5rem 0}.hash-demo-head{padding:.75rem 1rem;border-bottom:1px solid var(--border-s);font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text-3)}.hash-demo-row{padding:.625rem 1rem;border-bottom:1px solid var(--border-s);font-size:.8125rem}.hash-demo-row:last-child{border-bottom:none}.hash-demo-label{color:var(--text-3);font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.2rem}.hash-demo-val{font-family:var(--mono);font-size:.75rem;color:var(--accent);word-break:break-all}
+    .spec-table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.875rem}.spec-table th{text-align:left;font-weight:600;color:var(--text-2);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;padding:.5rem .75rem;border-bottom:1px solid var(--border)}.spec-table td{padding:.6rem .75rem;border-bottom:1px solid var(--border-s);color:var(--text-2)}.spec-table td:first-child{font-weight:600;color:var(--text)}.spec-table tr:last-child td{border-bottom:none}
+    hr.divider{border:none;border-top:1px solid var(--border-s);margin:2.5rem 0}
+    .related{padding:2.5rem 0 4rem;border-top:1px solid var(--border-s)}.related-title{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:1.25rem}.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}.related-card{display:block;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.25rem;text-decoration:none;transition:border-color .15s,background .15s}.related-card:hover{border-color:var(--border);background:var(--surface2)}.related-cat{font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}.related-card-title{font-size:.9rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.4rem}.related-card-date{font-size:.75rem;color:var(--text-3)}
+    .article-cta{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:2rem;text-align:center;margin:2.5rem 0}.article-cta h3{font-size:1.125rem;font-weight:600;margin-bottom:.5rem}.article-cta p{font-size:.875rem;color:var(--text-2);margin-bottom:1.25rem}.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.875rem;font-weight:500;padding:.6rem 1.375rem;border-radius:var(--r);cursor:pointer;transition:all .15s;text-decoration:none}.btn-primary{background:var(--accent);color:#fff;border:none}.btn-primary:hover{background:var(--accent-h)}
+  </style>
+</head>
+<body>
+<script>(function(){const t=localStorage.getItem('zecure-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();</script>
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="../index.html" class="logo"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a>
+    <a href="index.html" class="back-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>All posts</a>
+    <button class="icon-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+      <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="article-wrap">
+    <article>
+      <header class="article-hero">
+        <div class="article-category"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Security</div>
+        <h1 class="article-h1">SHA-256 Explained: How Cryptographic Hashing Works</h1>
+        <div class="article-meta">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>April 2026</span>
+          <span class="sep"></span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>8 min read</span>
+          <span class="sep"></span>
+          <span>By Zecure Team</span>
+        </div>
+        <p class="article-lead">SHA-256 is one of the most widely deployed cryptographic algorithms on the internet — used in TLS certificates, Bitcoin, Git, and hundreds of security protocols. Understanding how it works helps you use it correctly and avoid the common mistake of using it where it doesn't belong.</p>
+      </header>
+
+      <div class="article-body">
+
+        <h2>What Is SHA-256?</h2>
+        <p>SHA-256 (Secure Hash Algorithm 256-bit) is a member of the SHA-2 family of cryptographic hash functions, published by the NSA and standardised by NIST in 2001. It takes any input — a single character, a terabyte file, or anything in between — and produces a fixed-length 256-bit (32-byte) output, represented as 64 hexadecimal characters.</p>
+
+        <div class="hash-demo">
+          <div class="hash-demo-head">SHA-256 output examples</div>
+          <div class="hash-demo-row">
+            <div class="hash-demo-label">Input: "hello"</div>
+            <div class="hash-demo-val">2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824</div>
+          </div>
+          <div class="hash-demo-row">
+            <div class="hash-demo-label">Input: "Hello" (capital H)</div>
+            <div class="hash-demo-val">185f8db32921bd46d35cc2bc4b4d32d1a4568b07e3e2bc0b6c1e3804dda66a84</div>
+          </div>
+          <div class="hash-demo-row">
+            <div class="hash-demo-label">Input: "" (empty string)</div>
+            <div class="hash-demo-val">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</div>
+          </div>
+        </div>
+
+        <p>Notice that changing a single character (lowercase vs uppercase H) produces a completely different hash. This is called the <strong>avalanche effect</strong> — a core property of good hash functions.</p>
+
+        <h2>The Four Properties of a Cryptographic Hash Function</h2>
+        <p>SHA-256 (and other cryptographic hashes) must satisfy four fundamental properties:</p>
+        <ol>
+          <li><strong>Deterministic</strong> — The same input always produces the same output. Hash("hello") is always the same 64-character string.</li>
+          <li><strong>Pre-image resistant</strong> — Given a hash, it is computationally infeasible to find the original input. You cannot "reverse" a SHA-256 hash.</li>
+          <li><strong>Second pre-image resistant</strong> — Given an input and its hash, it is infeasible to find a different input with the same hash.</li>
+          <li><strong>Collision resistant</strong> — It is infeasible to find any two different inputs that produce the same hash output.</li>
+        </ol>
+
+        <h2>How SHA-256 Works (Simplified)</h2>
+        <p>SHA-256 processes input in 512-bit (64-byte) blocks. Here's a high-level overview of the algorithm:</p>
+        <ol>
+          <li><strong>Padding</strong> — The input is padded to a multiple of 512 bits. A <code>1</code> bit is appended, followed by zeros, then the original message length as a 64-bit big-endian integer.</li>
+          <li><strong>Initial hash values</strong> — Eight 32-bit words are initialised with the fractional parts of the square roots of the first 8 prime numbers. These constants are publicly known and not secret.</li>
+          <li><strong>Compression function</strong> — Each 512-bit block is processed through 64 rounds of mixing operations involving bitwise AND, OR, XOR, rotations, and additions with 64 round constants (derived from the cube roots of the first 64 primes).</li>
+          <li><strong>Output</strong> — After processing all blocks, the eight 32-bit hash values are concatenated to form the 256-bit digest.</li>
+        </ol>
+        <p>The entire process is designed so that each output bit depends on every input bit, making it impossible to predict or reverse.</p>
+
+        <h2>SHA-256 vs SHA-1 vs SHA-512</h2>
+        <table class="spec-table">
+          <thead><tr><th>Algorithm</th><th>Output size</th><th>Block size</th><th>Security</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>SHA-1</td><td>160 bits / 40 hex</td><td>512 bits</td><td>80-bit</td><td>Broken (2017)</td></tr>
+            <tr><td>SHA-256</td><td>256 bits / 64 hex</td><td>512 bits</td><td>128-bit</td><td>Secure</td></tr>
+            <tr><td>SHA-384</td><td>384 bits / 96 hex</td><td>1024 bits</td><td>192-bit</td><td>Secure</td></tr>
+            <tr><td>SHA-512</td><td>512 bits / 128 hex</td><td>1024 bits</td><td>256-bit</td><td>Secure</td></tr>
+          </tbody>
+        </table>
+        <p>SHA-512 is actually faster than SHA-256 on 64-bit processors because it performs fewer rounds on larger blocks. For most applications, SHA-256 provides more than adequate security.</p>
+
+        <h2>Where SHA-256 Is Used in Practice</h2>
+        <ul>
+          <li><strong>TLS/HTTPS certificates</strong> — Digital signatures in X.509 certificates use SHA-256 (or SHA-384) to sign the certificate content.</li>
+          <li><strong>Git</strong> — Git uses SHA-1 historically, but is transitioning to SHA-256 for commit and blob identifiers.</li>
+          <li><strong>Bitcoin</strong> — Bitcoin's proof-of-work mining uses SHA-256 twice (SHA-256d) to hash block headers.</li>
+          <li><strong>HMAC-SHA256</strong> — JWT signatures (<code>HS256</code>) and many API authentication schemes use HMAC with SHA-256 to sign messages.</li>
+          <li><strong>API key storage</strong> — Instead of storing API keys in plaintext, applications store their SHA-256 hash. On each request, the incoming key is hashed and compared.</li>
+          <li><strong>File integrity</strong> — Software publishers distribute SHA-256 checksums alongside downloads so users can verify files haven't been tampered with.</li>
+        </ul>
+
+        <h2>SHA-256 for API Keys and Tokens</h2>
+        <p>When building an API, you should never store API keys in plaintext. Instead, store a SHA-256 hash of each key:</p>
+        <pre class="code-block"><code><span class="tk-cm">// Node.js: storing and verifying an API key</span>
+<span class="tk-kw">import</span> crypto <span class="tk-kw">from</span> <span class="tk-st">'crypto'</span>;
+
+<span class="tk-cm">// When issuing a new key (show raw key to user once)</span>
+<span class="tk-kw">const</span> rawKey = crypto.randomUUID();
+<span class="tk-kw">const</span> storedHash = crypto.createHash(<span class="tk-st">'sha256'</span>).update(rawKey).digest(<span class="tk-st">'hex'</span>);
+<span class="tk-cm">// Store storedHash in database, show rawKey to user</span>
+
+<span class="tk-cm">// When verifying an incoming request</span>
+<span class="tk-kw">function</span> <span class="tk-fn">verifyKey</span>(incoming, storedHash) {
+  <span class="tk-kw">const</span> hash = crypto.createHash(<span class="tk-st">'sha256'</span>).update(incoming).digest(<span class="tk-st">'hex'</span>);
+  <span class="tk-cm">// Use timingSafeEqual to prevent timing attacks</span>
+  <span class="tk-kw">return</span> crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(storedHash));
+}</code></pre>
+
+        <div class="callout danger">
+          <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+          <p><strong>Never use SHA-256 for password storage.</strong> SHA-256 can compute ~10 billion hashes per second on a modern GPU. An attacker who steals your database can crack common passwords in seconds. Use bcrypt, Argon2id, or scrypt — these are specifically designed to be slow and memory-intensive.</p>
+        </div>
+
+        <h2>The Critical Distinction: Hashing vs Password Hashing</h2>
+        <p>This is the most important thing to take away from this article. SHA-256 is a general-purpose cryptographic hash function. It is designed to be <em>fast</em>. Speed is a feature for data integrity, HMAC, and signing. But for password storage, speed is the enemy — an attacker can test billions of guesses per second.</p>
+        <p>Password hashing algorithms like <strong>bcrypt</strong>, <strong>Argon2id</strong>, and <strong>scrypt</strong> are deliberately slow and memory-intensive. They are designed to remain computationally expensive even as hardware improves, by increasing the cost factor.</p>
+
+        <div class="callout good">
+          <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <p><strong>Use SHA-256 for:</strong> file integrity, API key storage, HMAC signing, digital signatures, data deduplication.<br><strong>Use bcrypt/Argon2id for:</strong> password storage.</p>
+        </div>
+
+        <h2>Generating SHA-256 Hashes</h2>
+        <p>You can compute SHA-256 hashes directly in your browser using our <a href="../hash-generator.html">free Hash Generator</a> — no data is sent to a server. Or programmatically in your language of choice:</p>
+        <pre class="code-block"><code><span class="tk-cm">// Python</span>
+<span class="tk-kw">import</span> hashlib
+digest = hashlib.sha256(<span class="tk-st">b"hello world"</span>).hexdigest()
+
+<span class="tk-cm">// Node.js</span>
+<span class="tk-kw">import</span> crypto <span class="tk-kw">from</span> <span class="tk-st">'crypto'</span>;
+<span class="tk-kw">const</span> digest = crypto.createHash(<span class="tk-st">'sha256'</span>).update(<span class="tk-st">'hello world'</span>).digest(<span class="tk-st">'hex'</span>);
+
+<span class="tk-cm">// Go</span>
+<span class="tk-kw">import</span> <span class="tk-st">"crypto/sha256"</span>
+sum := sha256.Sum256([]byte(<span class="tk-st">"hello world"</span>))</code></pre>
+
+        <div class="article-cta">
+          <h3>Try the Hash Generator</h3>
+          <p>Compute MD5, SHA-1, SHA-256, and SHA-512 hashes instantly in your browser — 100% client-side, no data leaves your device.</p>
+          <a href="../hash-generator.html" class="btn btn-primary">Open Hash Generator <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+      </div>
+    </article>
+
+    <div class="related">
+      <div class="related-title">Related Reading</div>
+      <div class="related-grid">
+        <a href="bcrypt-vs-argon2.html" class="related-card"><div class="related-cat">Security</div><div class="related-card-title">bcrypt vs Argon2: Which Password Hash Should You Use?</div><div class="related-card-date">Apr 2025</div></a>
+        <a href="api-keys-vs-passwords.html" class="related-card"><div class="related-cat">Developer</div><div class="related-card-title">API Keys vs Passwords: What's the Difference?</div><div class="related-card-date">Feb 2025</div></a>
+        <a href="../hash-generator.html" class="related-card"><div class="related-cat">Tool</div><div class="related-card-title">Free Hash Generator — MD5, SHA-256, SHA-512 Online</div><div class="related-card-date">Tool</div></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('zecure-theme',n)}</script>
+</body>
+</html>

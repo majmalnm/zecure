@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Base64 Encoder &amp; Decoder Online | Zecure</title>
+  <meta name="description" content="Encode and decode Base64 instantly in your browser. Supports standard and URL-safe Base64. 100% client-side — no data is ever sent to a server.">
+  <meta name="keywords" content="base64 encoder, base64 decoder, base64 encode online, base64 decode online, base64 to text, text to base64, url safe base64, base64 encoder decoder free">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/base64-encoder.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Csvg x='20' y='20' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zecure.net/base64-encoder.html">
+  <meta property="og:title" content="Free Base64 Encoder &amp; Decoder Online | Zecure">
+  <meta property="og:description" content="Encode and decode Base64 instantly. Standard and URL-safe modes. 100% client-side, no signup.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="robots" content="index, follow">
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"Base64 Encoder & Decoder","url":"https://zecure.net/base64-encoder.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free online Base64 encoder and decoder. Supports standard and URL-safe Base64. Runs entirely in the browser."},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is Base64?","acceptedAnswer":{"@type":"Answer","text":"Base64 is an encoding scheme that converts binary data (or any text) into a string of ASCII characters using 64 printable characters: A–Z, a–z, 0–9, +, and /. It's used to safely transmit binary data over channels that only handle text."}},
+      {"@type":"Question","name":"What is the difference between Base64 and URL-safe Base64?","acceptedAnswer":{"@type":"Answer","text":"Standard Base64 uses + and / characters, which have special meaning in URLs. URL-safe Base64 replaces + with - and / with _, making it safe to use in URLs and filenames without percent-encoding."}},
+      {"@type":"Question","name":"Is Base64 encryption?","acceptedAnswer":{"@type":"Answer","text":"No. Base64 is encoding, not encryption. Anyone can decode a Base64 string back to its original content without a key. Do not use Base64 to protect sensitive data — use proper encryption like AES-256."}},
+      {"@type":"Question","name":"Is my data sent to a server?","acceptedAnswer":{"@type":"Answer","text":"No. All encoding and decoding runs in your browser using JavaScript's built-in btoa() and atob() functions. Nothing is transmitted anywhere."}}
+    ]}
+  ]}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#6366f1;--accent-h:#4f46e5;--accent-s:rgba(99,102,241,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--red:#ef4444;--clr:#34d399;--clr-s:rgba(52,211,153,0.1);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#4f46e5;--accent-h:#4338ca;--accent-s:rgba(79,70,229,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--red:#dc2626;--clr:#059669;--clr-s:rgba(5,150,105,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--accent-s);color:var(--text)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}.nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}.logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}.nav-links{display:flex;list-style:none;gap:.125rem}.nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}.nav-links a:hover{color:var(--text);background:var(--surface2)}@media(max-width:640px){.nav-links{display:none}}.nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}.icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,border-color .15s,background .15s}.icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.icon-btn .sun{display:none}.icon-btn .moon{display:block}[data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    main{max-width:760px;margin:0 auto;padding:0 1.5rem}
+    .tool-hero{padding:4rem 0 2.5rem;text-align:center;position:relative}.tool-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,var(--border-s) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);pointer-events:none}.tool-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;position:relative}.pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px var(--green-s)}.tool-h1{font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-.025em;color:var(--text);line-height:1.15;margin-bottom:1rem;position:relative}.tool-h1 mark{background:none;color:var(--clr)}.tool-sub{font-size:1rem;color:var(--text-2);line-height:1.7;max-width:500px;margin:0 auto 2rem;position:relative}
+    .gen-widget{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin-bottom:2rem}.gen-widget-head{padding:.875rem 1rem;border-bottom:1px solid var(--border-s);display:flex;align-items:center;gap:.65rem}.gen-icon{width:32px;height:32px;border-radius:var(--r-sm);background:var(--clr-s);color:var(--clr);display:flex;align-items:center;justify-content:center;flex-shrink:0}.gen-label{font-size:.8125rem;font-weight:600;color:var(--text);flex:1}.gen-badge{font-size:.7rem;font-weight:500;padding:.15rem .5rem;border-radius:4px;background:var(--clr-s);color:var(--clr)}
+    .b64-body{padding:.75rem;display:flex;flex-direction:column;gap:.625rem}
+    .b64-row{display:flex;flex-direction:column;gap:.3rem}
+    .b64-label{font-size:.75rem;font-weight:600;color:var(--text-3);letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
+    .b64-textarea{width:100%;min-height:80px;background:var(--bg);border:1px solid var(--border-s);border-radius:var(--r-sm);color:var(--text);font-family:var(--mono);font-size:.8rem;line-height:1.6;padding:.625rem .75rem;resize:vertical;transition:border-color .15s;word-break:break-all}[data-theme="light"] .b64-textarea{background:var(--surface2)}.b64-textarea:focus{outline:none;border-color:var(--clr)}.b64-textarea::placeholder{color:var(--text-4)}
+    .b64-arrows{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.25rem 0}
+    .action-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .mode-toggle{display:flex;background:var(--surface2);border:1px solid var(--border-s);border-radius:var(--r-sm);overflow:hidden}.mode-btn{font-family:var(--sans);font-size:.75rem;font-weight:500;color:var(--text-3);background:transparent;border:none;padding:.3rem .75rem;cursor:pointer;transition:color .15s,background .15s}.mode-btn.active{background:var(--accent);color:#fff}.mode-btn:hover:not(.active){color:var(--text)}
+    .act-btn{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border-radius:var(--r-sm);cursor:pointer;transition:all .15s;border:1px solid var(--border)}.act-btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}.act-btn-primary:hover{background:var(--accent-h);border-color:var(--accent-h)}.act-btn-secondary{background:transparent;color:var(--text-2)}.act-btn-secondary:hover{color:var(--text);background:var(--surface2)}.act-btn-copy{background:transparent;color:var(--text-2)}.act-btn-copy:hover{color:var(--text);background:var(--surface2)}.act-btn-copy.copied{color:var(--green);border-color:var(--green);background:var(--green-s)}
+    .error-msg{font-size:.8rem;color:var(--red);background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:var(--r-sm);padding:.4rem .75rem;display:none}.error-msg.show{display:block}
+    .gen-footer{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-top:1px solid var(--border-s);flex-wrap:wrap;gap:.5rem}.stat-text{font-size:.75rem;color:var(--text-3)}
+    .content-section{padding:2.5rem 0;border-top:1px solid var(--border-s)}.content-section h2{font-size:1.25rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin-bottom:.875rem}.content-section p{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:1.25rem}.content-section ul,.content-section ol{margin:.25rem 0 1.25rem 1.5rem}.content-section li{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:.4rem}.content-section strong{color:var(--text);font-weight:600}.content-section code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    pre.code-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.125rem 1.25rem;overflow-x:auto;margin:.5rem 0 1.25rem}pre.code-block code{background:none;color:var(--text-2);font-size:.8125rem;padding:0;line-height:1.7}.tk-cm{color:var(--text-4)}.tk-kw{color:#818cf8}.tk-st{color:#4ade80}[data-theme="light"] .tk-kw{color:#4f46e5}[data-theme="light"] .tk-st{color:#16a34a}
+    .callout{display:flex;gap:1rem;background:var(--surface);border:1px solid var(--border-s);border-left:3px solid var(--amber);border-radius:var(--r-lg);padding:1rem 1.125rem;margin:1.25rem 0}.callout-icon{flex-shrink:0;margin-top:2px;color:var(--amber)}.callout p{margin:0;font-size:.875rem}
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}.faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;transition:border-color .15s}.faq-item:hover{border-color:var(--border)}.faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}.faq-q:hover{color:var(--text);background:var(--surface2)}.faq-item.open .faq-q{color:var(--text)}.faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease,color .15s}.faq-item.open .faq-chev{transform:rotate(180deg);color:var(--accent)}.faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}.faq-item.open .faq-body{max-height:500px}.faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}.related-card{display:block;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.125rem;text-decoration:none;transition:border-color .15s,background .15s}.related-card:hover{border-color:var(--border);background:var(--surface2)}.related-tag{font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}.related-title{font-size:.875rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.3rem}.related-date{font-size:.75rem;color:var(--text-3)}
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);display:flex;align-items:center;gap:.5rem;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}.footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem}@media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr}}.footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}.footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}.footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}.footer-col ul a:hover{color:var(--text)}.footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}.footer-bottom p{font-size:.75rem;color:var(--text-4)}
+  </style>
+</head>
+<body>
+<script>(function(){const t=localStorage.getItem('zecure-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();</script>
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="index.html" class="logo"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">All Tools</a></li>
+      <li><a href="password-generator.html">Password</a></li>
+      <li><a href="uuid-generator.html">UUID</a></li>
+      <li><a href="base64-encoder.html" aria-current="page">Base64</a></li>
+      <li><a href="hash-generator.html">Hash</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+<main>
+  <div class="tool-hero">
+    <div class="tool-pills"><div class="pill"><span class="pill-dot"></span>Client-side only</div><div class="pill">Standard &amp; URL-safe</div><div class="pill">Encode &amp; Decode</div></div>
+    <h1 class="tool-h1">Free <mark>Base64 Encoder</mark> &amp; Decoder</h1>
+    <p class="tool-sub">Encode any text or data to Base64, or decode Base64 back to text — standard and URL-safe modes, zero server contact.</p>
+  </div>
+
+  <div class="gen-widget">
+    <div class="gen-widget-head">
+      <div class="gen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div>
+      <span class="gen-label">Base64 Encoder / Decoder</span>
+      <span class="gen-badge">UTF-8</span>
+    </div>
+    <div class="b64-body">
+      <div class="b64-row">
+        <label class="b64-label" for="b64-input">
+          <span>Input</span>
+          <span id="input-stat" style="font-size:.72rem;color:var(--text-4)">0 chars</span>
+        </label>
+        <textarea class="b64-textarea" id="b64-input" placeholder="Paste text or Base64 here…" oninput="onInputChange()" spellcheck="false"></textarea>
+      </div>
+      <div class="action-row">
+        <div class="mode-toggle" role="group" aria-label="Base64 mode">
+          <button class="mode-btn active" id="mode-std" onclick="setMode('std')">Standard</button>
+          <button class="mode-btn" id="mode-url" onclick="setMode('url')">URL-safe</button>
+        </div>
+        <button class="act-btn act-btn-primary" onclick="doEncode()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/></svg>
+          Encode
+        </button>
+        <button class="act-btn act-btn-secondary" onclick="doDecode()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+          Decode
+        </button>
+        <button class="act-btn act-btn-secondary" onclick="swapInputOutput()">Swap</button>
+        <button class="act-btn act-btn-secondary" onclick="clearAll()">Clear</button>
+      </div>
+      <div class="error-msg" id="err-msg"></div>
+      <div class="b64-row">
+        <label class="b64-label" for="b64-output">
+          <span>Output</span>
+          <button class="act-btn act-btn-copy" id="copy-btn" onclick="copyOutput()" style="padding:.1rem .5rem;font-size:.72rem">Copy</button>
+        </label>
+        <textarea class="b64-textarea" id="b64-output" placeholder="Result will appear here…" readonly spellcheck="false"></textarea>
+      </div>
+    </div>
+    <div class="gen-footer">
+      <span class="stat-text" id="ratio-stat"></span>
+      <span class="stat-text">All encoding is local &middot; No data leaves your browser</span>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>What Is Base64?</h2>
+    <p>Base64 is a binary-to-text encoding scheme that represents binary data as a sequence of printable ASCII characters. It maps every 3 bytes of input to 4 characters from a 64-character alphabet: <code>A–Z</code>, <code>a–z</code>, <code>0–9</code>, <code>+</code>, and <code>/</code>. Padding characters (<code>=</code>) are added at the end if the input isn't a multiple of 3 bytes.</p>
+    <p>The result is ~33% larger than the input but can be transmitted safely over any channel that handles ASCII text — including email bodies, JSON payloads, HTTP headers, and HTML attributes.</p>
+
+    <h2>When Do Developers Use Base64?</h2>
+    <ul>
+      <li><strong>HTTP Basic Auth</strong> — Credentials are Base64-encoded as <code>username:password</code> before being placed in the <code>Authorization: Basic</code> header.</li>
+      <li><strong>JSON Web Tokens (JWT)</strong> — JWT headers and payloads are URL-safe Base64-encoded (Base64url). This makes them safe in URL query strings without percent-encoding.</li>
+      <li><strong>Embedding images or fonts in CSS/HTML</strong> — Data URIs use Base64 to inline binary files: <code>src="data:image/png;base64,..."</code></li>
+      <li><strong>Email attachments (MIME)</strong> — Binary attachments like images or PDFs are Base64-encoded before embedding in email bodies.</li>
+      <li><strong>Storing binary data in JSON</strong> — JSON has no binary type, so binary blobs (keys, signatures, certificates) are Base64-encoded first.</li>
+    </ul>
+
+    <div class="callout">
+      <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+      <p><strong>Base64 is not encryption.</strong> Anyone can decode a Base64 string instantly — there is no key or secret involved. Never rely on Base64 to protect sensitive data. Use proper encryption (AES-256-GCM) for confidential information.</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Standard vs URL-safe Base64</h2>
+    <p>Standard Base64 uses <code>+</code> and <code>/</code> as the 62nd and 63rd characters. These are special characters in URLs — <code>+</code> means a space, and <code>/</code> is a path separator — which causes problems when Base64 strings appear in URLs.</p>
+    <p><strong>URL-safe Base64</strong> (also called Base64url) solves this by replacing <code>+</code> with <code>-</code> and <code>/</code> with <code>_</code>. The padding <code>=</code> is also often omitted. This variant is used in JWTs, Google's APIs, and most modern web authentication protocols.</p>
+    <pre class="code-block"><code><span class="tk-cm">// JavaScript: encode to URL-safe Base64</span>
+<span class="tk-kw">function</span> toBase64Url(str) {
+  <span class="tk-kw">return</span> btoa(str)
+    .replace(<span class="tk-st">/\+/g</span>, <span class="tk-st">'-'</span>)
+    .replace(<span class="tk-st">/\//g</span>, <span class="tk-st">'_'</span>)
+    .replace(<span class="tk-st">/=+$/</span>, <span class="tk-st">''</span>);
+}</code></pre>
+  </div>
+
+  <div class="content-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">What is Base64 encoding? <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>Base64 encoding converts binary data into ASCII text using 64 printable characters. It encodes every 3 bytes of input as 4 characters, making the output about 33% larger. It's widely used to safely pass binary data through text-only channels like email, JSON, and HTTP headers.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Is Base64 the same as encryption? <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>No. Base64 is encoding, not encryption. It's reversible without any key. Anyone who sees a Base64 string can decode it instantly. If you need to protect data, use proper encryption like AES-256. Base64 only changes the representation of data, it doesn't hide it.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">What is URL-safe Base64? <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>URL-safe Base64 (Base64url) replaces <code>+</code> with <code>-</code> and <code>/</code> with <code>_</code>, removing characters that have special meaning in URLs. Padding (<code>=</code>) is also typically removed. This variant is used in JWTs, OAuth tokens, and most modern web authentication systems.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Why does my Base64 string end with == ? <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>Base64 encodes 3 bytes at a time, producing 4 characters. If the input length is not a multiple of 3, padding characters (<code>=</code>) are appended: one <code>=</code> for 1 leftover byte, two <code>=</code> for 2 leftover bytes. This padding ensures the decoder knows where the data ends.</p></div></div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Related Tools &amp; Reading</h2>
+    <div class="related-grid">
+      <a href="hash-generator.html" class="related-card"><div class="related-tag">Tool</div><div class="related-title">Hash Generator — MD5, SHA-256, SHA-512</div><div class="related-date">Client-side</div></a>
+      <a href="jwt-secret-generator.html" class="related-card"><div class="related-tag">Tool</div><div class="related-title">JWT Secret Generator</div><div class="related-date">Cryptographically secure</div></a>
+      <a href="blog/base64-encoding-explained.html" class="related-card"><div class="related-tag">Guide</div><div class="related-title">Base64 Encoding Explained: What It Is and When to Use It</div><div class="related-date">Apr 2026</div></a>
+    </div>
+  </div>
+</main>
+
+<div id="toast" role="status" aria-live="polite"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><a href="index.html" class="logo" style="display:inline-flex"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a><p>Free client-side security tools. No server, no tracking, no signup.</p></div>
+    <div class="footer-col"><h4>More Tools</h4><ul><li><a href="index.html">All Tools</a></li><li><a href="password-generator.html">Password Generator</a></li><li><a href="uuid-generator.html">UUID Generator</a></li><li><a href="hash-generator.html">Hash Generator</a></li><li><a href="jwt-secret-generator.html">JWT Secret</a></li></ul></div>
+    <div class="footer-col"><h4>Learn</h4><ul><li><a href="blog/index.html">Security Blog</a></li><li><a href="blog/base64-encoding-explained.html">Base64 Explained</a></li><li><a href="blog/jwt-secrets-explained.html">JWT Secrets</a></li><li><a href="privacy.html">Privacy Policy</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 Zecure.net</p><p>All encoding runs locally &middot; No data collected</p></div>
+</footer>
+
+<script>
+function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('zecure-theme',n)}
+
+let currentMode='std';
+function setMode(m){
+  currentMode=m;
+  document.getElementById('mode-std').classList.toggle('active',m==='std');
+  document.getElementById('mode-url').classList.toggle('active',m==='url');
+}
+
+function encodeB64(str,urlSafe){
+  // Proper UTF-8 → Base64
+  const bytes=new TextEncoder().encode(str);
+  let binary='';
+  bytes.forEach(b=>binary+=String.fromCharCode(b));
+  let b64=btoa(binary);
+  if(urlSafe)b64=b64.replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  return b64;
+}
+
+function decodeB64(str){
+  // Normalise URL-safe chars
+  let s=str.replace(/-/g,'+').replace(/_/g,'/');
+  while(s.length%4)s+='=';
+  const binary=atob(s);
+  const bytes=new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+function showError(msg){const el=document.getElementById('err-msg');el.textContent=msg;el.classList.add('show')}
+function clearError(){document.getElementById('err-msg').classList.remove('show')}
+
+function doEncode(){
+  const inp=document.getElementById('b64-input').value;
+  if(!inp)return;
+  clearError();
+  try{
+    const out=encodeB64(inp,currentMode==='url');
+    document.getElementById('b64-output').value=out;
+    updateStats(inp,out);
+  }catch(e){showError('Encoding failed: '+e.message)}
+}
+
+function doDecode(){
+  const inp=document.getElementById('b64-input').value.trim();
+  if(!inp)return;
+  clearError();
+  try{
+    const out=decodeB64(inp);
+    document.getElementById('b64-output').value=out;
+    updateStats(inp,out);
+  }catch(e){showError('Invalid Base64 — check your input and try again.')}
+}
+
+function updateStats(inp,out){
+  const ratio=inp.length>0?((out.length/inp.length)*100).toFixed(0):0;
+  document.getElementById('ratio-stat').textContent=`Input: ${inp.length} chars → Output: ${out.length} chars (${ratio}%)`;
+}
+
+function swapInputOutput(){
+  const inp=document.getElementById('b64-input');
+  const out=document.getElementById('b64-output');
+  const tmp=inp.value;
+  inp.value=out.value;
+  out.value=tmp;
+  onInputChange();
+}
+
+function clearAll(){
+  document.getElementById('b64-input').value='';
+  document.getElementById('b64-output').value='';
+  document.getElementById('input-stat').textContent='0 chars';
+  document.getElementById('ratio-stat').textContent='';
+  clearError();
+}
+
+function onInputChange(){
+  const len=document.getElementById('b64-input').value.length;
+  document.getElementById('input-stat').textContent=len+' char'+(len===1?'':'s');
+}
+
+let toastT;
+function showToast(){const t=document.getElementById('toast');t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2000)}
+function copyOutput(){
+  const val=document.getElementById('b64-output').value;
+  if(!val)return;
+  navigator.clipboard.writeText(val).then(()=>{
+    const btn=document.getElementById('copy-btn');
+    btn.textContent='Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2000);
+    showToast();
+  });
+}
+function toggleFaq(btn){const item=btn.parentElement;const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}
+</script>
+</body>
+</html>
