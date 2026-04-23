@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Horoscope — Daily Developer Astrology | Zecure</title>
+  <meta name="description" content="Free daily tech horoscope for developers — date-seeded predictions covering deployment luck, code review karma, bug attraction index, and today's lucky stack. Changes every day.">
+  <meta name="keywords" content="tech horoscope, developer horoscope, programmer astrology, coding horoscope, daily developer forecast, tech zodiac, developer fortune, programming stars">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/tech-horoscope.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Csvg x='20' y='20' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tech Horoscope — Daily Developer Astrology | Zecure">
+  <meta property="og:description" content="Date-seeded daily horoscopes for developers. Deployment luck, code review karma, bug magnet index, lucky stack. Changes every day.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#a855f7;--accent-h:#9333ea;--accent-s:rgba(168,85,247,0.12);--green:#22c55e;--clr:#a855f7;--clr-s:rgba(168,85,247,0.12);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#9333ea;--accent-h:#7e22ce;--accent-s:rgba(147,51,234,0.08);--clr:#9333ea;--clr-s:rgba(147,51,234,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}
+    .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem}
+    .logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:#6366f1;color:#fff;display:flex;align-items:center;justify-content:center}
+    .nav-links{display:flex;list-style:none;gap:.125rem}
+    .nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}
+    .nav-links a:hover{color:var(--text);background:var(--surface2)}
+    @media(max-width:640px){.nav-links{display:none}}
+    .nav-right{margin-left:auto}
+    .icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,background .15s}
+    .icon-btn:hover{color:var(--text);background:var(--surface2)}
+    .icon-btn .sun{display:none}.icon-btn .moon{display:block}
+    [data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    main{max-width:720px;margin:0 auto;padding:0 1.5rem}
+    .hero{padding:3rem 0 1.5rem;text-align:center}
+    .hero-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+    .pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}
+    .pill-dot{width:5px;height:5px;border-radius:50%;background:var(--clr);box-shadow:0 0 0 2px var(--clr-s)}
+    .hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:.875rem}
+    .hero h1 mark{background:none;color:var(--clr)}
+    .hero-sub{font-size:.9375rem;color:var(--text-2);line-height:1.7;max-width:500px;margin:0 auto}
+
+    /* date display */
+    .date-display{text-align:center;font-size:.8125rem;color:var(--text-4);margin-bottom:.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem}
+    .date-display svg{color:var(--clr)}
+
+    /* sign grid */
+    .sign-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;margin:1rem 0 1.5rem}
+    @media(max-width:480px){.sign-grid{grid-template-columns:repeat(4,1fr)}}
+    .sign-btn{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-lg);padding:.625rem .375rem;cursor:pointer;text-align:center;transition:all .15s;font-family:var(--sans)}
+    .sign-btn:hover{border-color:var(--clr);background:var(--clr-s)}
+    .sign-btn.active{border-color:var(--clr);background:var(--clr-s)}
+    .sign-emoji{font-size:1.375rem;display:block;line-height:1.3}
+    .sign-name{font-size:.65rem;color:var(--text-3);display:block;margin-top:.2rem;font-weight:500}
+    .sign-btn.active .sign-name{color:var(--clr)}
+
+    /* horoscope card */
+    .horo-card{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin:0 0 1.5rem;display:none}
+    .horo-card.show{display:block}
+    .horo-header{padding:1.25rem;border-bottom:1px solid var(--border-s);display:flex;align-items:center;gap:1rem;background:linear-gradient(135deg,var(--clr-s),transparent)}
+    .horo-sign-big{font-size:3rem;line-height:1}
+    .horo-sign-info{flex:1}
+    .horo-sign-name{font-size:1.25rem;font-weight:700;color:var(--text);letter-spacing:-.02em}
+    .horo-sign-dates{font-size:.8rem;color:var(--text-3);margin-top:.1rem}
+    .horo-sign-persona{font-size:.8125rem;color:var(--clr);margin-top:.25rem;font-style:italic}
+    .horo-date-badge{font-size:.72rem;font-weight:600;padding:.25rem .75rem;border-radius:100px;background:var(--clr-s);color:var(--clr)}
+
+    /* prophecy */
+    .horo-prophecy{padding:1.25rem;border-bottom:1px solid var(--border-s)}
+    .section-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-4);margin-bottom:.625rem;display:flex;align-items:center;gap:.4rem}
+    .section-label svg{color:var(--clr)}
+    .prophecy-text{font-size:.9375rem;color:var(--text-2);line-height:1.8;font-style:italic}
+    .prophecy-text.pop{animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+    @keyframes pop{0%{transform:scale(.94);opacity:.3}100%{transform:scale(1);opacity:1}}
+
+    /* meters grid */
+    .meters-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border-top:1px solid var(--border-s);border-bottom:1px solid var(--border-s)}
+    @media(max-width:480px){.meters-grid{grid-template-columns:1fr}}
+    .meter-cell{padding:1rem 1.125rem;border-right:1px solid var(--border-s)}
+    .meter-cell:last-child{border-right:none}
+    .meter-name{font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-4);margin-bottom:.5rem}
+    .stars{display:flex;gap:.2rem;margin-bottom:.375rem}
+    .star-full{color:var(--clr);font-size:.9rem}
+    .star-empty{color:var(--text-4);font-size:.9rem}
+    .meter-desc{font-size:.78rem;color:var(--text-3);line-height:1.55}
+
+    /* lucky row */
+    .lucky-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;border-bottom:1px solid var(--border-s)}
+    .lucky-cell{padding:1rem 1.125rem;border-right:1px solid var(--border-s)}
+    .lucky-cell:last-child{border-right:none}
+    .lucky-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-4);margin-bottom:.375rem}
+    .lucky-value{font-size:.9rem;font-weight:600;color:var(--text);font-family:var(--mono)}
+    .avoid-value{font-size:.9rem;color:var(--text-2)}
+
+    /* commit message */
+    .commit-section{padding:1rem 1.125rem;border-bottom:1px solid var(--border-s)}
+    .commit-msg{font-family:var(--mono);font-size:.85rem;color:var(--clr);background:var(--surface2);padding:.5rem .75rem;border-radius:var(--r-sm);margin-top:.375rem;user-select:all}
+
+    /* footer actions */
+    .horo-footer{padding:.75rem 1rem;display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+    .copy-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border:none;border-radius:var(--r-sm);cursor:pointer;transition:background .15s}
+    .copy-btn:hover{background:var(--accent-h)}
+    .copy-btn.copied{background:var(--green)!important}
+    .share-note{font-size:.75rem;color:var(--text-4);margin-left:auto}
+
+    .info-section{padding:2rem 0;border-top:1px solid var(--border-s)}
+    .info-section h2{font-size:1.125rem;font-weight:600;letter-spacing:-.015em;margin-bottom:.75rem}
+    .info-section p{font-size:.9rem;color:var(--text-2);line-height:1.8;margin-bottom:1rem}
+    .info-section strong{color:var(--text);font-weight:600}
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+    .faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden}
+    .faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}
+    .faq-q:hover{color:var(--text);background:var(--surface2)}
+    .faq-item.open .faq-q{color:var(--text)}
+    .faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease}
+    .faq-item.open .faq-chev{transform:rotate(180deg);color:var(--clr)}
+    .faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-item.open .faq-body{max-height:400px}
+    .faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}
+    .footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+    @media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr}}
+    .footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}
+    .footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}
+    .footer-col ul a:hover{color:var(--text)}
+    .footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+    .footer-bottom p{font-size:.75rem;color:var(--text-4)}
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  </style>
+</head>
+<body>
+<script>(function(){const t=localStorage.getItem('zecure-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();</script>
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      Zecure
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">All Tools</a></li>
+      <li><a href="dev-excuse-generator.html">Dev Excuses</a></li>
+      <li><a href="no-as-a-service.html">No as a Service</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-pills">
+      <div class="pill"><span class="pill-dot"></span>Changes Daily</div>
+      <div class="pill">Date-Seeded</div>
+      <div class="pill">12 Signs</div>
+      <div class="pill">Astrology-Accurate™</div>
+    </div>
+    <h1>Tech <mark>Horoscope</mark></h1>
+    <p class="hero-sub">Daily developer astrology — deployment luck, code review karma, bug magnet index, and your lucky stack. Seeded by today's date, so the same sign gets the same reading all day. Scientifically dubious. Emotionally accurate.</p>
+  </div>
+
+  <div class="date-display">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Reading for <strong id="todayDate"></strong>
+  </div>
+
+  <!-- Sign selector -->
+  <div class="sign-grid" role="group" aria-label="Select your sign" id="signGrid"></div>
+
+  <!-- Horoscope card -->
+  <div class="horo-card" id="horoCard">
+    <div class="horo-header">
+      <div class="horo-sign-big" id="hSignEmoji"></div>
+      <div class="horo-sign-info">
+        <div class="horo-sign-name" id="hSignName"></div>
+        <div class="horo-sign-dates" id="hSignDates"></div>
+        <div class="horo-sign-persona" id="hSignPersona"></div>
+      </div>
+      <div class="horo-date-badge" id="hDateBadge"></div>
+    </div>
+
+    <div class="horo-prophecy">
+      <div class="section-label">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Today's Prophecy
+      </div>
+      <p class="prophecy-text" id="hProphecy"></p>
+    </div>
+
+    <div class="meters-grid">
+      <div class="meter-cell">
+        <div class="meter-name">Deployment Luck</div>
+        <div class="stars" id="hDeployStars"></div>
+        <div class="meter-desc" id="hDeployDesc"></div>
+      </div>
+      <div class="meter-cell">
+        <div class="meter-name">Code Review Karma</div>
+        <div class="stars" id="hReviewStars"></div>
+        <div class="meter-desc" id="hReviewDesc"></div>
+      </div>
+      <div class="meter-cell">
+        <div class="meter-name">Bug Magnet Index</div>
+        <div class="stars" id="hBugStars"></div>
+        <div class="meter-desc" id="hBugDesc"></div>
+      </div>
+    </div>
+
+    <div class="lucky-row">
+      <div class="lucky-cell">
+        <div class="lucky-label">Lucky Stack</div>
+        <div class="lucky-value" id="hLucky"></div>
+      </div>
+      <div class="lucky-cell">
+        <div class="lucky-label">Avoid Today</div>
+        <div class="avoid-value" id="hAvoid"></div>
+      </div>
+    </div>
+
+    <div class="commit-section">
+      <div class="section-label">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="1.05" y1="12" x2="7" y2="12"/><line x1="17.01" y1="12" x2="22.96" y2="12"/></svg>
+        Today's Commit Message
+      </div>
+      <div class="commit-msg" id="hCommit"></div>
+    </div>
+
+    <div class="horo-footer">
+      <button class="copy-btn" id="copyBtn" onclick="copyHoro()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy Reading
+      </button>
+      <div class="share-note">Comes back tomorrow with a different reading</div>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>The Twelve Signs of the Dev Zodiac</h2>
+    <p>Each sign has a distinct coding personality that shapes their daily reading. Here's your guide to the Dev Zodiac:</p>
+    <ul style="margin:.5rem 0 1.25rem 1.25rem;display:flex;flex-direction:column;gap:.5rem">
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♈ Aries</strong> — The Fearless Deployer. Pushes to main on Fridays. Has done so every Friday for years. Has no regrets.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♉ Taurus</strong> — The Legacy Guardian. That module from 2016? Theirs. Still running. Don't touch it.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♊ Gemini</strong> — The Multipotentialite. 23 side projects, 3 in active development, none shipped. All fascinating.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♋ Cancer</strong> — The Empathetic Debugger. Feels bad for the users. Also for the code. Writes apology comments.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♌ Leo</strong> — The PR Showoff. 400-line PR description, architecture diagram included, gif of it running included.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♍ Virgo</strong> — The Perfectionist. PR has been in review for three weeks. Still not ready. The naming is wrong.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♎ Libra</strong> — The Balanced Architect. Both solutions are valid. Both have merit. Decision pending since Q2.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♏ Scorpio</strong> — The Silent Fixer. Fixes prod bugs at 2am. Mentions it to no one. The logs know.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♐ Sagittarius</strong> — The Framework Adventurer. Rewrites everything in the new framework each year. Enthusiastically.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♑ Capricorn</strong> — The Technical Debt Collector. Will definitely pay it back. This sprint. Probably next sprint.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♒ Aquarius</strong> — The Open Source Idealist. Trying to replace everything with a shell script and a philosophy.</li>
+      <li style="font-size:.875rem;color:var(--text-2)"><strong>♓ Pisces</strong> — The Creative Debugger. Rubber duck is best friend. Dream in stack traces. Ship with feeling.</li>
+    </ul>
+
+    <h2 style="margin-top:1.75rem">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Is this actually seeded by the date?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>Yes. The reading uses the current date combined with your sign index as the random seed, ensuring that every person with the same sign sees the same reading on any given day. Come back tomorrow and the reading changes. This is the minimum viable commitment to astrological integrity.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Should I actually not deploy based on this?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>The deployment luck reading is generated by a seeded random function with no knowledge of your infrastructure. However, if your deployment luck shows 1 star and you were planning to deploy anyway, perhaps consider the broader cultural context of Friday deployments before proceeding. The stars are not responsible for your on-call rotation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Can I share my reading?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>Yes. Use the Copy Reading button to copy your full reading as text. Since readings are date-seeded, anyone who checks the same sign on the same day will see the same reading — making them verifiable and shareable without any server or account required.</p></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <a href="index.html" class="logo" style="margin-bottom:.5rem;display:inline-flex">
+        <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        Zecure
+      </a>
+      <p>Free, browser-only security tools. No tracking, no servers, no nonsense.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Fun Generators</h4>
+      <ul>
+        <li><a href="funny-password-generator.html">Funny Password</a></li>
+        <li><a href="no-as-a-service.html">No as a Service</a></li>
+        <li><a href="password-roaster.html">Password Roaster</a></li>
+        <li><a href="dev-excuse-generator.html">Dev Excuse Generator</a></li>
+        <li><a href="meeting-decline-generator.html">Meeting Decline</a></li>
+        <li><a href="error-message-generator.html">Error Generator</a></li>
+        <li><a href="tech-horoscope.html">Tech Horoscope</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Security Tools</h4>
+      <ul>
+        <li><a href="password-generator.html">Password</a></li>
+        <li><a href="passphrase-generator.html">Passphrase</a></li>
+        <li><a href="uuid-generator.html">UUID Generator</a></li>
+        <li><a href="hash-generator.html">Hash Generator</a></li>
+        <li><a href="api-key-generator.html">API Key</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="blog/index.html">Blog</a></li>
+        <li><a href="blog/password-entropy-explained.html">Password Entropy</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Zecure. All tools run client-side — your data never leaves your browser.</p>
+    <p>No cookies &middot; No analytics &middot; No accounts</p>
+  </div>
+</footer>
+
+<script>
+const SIGNS = [
+  { emoji:'♈', name:'Aries',       dates:'Mar 21–Apr 19', persona:'The Fearless Deployer' },
+  { emoji:'♉', name:'Taurus',      dates:'Apr 20–May 20', persona:'The Legacy Guardian' },
+  { emoji:'♊', name:'Gemini',      dates:'May 21–Jun 20', persona:'The Multipotentialite' },
+  { emoji:'♋', name:'Cancer',      dates:'Jun 21–Jul 22', persona:'The Empathetic Debugger' },
+  { emoji:'♌', name:'Leo',         dates:'Jul 23–Aug 22', persona:'The PR Showoff' },
+  { emoji:'♍', name:'Virgo',       dates:'Aug 23–Sep 22', persona:'The Perfectionist' },
+  { emoji:'♎', name:'Libra',       dates:'Sep 23–Oct 22', persona:'The Balanced Architect' },
+  { emoji:'♏', name:'Scorpio',     dates:'Oct 23–Nov 21', persona:'The Silent Fixer' },
+  { emoji:'♐', name:'Sagittarius', dates:'Nov 22–Dec 21', persona:'The Framework Adventurer' },
+  { emoji:'♑', name:'Capricorn',   dates:'Dec 22–Jan 19', persona:'The Technical Debt Collector' },
+  { emoji:'♒', name:'Aquarius',    dates:'Jan 20–Feb 18', persona:'The Open Source Idealist' },
+  { emoji:'♓', name:'Pisces',      dates:'Feb 19–Mar 20', persona:'The Creative Debugger' },
+];
+
+const PROPHECIES = [
+  "The stars suggest this is a good day to write documentation. You will not write documentation.",
+  "A mysterious bug will appear at 4:47pm. You will trace it to something you added this morning.",
+  "Someone will ask if you 'have five minutes.' It will take forty-five. The stars knew.",
+  "The universe is aligned for clean code today. Write it while the alignment lasts.",
+  "A dependency will release a breaking change without warning. You will find it in production.",
+  "Today is a favourable day for refactoring. An unfavourable day for explaining why it took so long.",
+  "The logs will lie to you this morning. Trust nothing until noon.",
+  "Someone will revert your most beautiful commit. The reasons will be political.",
+  "A senior engineer will say 'that's interesting' about your code. You will spend the rest of the day wondering what they meant.",
+  "The tests will pass locally. The tests will fail in CI. The difference will be one env var you didn't write.",
+  "Today favours async communication. All async communication will remain unread until after the deadline.",
+  "A simple task will reveal a hidden system of unexpected complexity. You will be changed by it.",
+  "Mercury suggests you avoid committing late today. You will commit at 11:58pm.",
+  "The cosmic winds favour a clean git history. Today you will write commits named 'fix', 'more fix', and 'please work'.",
+  "A rubber duck will solve your problem. You will not acknowledge this publicly.",
+  "Today is not a good day to deploy. You will deploy anyway. The stars admire the commitment.",
+  "An ancient TODO will call to you from the depths of the codebase. Do not answer.",
+  "The stars align for deep focus work. Someone will ping you every 12 minutes.",
+  "You will have a brilliant idea in the shower. You will forget it before you reach your desk.",
+  "A meeting that could have been an email will expand to fill all available time.",
+  "Today someone will open a ticket that simply says 'it's broken.' You will find them.",
+  "Stack Overflow will betray you exactly when you need it most. Seek within.",
+  "A deployment on a Friday looms in your future. The stars are watching.",
+  "You will finally understand that one piece of code. You will be unable to explain it to anyone.",
+  "Today brings an unexpected database migration. Bring snacks.",
+  "Someone will push directly to main. You will discover it three hours later.",
+  "A cryptic error message will lead you on a journey. The destination: it was DNS.",
+  "Today is a good day to set boundaries. Start with the scope of your ticket.",
+  "Your most elegant solution will be rejected for being 'too clever.' They're not wrong.",
+  "The person who caused the incident has volunteered to write the post-mortem. This will be interesting.",
+];
+
+const DEPLOY_DATA = [
+  { stars:1, desc:"Avoid production. Stay in local. The universe is not ready for your changes, and neither is your rollback plan." },
+  { stars:2, desc:"Proceed with extra caution. Double-check the checklist. Then check the checklist for the checklist." },
+  { stars:3, desc:"Neutral deployment energy. Neither blessed nor cursed. Perhaps not a Friday." },
+  { stars:4, desc:"Favourable conditions. Deploy with confidence. Have a rollback ready anyway. Always have a rollback." },
+  { stars:5, desc:"Outstanding deploy day. The servers are warm, the stars are aligned, and your tests all passed. Go." },
+];
+
+const REVIEW_DATA = [
+  { stars:1, desc:"Your PR will receive fourteen comments, none of them on the code. Start with the description." },
+  { stars:2, desc:"Reviewers are in a pedantic mood. Every variable name is suspect. Every pattern is debatable." },
+  { stars:3, desc:"Average review energy. Expect two or three reasonable comments. Merge by end of week." },
+  { stars:4, desc:"Reviewers are generous today. Constructive comments, quick approvals, positive vibes in the thread." },
+  { stars:5, desc:"Perfect review karma. LGTM in one comment. No nits. Merged before lunch. Screenshot this." },
+];
+
+const BUG_DATA = [
+  { stars:1, desc:"You are repelling bugs today. A good day for testing in environments others fear." },
+  { stars:2, desc:"Low bug attraction. Any issues found will be minor and well-documented." },
+  { stars:3, desc:"Median bug day. Bugs exist. You will find them. This is normal." },
+  { stars:4, desc:"Elevated bug magnetism. Bugs you didn't write will find you. Edge cases will present themselves." },
+  { stars:5, desc:"Maximum bug attraction. You are a lighthouse for defects today. Every edge case knows your name." },
+];
+
+const LUCKY_STACKS = ['TypeScript + PostgreSQL','Rust','Go + Redis','Python + FastAPI','Next.js','Svelte','Elixir + Phoenix','SQLite','Bun','Terraform','Vim (just Vim)','Deno','Linux + Bash','GraphQL','Docker Compose'];
+
+const AVOID_LIST = [
+  'the /legacy folder','anything touching billing','the Makefile','the monorepo root','node_modules (obviously)','that one microservice nobody owns','the authentication module','the search feature','any file last touched in 2019','the CI configuration','that thing Jenkins does','production database direct connections'];
+
+const COMMITS = [
+  'fix: things','feat: add feature (wip)','chore: misc cleanup','fix: actually fix the fix','temp: remove before prod','wip: do not review yet','fix: forgot to save','fix: I think this works','chore: touched some stuff','feat: per slack discussion','fix: edge case (it was the main case)','chore: fix typo in README (also rewrote 3 services)','feat: the thing from the meeting','fix: really this time','wip: taking a break','chore: ugh','feat: 🚀','fix: null check (should have been there)','refactor: not actually a refactor','fix: using wrong variable name (it was me)','feat: new feature (hope it works)','fix: make it go','chore: delete old files (added some new ones too)','feat: trust me','revert: revert revert revert'];
+
+// ── Seeded random ──────────────────────────────────────
+function seededRand(seed) {
+  let s = seed;
+  return function() {
+    s = (s * 1664525 + 1013904223) & 0xffffffff;
+    return (s >>> 0) / 4294967296;
+  };
+}
+
+function getDaySeed() {
+  const d = new Date();
+  return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+}
+
+function pickSeeded(arr, rng) {
+  return arr[Math.floor(rng() * arr.length)];
+}
+
+// ── Build sign grid ────────────────────────────────────
+function buildGrid() {
+  const grid = document.getElementById('signGrid');
+  SIGNS.forEach((s, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sign-btn';
+    btn.dataset.idx = i;
+    btn.innerHTML = `<span class="sign-emoji">${s.emoji}</span><span class="sign-name">${s.name}</span>`;
+    btn.onclick = () => selectSign(i, btn);
+    grid.appendChild(btn);
+  });
+}
+
+// ── Date display ───────────────────────────────────────
+function buildDate() {
+  const d = new Date();
+  document.getElementById('todayDate').textContent = d.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+}
+
+// ── Stars ──────────────────────────────────────────────
+function stars(n) {
+  let s = '';
+  for (let i = 1; i <= 5; i++) s += `<span class="${i <= n ? 'star-full' : 'star-empty'}">★</span>`;
+  return s;
+}
+
+// ── Generate horoscope ─────────────────────────────────
+let currentHoroText = '';
+let activeSignIdx = -1;
+
+function selectSign(idx, btn) {
+  document.querySelectorAll('.sign-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeSignIdx = idx;
+  generateHoroscope(idx);
+}
+
+function generateHoroscope(idx) {
+  const sign = SIGNS[idx];
+  const daySeed = getDaySeed();
+  const seed = daySeed * 100 + idx;
+  const rng = seededRand(seed);
+
+  const prophecy = pickSeeded(PROPHECIES, rng);
+  const deployData = pickSeeded(DEPLOY_DATA, rng);
+  const reviewData = pickSeeded(REVIEW_DATA, rng);
+  const bugData = pickSeeded(BUG_DATA, rng);
+  const luckyStack = pickSeeded(LUCKY_STACKS, rng);
+  const avoid = pickSeeded(AVOID_LIST, rng);
+  const commit = pickSeeded(COMMITS, rng);
+
+  // Update card
+  document.getElementById('hSignEmoji').textContent = sign.emoji;
+  document.getElementById('hSignName').textContent = sign.name;
+  document.getElementById('hSignDates').textContent = sign.dates;
+  document.getElementById('hSignPersona').textContent = sign.persona;
+  document.getElementById('hDateBadge').textContent = new Date().toLocaleDateString('en-US', { month:'short', day:'numeric' });
+
+  const prophecyEl = document.getElementById('hProphecy');
+  prophecyEl.textContent = prophecy;
+  prophecyEl.classList.remove('pop');
+  void prophecyEl.offsetWidth;
+  prophecyEl.classList.add('pop');
+
+  document.getElementById('hDeployStars').innerHTML = stars(deployData.stars);
+  document.getElementById('hDeployDesc').textContent = deployData.desc;
+  document.getElementById('hReviewStars').innerHTML = stars(reviewData.stars);
+  document.getElementById('hReviewDesc').textContent = reviewData.desc;
+  document.getElementById('hBugStars').innerHTML = stars(bugData.stars);
+  document.getElementById('hBugDesc').textContent = bugData.desc;
+
+  document.getElementById('hLucky').textContent = luckyStack;
+  document.getElementById('hAvoid').textContent = avoid;
+  document.getElementById('hCommit').textContent = commit;
+
+  const card = document.getElementById('horoCard');
+  card.classList.add('show');
+
+  currentHoroText = [
+    `Tech Horoscope — ${sign.name} (${sign.dates})`,
+    `${sign.persona}`,
+    `Date: ${new Date().toDateString()}`,
+    '',
+    `Today's Prophecy:`,
+    prophecy,
+    '',
+    `Deployment Luck: ${'★'.repeat(deployData.stars)}${'☆'.repeat(5 - deployData.stars)}`,
+    deployData.desc,
+    '',
+    `Code Review Karma: ${'★'.repeat(reviewData.stars)}${'☆'.repeat(5 - reviewData.stars)}`,
+    reviewData.desc,
+    '',
+    `Bug Magnet Index: ${'★'.repeat(bugData.stars)}${'☆'.repeat(5 - bugData.stars)}`,
+    bugData.desc,
+    '',
+    `Lucky Stack: ${luckyStack}`,
+    `Avoid Today: ${avoid}`,
+    '',
+    `Today's Commit Message: ${commit}`,
+    '',
+    `Reading from zecure.net/tech-horoscope.html`,
+  ].join('\n');
+}
+
+function copyHoro() {
+  if (!currentHoroText) return;
+  navigator.clipboard.writeText(currentHoroText).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    showToast('Reading copied — may the stars guide your deploys');
+    setTimeout(() => { btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Reading'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded','false'); });
+  if (!open) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+}
+
+function toggleTheme() {
+  const d = document.documentElement;
+  const next = d.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  d.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+buildGrid();
+buildDate();
+</script>
+</body>
+</html>

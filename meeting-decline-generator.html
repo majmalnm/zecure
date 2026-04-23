@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meeting Decline Generator — Professional Excuses to Escape Any Meeting | Zecure</title>
+  <meta name="description" content="Free meeting decline generator — 80+ professionally-worded reasons to say no to any meeting. Formatted as ready-to-send Slack or email responses. 100% client-side.">
+  <meta name="keywords" content="meeting decline generator, how to decline a meeting, meeting excuse, skip meeting, cancel meeting professionally, say no to meetings, meeting decline template">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/meeting-decline-generator.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Csvg x='20' y='20' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Meeting Decline Generator — Escape Any Meeting Professionally | Zecure">
+  <meta property="og:description" content="80+ ready-to-send meeting decline messages. Technical Conflict, Strategic Priority, Calendar Defense, Async Advocate, Vague but Firm.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#3b82f6;--accent-h:#2563eb;--accent-s:rgba(59,130,246,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--clr:#3b82f6;--clr-s:rgba(59,130,246,0.12);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#2563eb;--accent-h:#1d4ed8;--accent-s:rgba(37,99,235,0.08);--clr:#2563eb;--clr-s:rgba(37,99,235,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--accent-s);color:var(--text)}
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}
+    .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem}
+    .logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:#6366f1;color:#fff;display:flex;align-items:center;justify-content:center}
+    .nav-links{display:flex;list-style:none;gap:.125rem}
+    .nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}
+    .nav-links a:hover{color:var(--text);background:var(--surface2)}
+    @media(max-width:640px){.nav-links{display:none}}
+    .nav-right{margin-left:auto}
+    .icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,background .15s}
+    .icon-btn:hover{color:var(--text);background:var(--surface2)}
+    .icon-btn .sun{display:none}.icon-btn .moon{display:block}
+    [data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    main{max-width:680px;margin:0 auto;padding:0 1.5rem}
+    .hero{padding:3rem 0 1.5rem;text-align:center}
+    .hero-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+    .pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}
+    .pill-dot{width:5px;height:5px;border-radius:50%;background:var(--clr);box-shadow:0 0 0 2px var(--clr-s)}
+    .hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:.875rem}
+    .hero h1 mark{background:none;color:var(--clr)}
+    .hero-sub{font-size:.9375rem;color:var(--text-2);line-height:1.7;max-width:480px;margin:0 auto}
+
+    /* optional input */
+    .input-row{display:flex;gap:.625rem;margin:1rem 0 .75rem;align-items:center}
+    .mtg-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-family:var(--sans);font-size:.875rem;padding:.5rem .75rem;outline:none;transition:border-color .15s}
+    .mtg-input:focus{border-color:var(--clr)}
+    .mtg-input::placeholder{color:var(--text-4)}
+    .input-label{font-size:.8125rem;color:var(--text-3);margin-bottom:.375rem}
+
+    /* category */
+    .cat-row{display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:wrap;margin:.5rem 0 1.5rem}
+    .cat-btn{display:inline-flex;align-items:center;gap:.3rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-3);font-size:.75rem;font-weight:500;padding:.3rem .7rem;border-radius:100px;cursor:pointer;transition:all .15s;font-family:var(--sans)}
+    .cat-btn:hover,.cat-btn.active{background:var(--clr-s);border-color:var(--clr);color:var(--clr)}
+
+    /* calendar btn */
+    .cal-stage{display:flex;justify-content:center;padding:.5rem 0 1.5rem}
+    .cal-btn{
+      display:inline-flex;align-items:center;gap:.75rem;
+      background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+      color:var(--text);font-family:var(--sans);font-size:1rem;font-weight:600;
+      padding:1rem 2rem;cursor:pointer;transition:all .2s;
+      box-shadow:0 4px 16px rgba(0,0,0,.3);
+    }
+    .cal-btn:hover{border-color:var(--clr);color:var(--clr);transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,.2)}
+    .cal-btn:active{transform:scale(.98) translateY(0)}
+    .cal-icon{width:40px;height:40px;border-radius:var(--r-sm);background:var(--clr-s);color:var(--clr);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+    /* message output */
+    .message-box{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin:0 0 1.5rem}
+    .msg-chrome{background:var(--surface2);padding:.625rem 1rem;border-bottom:1px solid var(--border-s);display:flex;align-items:center;gap:.625rem}
+    .app-dot{width:10px;height:10px;border-radius:50%}
+    .msg-app-name{font-size:.75rem;font-weight:600;color:var(--text-3);letter-spacing:.04em;text-transform:uppercase;flex:1;text-align:center}
+    .cat-badge{font-size:.68rem;font-weight:600;padding:.15rem .55rem;border-radius:4px;background:var(--clr-s);color:var(--clr);letter-spacing:.04em;text-transform:uppercase}
+    .msg-body{padding:1.25rem}
+    .msg-subject{font-size:.75rem;font-weight:600;color:var(--text-4);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.75rem}
+    .msg-text{font-size:.9375rem;color:var(--text-2);line-height:1.85;white-space:pre-wrap;user-select:all;min-height:4rem}
+    .msg-text.empty{color:var(--text-4);font-style:italic;font-size:.875rem}
+    .msg-text.pop{animation:pop .35s cubic-bezier(.34,1.56,.64,1)}
+    @keyframes pop{0%{transform:scale(.93);opacity:.3}100%{transform:scale(1);opacity:1}}
+    .msg-footer{padding:.75rem 1rem;border-top:1px solid var(--border-s);display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+    .copy-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border:none;border-radius:var(--r-sm);cursor:pointer;transition:background .15s}
+    .copy-btn:hover{background:var(--accent-h)}
+    .copy-btn.copied{background:var(--green)!important}
+    .regen-link{font-size:.8125rem;color:var(--text-3);cursor:pointer;background:none;border:none;font-family:var(--sans);display:flex;align-items:center;gap:.3rem;transition:color .15s}
+    .regen-link:hover{color:var(--clr)}
+    .decline-count{margin-left:auto;font-size:.75rem;color:var(--text-4)}
+    .decline-count span{color:var(--clr);font-weight:600}
+
+    .egg{display:none;text-align:center;font-size:.875rem;color:var(--clr);margin-bottom:1rem;padding:.625rem;background:var(--clr-s);border-radius:var(--r);border:1px solid rgba(59,130,246,.2)}
+
+    .info-section{padding:2rem 0;border-top:1px solid var(--border-s)}
+    .info-section h2{font-size:1.125rem;font-weight:600;letter-spacing:-.015em;margin-bottom:.75rem}
+    .info-section p{font-size:.9rem;color:var(--text-2);line-height:1.8;margin-bottom:1rem}
+    .info-section strong{color:var(--text);font-weight:600}
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+    .faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden}
+    .faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}
+    .faq-q:hover{color:var(--text);background:var(--surface2)}
+    .faq-item.open .faq-q{color:var(--text)}
+    .faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease}
+    .faq-item.open .faq-chev{transform:rotate(180deg);color:var(--clr)}
+    .faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-item.open .faq-body{max-height:400px}
+    .faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}
+    .footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+    @media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr}}
+    .footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}
+    .footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}
+    .footer-col ul a:hover{color:var(--text)}
+    .footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+    .footer-bottom p{font-size:.75rem;color:var(--text-4)}
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  </style>
+</head>
+<body>
+<script>(function(){const t=localStorage.getItem('zecure-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();</script>
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      Zecure
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">All Tools</a></li>
+      <li><a href="no-as-a-service.html">No as a Service</a></li>
+      <li><a href="dev-excuse-generator.html">Dev Excuses</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-pills">
+      <div class="pill"><span class="pill-dot"></span>80+ Declines</div>
+      <div class="pill">5 Categories</div>
+      <div class="pill">Copy-ready</div>
+      <div class="pill">Async Friendly</div>
+    </div>
+    <h1>Meeting <mark>Decline Generator</mark></h1>
+    <p class="hero-sub">This meeting could have been an email. Prove it. Generate a professionally-worded meeting decline in one click — ready to paste into Slack, email, or the void.</p>
+  </div>
+
+  <!-- Optional context input -->
+  <div style="background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1rem 1.25rem;margin:1rem 0 1rem">
+    <p class="input-label">Meeting name <span style="color:var(--text-4)">(optional — leave blank for a general decline)</span></p>
+    <div class="input-row">
+      <input class="mtg-input" id="mtgName" type="text" placeholder="e.g. Weekly Sync, Q3 Planning, Stakeholder Alignment…" maxlength="80">
+    </div>
+  </div>
+
+  <div class="cat-row" role="group" aria-label="Decline style">
+    <button class="cat-btn active" data-cat="all" onclick="selectCat(this)">All Styles</button>
+    <button class="cat-btn" data-cat="technical" onclick="selectCat(this)">💻 Technical Conflict</button>
+    <button class="cat-btn" data-cat="strategic" onclick="selectCat(this)">🎯 Strategic Priority</button>
+    <button class="cat-btn" data-cat="calendar" onclick="selectCat(this)">📅 Calendar Defense</button>
+    <button class="cat-btn" data-cat="async" onclick="selectCat(this)">💬 Async Advocate</button>
+    <button class="cat-btn" data-cat="vague" onclick="selectCat(this)">🌫️ Vague but Firm</button>
+  </div>
+
+  <div class="cal-stage">
+    <button class="cal-btn" onclick="onDecline()" id="calBtn">
+      <div class="cal-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      Decline this meeting
+    </button>
+  </div>
+
+  <div class="egg" id="easterEgg"></div>
+
+  <div class="message-box">
+    <div class="msg-chrome">
+      <div class="app-dot" style="background:#ef4444"></div>
+      <div class="app-dot" style="background:#f59e0b;margin-left:6px"></div>
+      <div class="app-dot" style="background:#22c55e;margin-left:6px"></div>
+      <div class="msg-app-name">Message Draft</div>
+      <span class="cat-badge" id="catBadge">Ready</span>
+    </div>
+    <div class="msg-body">
+      <div class="msg-subject" id="msgSubject"></div>
+      <div class="msg-text empty" id="msgText" aria-live="polite">Click "Decline this meeting" to generate your professional response.</div>
+    </div>
+    <div class="msg-footer">
+      <button class="copy-btn" id="copyBtn" onclick="copyMsg()" disabled>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy Message
+      </button>
+      <button class="regen-link" onclick="onDecline()" id="regenBtn" disabled>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Different style
+      </button>
+      <div class="decline-count">Declined: <span id="declineCount">0</span></div>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>Five Ways to Say No to a Meeting</h2>
+    <p>Not all meeting declines are created equal. The right style depends on the relationship, the stakes, and how much honesty you can afford:</p>
+    <ul style="margin:.5rem 0 1.25rem 1.25rem;display:flex;flex-direction:column;gap:.6rem">
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>💻 Technical Conflict</strong> — You have a deployment, an incident, a code review. Concrete and hard to argue with.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>🎯 Strategic Priority</strong> — A higher-priority item exists. Vague enough to be unfalsifiable, professional enough to be respected.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>📅 Calendar Defense</strong> — The slot is taken. Maybe by a real conflict, maybe by a focus block you're placing right now.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>💬 Async Advocate</strong> — You believe this doesn't need a meeting. You're probably right. This category also functions as a constructive suggestion.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>🌫️ Vague but Firm</strong> — No explanation offered. None owed. A polite, unambiguous no with nothing to argue against.</li>
+    </ul>
+
+    <h2 style="margin-top:1.75rem">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Can I send these as-is?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>Yes, with a light personal edit. Add the person's name at the start and sign off with your name. All declines are written in first-person, professional prose — they're ready for Slack or email with minimal modification. The optional meeting name input will tailor the message further.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          What's the most versatile category?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>Vague but Firm works for virtually any relationship — it's warm without being specific, firm without being rude, and offers nothing to debate. Async Advocate works best when you have some standing to suggest a process change. Calendar Defense is safest with managers.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Is it rude to decline meetings?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>No. Declining a meeting you can't contribute to — or that shouldn't be a meeting — is a professional service to everyone involved. The rudeness is in accepting meetings you'll be checked out in, or attending just to have your name on the invite. A thoughtful decline is more respectful than a distracted attendance.</p></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <a href="index.html" class="logo" style="margin-bottom:.5rem;display:inline-flex">
+        <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        Zecure
+      </a>
+      <p>Free, browser-only security tools. No tracking, no servers, no nonsense.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Fun Generators</h4>
+      <ul>
+        <li><a href="funny-password-generator.html">Funny Password</a></li>
+        <li><a href="no-as-a-service.html">No as a Service</a></li>
+        <li><a href="password-roaster.html">Password Roaster</a></li>
+        <li><a href="dev-excuse-generator.html">Dev Excuse Generator</a></li>
+        <li><a href="meeting-decline-generator.html">Meeting Decline</a></li>
+        <li><a href="error-message-generator.html">Error Generator</a></li>
+        <li><a href="tech-horoscope.html">Tech Horoscope</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Security Tools</h4>
+      <ul>
+        <li><a href="password-generator.html">Password</a></li>
+        <li><a href="passphrase-generator.html">Passphrase</a></li>
+        <li><a href="uuid-generator.html">UUID Generator</a></li>
+        <li><a href="hash-generator.html">Hash Generator</a></li>
+        <li><a href="api-key-generator.html">API Key</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="blog/index.html">Blog</a></li>
+        <li><a href="blog/password-entropy-explained.html">Password Entropy</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Zecure. All tools run client-side — your data never leaves your browser.</p>
+    <p>No cookies &middot; No analytics &middot; No accounts</p>
+  </div>
+</footer>
+
+<script>
+const DECLINES = {
+  technical: [
+    { sub:"Re: [meeting]", msg:"Hey — I have a critical deployment window during this slot that I can't move. If anything goes sideways I'll need to be heads-down on remediation. Can someone share notes? Happy to async my input beforehand if there's an agenda." },
+    { sub:"Re: [meeting] (conflict)", msg:"I'm blocked mid-investigation on an incident and can't context-switch without losing the thread. Will share notes async. Sorry for any inconvenience." },
+    { sub:"Re: [meeting]", msg:"I've got a code review with a hard deadline during this slot — two engineers blocked and I'm the blocker. Would love to catch up on the recording if there is one." },
+    { sub:"Re: [meeting]", msg:"I'm mid-migration during this window and the rollback period overlaps with the meeting start. I need to actively monitor it. Can we catch up async?" },
+    { sub:"Re: [meeting] — quick note", msg:"I'll be on-call response during this slot. I can technically attend but won't be able to give it proper attention — which doesn't serve anyone well. Please proceed without me and I'll review notes." },
+    { sub:"Re: [meeting]", msg:"I have a pair programming session already locked in for this time and cancelling would unblock another engineer. I'll catch up on outputs." },
+    { sub:"Re: [meeting]", msg:"That's my dedicated deep-work block for a particularly thorny architecture problem. I've blocked it to protect a delivery commitment. Is there a recording option?" },
+    { sub:"Re: [meeting]", msg:"I'm running a long-running data backfill during this window that needs monitoring. I won't be able to give the meeting proper attention. Notes would be great." },
+    { sub:"Re: [meeting]", msg:"I have a vendor call that was booked weeks out and can't be rescheduled without significant downstream cost. Could someone take notes for me?" },
+    { sub:"Re: [meeting]", msg:"That time slot is my weekly infrastructure review — I'm afraid I can't move it. Can we find a different window, or could I get the summary afterward?" },
+    { sub:"Re: [meeting] invite", msg:"I'm in the middle of debugging a production issue that I can't step away from. I'll catch up on anything actionable that concerns me — please tag me in notes." },
+    { sub:"Re: [meeting]", msg:"I have a critical PR review in flight — blocking two engineers — and I can't context-switch mid-review without losing state. Can I get an async summary?" },
+  ],
+  strategic: [
+    { sub:"Re: [meeting]", msg:"I'm heads-down on a P0 initiative this sprint and need to protect my focus time. Would love a summary doc instead — happy to give input async if there's something specific needed from me." },
+    { sub:"Re: [meeting]", msg:"My OKRs this quarter are pushing me toward async-first communication where possible. Could this be a Loom or a document? I can turn around written feedback faster than a meeting slot." },
+    { sub:"Re: [meeting]", msg:"I'm in crunch on a deliverable due EOW and even 30 minutes of context switch has a meaningful recovery cost right now. Please proceed without me and I'll review any decisions that touch my work." },
+    { sub:"Re: [meeting]", msg:"I've been asked to reduce meeting load this sprint to focus on delivery. This one falls outside the exceptions I've been given. Could I contribute async?" },
+    { sub:"Re: [meeting]", msg:"I'm on a maker's schedule this week and a mid-day meeting breaks the flow I need to ship this feature. Can I give input before the call instead?" },
+    { sub:"Re: [meeting]", msg:"My manager has specifically asked me not to add to my calendar this sprint while I'm on a delivery push. I'll pick up anything relevant from notes." },
+    { sub:"Re: [meeting]", msg:"I'm trying to hit a milestone and every hour counts this week. Could we async this? Happy to respond to a doc or a voice memo within a few hours." },
+    { sub:"Re: [meeting]", msg:"This conflicts with my focus time that's been blocked to protect a delivery commitment. Could someone flag me on anything that needs my input?" },
+    { sub:"Re: [meeting]", msg:"I have competing priorities that sit higher in my queue this sprint. I'll catch up on outputs — please loop me in if there are any decisions that need my sign-off." },
+    { sub:"Re: [meeting]", msg:"I'm in a sprint where I've committed to deep-focus work in this window. I'll be OOO-equivalent for meetings during this block — notes would be very appreciated." },
+  ],
+  calendar: [
+    { sub:"Re: [meeting] — conflict", msg:"I have a recurring block during this time that I can't move — it's been there for months and the rest of the team's schedule is built around it. Could we find a different window?" },
+    { sub:"Re: [meeting]", msg:"That slot is already double-booked on my end. Both commitments were established first. Could we look at alternatives?" },
+    { sub:"Re: [meeting]", msg:"I'm travelling during this window and won't have reliable connectivity. Happy to contribute async or join the next one." },
+    { sub:"Re: [meeting]", msg:"Tuesdays are my designated deep-work day — the only day I keep clear of meetings. It's the only way I get long-form thinking done. Any chance of a different day?" },
+    { sub:"Re: [meeting]", msg:"My timezone makes this slot a difficult one — it lands very early/late for me. I'll do my best to contribute async if there are pre-read materials." },
+    { sub:"Re: [meeting]", msg:"I'm OOO that day — it's already been approved and is in the system. Please proceed without me and I'll catch up on my return." },
+    { sub:"Re: [meeting]", msg:"I have a doctor's appointment that I've been waiting three months for and can't move. I'll review notes when I'm back." },
+    { sub:"Re: [meeting]", msg:"My calendar is maxed this sprint — I've hit my meeting hours target and any additional time comes directly out of delivery. Could this wait until next sprint?" },
+    { sub:"Re: [meeting]", msg:"Fridays are protected time for me. I keep them clear for focused work and only attend meetings on Fridays in urgent situations. Could we find a weekday slot?" },
+    { sub:"Re: [meeting]", msg:"This overlaps with a team commitment I can't move. I'll flag anything from this meeting that requires my follow-up — please share notes." },
+  ],
+  async: [
+    { sub:"Re: [meeting] — async alternative?", msg:"Would a shared doc with comments work for this? I find we often resolve these more efficiently async — fewer scheduling constraints, more considered input. Happy to start the doc if it's helpful." },
+    { sub:"Re: [meeting]", msg:"Could this be a Loom? I can watch it at 2x and give written feedback in less time than the meeting would take — and my input would probably be more useful in writing anyway." },
+    { sub:"Re: [meeting]", msg:"A written brief with a 48-hour comment window might actually get more thoughtful input from the team than a real-time call. Happy to contribute if someone writes it up." },
+    { sub:"Re: [meeting]", msg:"I'd love to contribute but could I do it async? I find I give better input when I'm not performing real-time. Send me the brief and I'll have notes back quickly." },
+    { sub:"Re: [meeting]", msg:"What if we trial this as a document-first discussion? If we can't converge async, we schedule the meeting with a clear agenda and a shorter runtime." },
+    { sub:"Re: [meeting]", msg:"Could whoever's driving this write up a quick decision doc? That way I can engage when I have focus time and give more considered input than I could in a call." },
+    { sub:"Re: [meeting]", msg:"Happy to be an async stakeholder on this. Send me the doc and I'll have comments back within 24 hours — probably faster than finding a slot that works for everyone." },
+    { sub:"Re: [meeting]", msg:"I strongly believe this can be resolved without a meeting. I'd love to be proven wrong — but could we try async first and only schedule the call if we get stuck?" },
+    { sub:"Re: [meeting]", msg:"My honest suggestion: if this needs a meeting to resolve, the problem might be larger than one meeting can address. A document might surface that and save everyone time." },
+    { sub:"Re: [meeting]", msg:"Can someone take notes and share after? I'll give my input before the call if there's an agenda circulated in advance — that way I'm still contributing even if I can't join live." },
+  ],
+  vague: [
+    { sub:"Re: [meeting]", msg:"That time doesn't work for me, unfortunately. Could we explore other options, or would it be possible to get notes afterward?" },
+    { sub:"Re: [meeting]", msg:"I have a prior commitment during this slot that I can't move. Please proceed without me and do share any actions or decisions that need my input." },
+    { sub:"Re: [meeting]", msg:"My plate is pretty full this week. I'll be following along async — would love to see the notes when they're ready." },
+    { sub:"Re: [meeting]", msg:"I won't be able to make it, but I'll review the recording if there is one. Please tag me in anything that needs my attention." },
+    { sub:"Re: [meeting]", msg:"That time is spoken for on my end. Happy to connect separately if there's a direct ask for me." },
+    { sub:"Re: [meeting]", msg:"I've got a conflict, but I trust the team to move forward. Keep me in the loop and I'll pick up anything that lands in my domain." },
+    { sub:"Re: [meeting]", msg:"I'm going to have to sit this one out. Please proceed without me — I'll catch up on notes." },
+    { sub:"Re: [meeting]", msg:"I have a conflict this week. Notes would be great if someone's taking them." },
+    { sub:"Re: [meeting]", msg:"I have bandwidth constraints this week that make this difficult. I'll review the output and follow up on anything that involves me." },
+    { sub:"Re: [meeting]", msg:"Regrettably, I won't be able to join. I'll catch up asynchronously — please do note any decisions or actions that I should be aware of." },
+    { sub:"Re: [meeting]", msg:"I can't make it — I have something I can't move. Feel free to proceed and I'll pick up from notes." },
+    { sub:"Re: [meeting]", msg:"That slot's taken on my end. Could we find another time, or could I contribute in advance if there's an agenda?" },
+  ],
+};
+
+const ALL = Object.entries(DECLINES).flatMap(([cat, items]) => items.map(d => ({ cat, ...d })));
+const CAT_LABELS = { technical:'💻 Technical', strategic:'🎯 Strategic', calendar:'📅 Calendar', async:'💬 Async', vague:'🌫️ Vague' };
+
+let activeCat = 'all';
+let currentMsg = '';
+let declineCount = 0;
+
+function selectCat(btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+}
+
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function onDecline() {
+  const pool = activeCat === 'all' ? ALL : ALL.filter(d => d.cat === activeCat);
+  const picked = pick(pool);
+  const mtgName = document.getElementById('mtgName').value.trim();
+
+  let sub = picked.sub;
+  let msg = picked.msg;
+
+  if (mtgName) {
+    sub = sub.replace('[meeting]', mtgName);
+    msg = msg.replace('[meeting]', `"${mtgName}"`);
+  } else {
+    sub = sub.replace(' [meeting]', '').replace('[meeting]', 'meeting');
+    msg = msg.replace('[meeting]', 'this meeting');
+  }
+
+  currentMsg = `${sub}\n\n${msg}`;
+  declineCount++;
+  document.getElementById('declineCount').textContent = declineCount;
+
+  document.getElementById('msgSubject').textContent = sub;
+  document.getElementById('catBadge').textContent = CAT_LABELS[picked.cat] || picked.cat;
+
+  const el = document.getElementById('msgText');
+  el.textContent = msg;
+  el.classList.remove('empty', 'pop');
+  void el.offsetWidth;
+  el.classList.add('pop');
+
+  document.getElementById('copyBtn').disabled = false;
+  document.getElementById('regenBtn').disabled = false;
+
+  // Easter eggs
+  const egg = document.getElementById('easterEgg');
+  if (declineCount === 5) { egg.textContent = "Five declines. You're protecting your calendar with an efficiency that borders on art."; egg.style.display = 'block'; }
+  else if (declineCount === 15) { egg.textContent = "Fifteen meetings avoided. That's roughly eight hours of your life, returned."; }
+  else if (declineCount === 30) { egg.textContent = "Thirty declines. You may now list 'calendar management' as a core competency."; }
+}
+
+function copyMsg() {
+  if (!currentMsg) return;
+  navigator.clipboard.writeText(currentMsg).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    showToast('Message copied — good luck out there');
+    setTimeout(() => { btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Message'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded','false'); });
+  if (!open) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+}
+
+function toggleTheme() {
+  const d = document.documentElement;
+  const next = d.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  d.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>

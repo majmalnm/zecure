@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fake Error Message Generator — HTTP Status Codes with Brutal Honesty | Zecure</title>
+  <meta name="description" content="Free fake error message generator — 60+ HTTP status codes with brutally honest descriptions, custom invented codes (600–999), and suggested fixes that won't help. 100% client-side.">
+  <meta name="keywords" content="error message generator, fake error, HTTP status code, funny error message, 404 not found funny, developer humor, random error generator, HTTP error codes funny">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/error-message-generator.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Csvg x='20' y='20' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fake Error Message Generator — HTTP Codes with Brutal Honesty | Zecure">
+  <meta property="og:description" content="60+ error codes including custom 600–999 range. Each with a funny description, technical details, and a suggested fix that won't help.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#f97316;--accent-h:#ea580c;--accent-s:rgba(249,115,22,0.12);--green:#22c55e;--clr:#f97316;--clr-s:rgba(249,115,22,0.12);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#ea580c;--accent-h:#c2410c;--accent-s:rgba(234,88,12,0.08);--clr:#ea580c;--clr-s:rgba(234,88,12,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}
+    .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem}
+    .logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:#6366f1;color:#fff;display:flex;align-items:center;justify-content:center}
+    .nav-links{display:flex;list-style:none;gap:.125rem}
+    .nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}
+    .nav-links a:hover{color:var(--text);background:var(--surface2)}
+    @media(max-width:640px){.nav-links{display:none}}
+    .nav-right{margin-left:auto}
+    .icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,background .15s}
+    .icon-btn:hover{color:var(--text);background:var(--surface2)}
+    .icon-btn .sun{display:none}.icon-btn .moon{display:block}
+    [data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    main{max-width:680px;margin:0 auto;padding:0 1.5rem}
+    .hero{padding:3rem 0 1.5rem;text-align:center}
+    .hero-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+    .pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}
+    .pill-dot{width:5px;height:5px;border-radius:50%;background:var(--clr);box-shadow:0 0 0 2px var(--clr-s)}
+    .hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:.875rem}
+    .hero h1 mark{background:none;color:var(--clr)}
+    .hero-sub{font-size:.9375rem;color:var(--text-2);line-height:1.7;max-width:480px;margin:0 auto}
+
+    /* range filter */
+    .range-row{display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:wrap;margin:.75rem 0 1.5rem}
+    .range-btn{display:inline-flex;align-items:center;gap:.3rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-3);font-size:.75rem;font-weight:600;padding:.3rem .7rem;border-radius:100px;cursor:pointer;transition:all .15s;font-family:var(--mono)}
+    .range-btn:hover,.range-btn.active{background:var(--clr-s);border-color:var(--clr);color:var(--clr)}
+
+    /* error display */
+    .error-stage{display:flex;justify-content:center;padding:.5rem 0 1.5rem}
+    .error-btn{
+      display:inline-flex;align-items:center;gap:.75rem;
+      background:var(--surface);border:2px solid var(--border);border-radius:var(--r-lg);
+      color:var(--text-2);font-family:var(--sans);font-size:.9375rem;font-weight:600;
+      padding:1rem 2rem;cursor:pointer;transition:all .2s;
+      box-shadow:0 4px 16px rgba(0,0,0,.3);
+    }
+    .error-btn:hover{border-color:var(--clr);color:var(--clr);transform:translateY(-2px)}
+    .error-btn:active{transform:scale(.98) translateY(0)}
+
+    /* output card */
+    .error-card{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin:0 0 1.5rem;display:none}
+    .error-card.show{display:block}
+    .error-header{padding:1.25rem;border-bottom:1px solid var(--border-s);display:flex;align-items:flex-start;gap:1.25rem}
+    .error-code-big{font-family:var(--mono);font-size:3rem;font-weight:800;color:var(--clr);line-height:1;letter-spacing:-.04em;flex-shrink:0}
+    .error-meta{flex:1;min-width:0}
+    .error-name{font-size:1.125rem;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:.25rem}
+    .error-range-badge{display:inline-block;font-size:.68rem;font-weight:600;padding:.15rem .55rem;border-radius:4px;background:var(--clr-s);color:var(--clr);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.375rem}
+    .error-desc{font-size:.9rem;color:var(--text-2);line-height:1.7}
+    .error-details{padding:1rem 1.25rem;border-bottom:1px solid var(--border-s);background:var(--surface2)}
+    .error-details-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-4);margin-bottom:.5rem}
+    .error-details-text{font-family:var(--mono);font-size:.8125rem;color:var(--text-3);line-height:1.7}
+    .error-fix{padding:1rem 1.25rem;border-bottom:1px solid var(--border-s)}
+    .error-fix-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-4);margin-bottom:.5rem}
+    .error-fix-text{font-size:.875rem;color:var(--text-2);line-height:1.6;font-style:italic}
+    .error-footer{padding:.75rem 1rem;display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+    .copy-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border:none;border-radius:var(--r-sm);cursor:pointer;transition:background .15s}
+    .copy-btn:hover{background:var(--accent-h)}
+    .copy-btn.copied{background:var(--green)!important}
+    .regen-link{font-size:.8125rem;color:var(--text-3);cursor:pointer;background:none;border:none;font-family:var(--sans);display:flex;align-items:center;gap:.3rem;transition:color .15s}
+    .regen-link:hover{color:var(--clr)}
+    .error-count{margin-left:auto;font-size:.75rem;color:var(--text-4)}
+    .error-count span{color:var(--clr);font-weight:600}
+
+    .pop{animation:pop .35s cubic-bezier(.34,1.56,.64,1)}
+    @keyframes pop{0%{transform:scale(.93);opacity:.3}100%{transform:scale(1);opacity:1}}
+
+    .info-section{padding:2rem 0;border-top:1px solid var(--border-s)}
+    .info-section h2{font-size:1.125rem;font-weight:600;letter-spacing:-.015em;margin-bottom:.75rem}
+    .info-section p{font-size:.9rem;color:var(--text-2);line-height:1.8;margin-bottom:1rem}
+    .info-section strong{color:var(--text);font-weight:600}
+    .info-section code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+    .faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden}
+    .faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}
+    .faq-q:hover{color:var(--text);background:var(--surface2)}
+    .faq-item.open .faq-q{color:var(--text)}
+    .faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease}
+    .faq-item.open .faq-chev{transform:rotate(180deg);color:var(--clr)}
+    .faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-item.open .faq-body{max-height:400px}
+    .faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}
+    .footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+    @media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr}}
+    .footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}
+    .footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}
+    .footer-col ul a:hover{color:var(--text)}
+    .footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+    .footer-bottom p{font-size:.75rem;color:var(--text-4)}
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  </style>
+</head>
+<body>
+<script>(function(){const t=localStorage.getItem('zecure-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();</script>
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      Zecure
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">All Tools</a></li>
+      <li><a href="dev-excuse-generator.html">Dev Excuses</a></li>
+      <li><a href="no-as-a-service.html">No as a Service</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-pills">
+      <div class="pill"><span class="pill-dot"></span>60+ Error Codes</div>
+      <div class="pill">600–999 Invented Range</div>
+      <div class="pill">Suggested Fixes</div>
+      <div class="pill">Deeply Unhelpful</div>
+    </div>
+    <h1>Error Message <mark>Generator</mark></h1>
+    <p class="hero-sub">Standard HTTP codes with brutally honest descriptions, plus an entirely invented 600–999 range for errors that shouldn't exist but absolutely do. Each comes with a suggested fix that may or may not help.</p>
+  </div>
+
+  <div class="range-row" role="group" aria-label="Error code range">
+    <button class="range-btn active" data-range="all" onclick="selectRange(this)">All</button>
+    <button class="range-btn" data-range="2xx" onclick="selectRange(this)">2xx Success</button>
+    <button class="range-btn" data-range="3xx" onclick="selectRange(this)">3xx Redirect</button>
+    <button class="range-btn" data-range="4xx" onclick="selectRange(this)">4xx Client</button>
+    <button class="range-btn" data-range="5xx" onclick="selectRange(this)">5xx Server</button>
+    <button class="range-btn" data-range="6xx" onclick="selectRange(this)">6xx Invented</button>
+    <button class="range-btn" data-range="7xx" onclick="selectRange(this)">7xx Corporate</button>
+    <button class="range-btn" data-range="9xx" onclick="selectRange(this)">9xx User Error</button>
+  </div>
+
+  <div class="error-stage">
+    <button class="error-btn" onclick="onGenerate()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Throw an Error
+    </button>
+  </div>
+
+  <div class="error-card" id="errorCard">
+    <div class="error-header">
+      <div class="error-code-big" id="errCode">404</div>
+      <div class="error-meta">
+        <div class="error-range-badge" id="errBadge">4xx</div>
+        <div class="error-name" id="errName">Not Found</div>
+        <div class="error-desc" id="errDesc"></div>
+      </div>
+    </div>
+    <div class="error-details">
+      <div class="error-details-label">Technical Details</div>
+      <div class="error-details-text" id="errDetails"></div>
+    </div>
+    <div class="error-fix">
+      <div class="error-fix-label">Suggested Fix</div>
+      <div class="error-fix-text" id="errFix"></div>
+    </div>
+    <div class="error-footer">
+      <button class="copy-btn" id="copyBtn" onclick="copyError()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy Error
+      </button>
+      <button class="regen-link" onclick="onGenerate()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Another error
+      </button>
+      <div class="error-count">Errors thrown: <span id="errCount">0</span></div>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>The Error Code Ranges</h2>
+    <p>HTTP defines codes from 100–599. We have extended this with three additional ranges covering error conditions the specification failed to anticipate:</p>
+    <ul style="margin:.5rem 0 1.25rem 1.25rem;display:flex;flex-direction:column;gap:.5rem">
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>2xx Success</strong> — Things worked. We're all surprised. <code>200 OK</code> carries more existential weight than it lets on.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>4xx Client Errors</strong> — You did something wrong. We're pretty sure. Most error pages live here.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>5xx Server Errors</strong> — We did something wrong. Possibly the entire team. <code>500</code> is the error that has ended careers.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>6xx Invented — General</strong> — Covers situations the HTTP spec naively assumed wouldn't happen. It happened.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>7xx Invented — Corporate</strong> — For when the error is organisational rather than technical. Regrettably common.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>9xx Invented — User Error</strong> — PEBCAK range. These are the caller's fault. We're being honest about it for once.</li>
+    </ul>
+
+    <h2 style="margin-top:1.75rem">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Is 418 "I'm a Teapot" real?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>Yes. RFC 2324, the Hyper Text Coffee Pot Control Protocol, introduced HTTP 418 as an April Fools' RFC in 1998. A server receiving a coffee brewing request should return 418 if it is, in fact, a teapot. The code has since been preserved in major HTTP implementations by popular demand. It is the most important HTTP status code.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Can I use the 600–999 codes in my API?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>Technically, HTTP clients will treat anything in the 6xx range as an unknown server error in the 5xx family per spec. Practically, they'll break in interesting ways. We recommend using them in documentation, error logs, and post-mortem reports where their descriptive power is appreciated and their HTTP compliance is not required.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          What's the difference between 500 and 503?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>500 means something went wrong and nobody knows what. 503 means something went wrong and we know what — we're just not going to tell you because the reason is embarrassing. In practice, most 503s are 500s with a better PR strategy.</p></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <a href="index.html" class="logo" style="margin-bottom:.5rem;display:inline-flex">
+        <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        Zecure
+      </a>
+      <p>Free, browser-only security tools. No tracking, no servers, no nonsense.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Fun Generators</h4>
+      <ul>
+        <li><a href="funny-password-generator.html">Funny Password</a></li>
+        <li><a href="no-as-a-service.html">No as a Service</a></li>
+        <li><a href="password-roaster.html">Password Roaster</a></li>
+        <li><a href="dev-excuse-generator.html">Dev Excuse Generator</a></li>
+        <li><a href="meeting-decline-generator.html">Meeting Decline</a></li>
+        <li><a href="error-message-generator.html">Error Generator</a></li>
+        <li><a href="tech-horoscope.html">Tech Horoscope</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Security Tools</h4>
+      <ul>
+        <li><a href="password-generator.html">Password</a></li>
+        <li><a href="passphrase-generator.html">Passphrase</a></li>
+        <li><a href="uuid-generator.html">UUID Generator</a></li>
+        <li><a href="hash-generator.html">Hash Generator</a></li>
+        <li><a href="api-key-generator.html">API Key</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="blog/index.html">Blog</a></li>
+        <li><a href="blog/password-entropy-explained.html">Password Entropy</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Zecure. All tools run client-side — your data never leaves your browser.</p>
+    <p>No cookies &middot; No analytics &middot; No accounts</p>
+  </div>
+</footer>
+
+<script>
+const ERRORS = [
+  // 2xx
+  { code:200, name:"OK", range:"2xx", desc:"Everything worked. We're as surprised as you are. The request completed successfully and the server is currently experiencing an unfamiliar feeling of satisfaction.", details:"Response time: surprisingly acceptable. Status: operational. Team morale: briefly elevated.", fix:"Nothing to fix. Enjoy it while it lasts. It won't." },
+  { code:204, name:"No Content", range:"2xx", desc:"Request succeeded. There's just nothing to show for it. Like most Mondays. The operation completed successfully and produced the digital equivalent of a blank stare.", details:"Content-Length: 0. Meaning: abundant. Return value: philosophical.", fix:"Consider whether success without output is still success. It is. This is fine." },
+  { code:201, name:"Created", range:"2xx", desc:"Something was created. It exists now. Whether it should exist is a separate conversation for a separate retrospective.", details:"Location header included. Whether anyone will look at it is uncertain.", fix:"Nothing broken. Review what you created before celebrating." },
+  // 3xx
+  { code:301, name:"Moved Permanently", range:"3xx", desc:"What you're looking for has moved. It left a forwarding address this time, which is more than most things do.", details:"Location: somewhere slightly different. The move was permanent. There was no goodbye.", fix:"Update your bookmarks. Mourn briefly. Move on." },
+  { code:304, name:"Not Modified", range:"3xx", desc:"Nothing has changed. Exactly like your codebase for the last three sprints. The cached version is still accurate.", details:"ETag matched. Last-Modified unchanged. The server has given up sending you the same thing.", fix:"Nothing to fix. This is efficient. Pretend you planned it." },
+  { code:302, name:"Found (Temporarily)", range:"3xx", desc:"It's over there temporarily. Permanently temporary. This distinction matters legally and is ignored in practice.", details:"Redirect issued. Your client followed it like a golden retriever with instructions.", fix:"Follow the redirect. Consider whether 'temporary' is being used correctly here." },
+  // 4xx
+  { code:400, name:"Bad Request", range:"4xx", desc:"Your request was malformed in a way that was frankly creative. We respect the effort, but we cannot process the output.", details:"Syntax error in request. The server tried to parse it charitably. The server failed.", fix:"Review your request format. Consider whether the person who wrote this was okay." },
+  { code:401, name:"Unauthorized", range:"4xx", desc:"You're not authorised to be here. Have you tried being someone who is? Authentication required but not provided, or provided incorrectly, or provided correctly for someone else.", details:"WWW-Authenticate header: 'Please be someone else'. Credentials: absent or wrong.", fix:"Log in. If you're already logged in, log out and then log in. If that doesn't work, accept your situation." },
+  { code:403, name:"Forbidden", range:"4xx", desc:"You can see that this exists. You cannot touch it. This is intentional. Your credentials are insufficient, your clearance is non-existent, and your audacity is noted.", details:"Authentication succeeded. Authorisation did not. These are different things. Many people learn this here.", fix:"Request access through the appropriate channel. The appropriate channel will tell you no faster." },
+  { code:404, name:"Not Found", range:"4xx", desc:"Whatever you were looking for has gone, moved, or never existed. It may return. We wouldn't wait. The server has looked everywhere it is willing to look.", details:"Resource: absent. Time spent looking: 0ms. Emotional investment: zero.", fix:"Check the URL. Check the spelling. Consider that it might be gone forever. Accept this." },
+  { code:408, name:"Request Timeout", range:"4xx", desc:"Your request took too long and we had things to do. It's nothing personal. The server had a deadline and your request missed it.", details:"Timeout: reached. Request: abandoned. Server: has moved on.", fix:"Try again faster. If you can't try faster, try explaining why it took so long." },
+  { code:409, name:"Conflict", range:"4xx", desc:"Your request conflicts with the current state of reality. The server cannot complete it without things becoming complicated, and things are already complicated.", details:"Current state: not what you assumed. Desired state: incompatible. Resolution: your problem.", fix:"Fetch the current state, resolve the conflict, try again. This is now two problems." },
+  { code:410, name:"Gone", range:"4xx", desc:"It was here. It's not here now. Nobody is talking about where it went. Unlike 404, this one is honest about the fact that it's not coming back.", details:"Previously existed at this URL. No longer does. Funeral: already happened.", fix:"Accept that it's gone. Update any links. Consider what you were actually looking for." },
+  { code:418, name:"I'm a Teapot", range:"4xx", desc:"The server refuses to brew coffee because it is, legally, a teapot. RFC 2324. This is not a phase. This has been preserved in production HTTP implementations by popular demand since 1998.", details:"RFC 2324 compliance: full. Coffee brewing capability: none. Tea brewing: possible but not your request.", fix:"Acquire a coffee maker. Alternatively, accept tea. This error cannot be patched." },
+  { code:422, name:"Unprocessable Entity", range:"4xx", desc:"We understood every word of your request. Together they make no sense. The syntax was valid. The semantics were not. This distinction is important and entirely your problem.", details:"Parsed: yes. Understood: yes. Executable: absolutely not.", fix:"Send something that makes sense. We believe you can do this." },
+  { code:429, name:"Too Many Requests", range:"4xx", desc:"Slow down. The server is tired. You have exceeded the rate limit by a margin that suggests you may not have tested this. We are judging you and implementing backoff.", details:"Rate limit: exceeded. Retry-After: a while. Current request: queued in /dev/null.", fix:"Implement exponential backoff. Consider what you're polling for this aggressively." },
+  // 5xx
+  { code:500, name:"Internal Server Error", range:"5xx", desc:"Something went wrong on our end. The responsible party has been notified and has already begun the process of blaming the previous developer.", details:"Stack trace: attached to an incident ticket. Root cause: unclear. Blame: distributed.", fix:"Try again. If it happens again, open a ticket. If tickets haven't helped, open more tickets." },
+  { code:502, name:"Bad Gateway", range:"5xx", desc:"The upstream service gave us something we couldn't work with. This is entirely its fault. We were a perfectly reasonable intermediary who deserved better.", details:"Upstream response: malformed. Our response: this. Relationship status: strained.", fix:"Wait for the upstream service to resolve its issues. Consider the quality of your dependencies." },
+  { code:503, name:"Service Unavailable", range:"5xx", desc:"We're down. The reason has been classified. The team is aware. The incident channel is active. Updates will be provided when we have updates worth providing.", details:"Service status: down. Status page: says operational. These are inconsistent. We know.", fix:"Wait. Check the status page. When the status page says operational while things are broken, wait more." },
+  { code:504, name:"Gateway Timeout", range:"5xx", desc:"We asked the upstream service. They didn't answer. We're all just waiting here in the dark, holding your request, wondering if this is how things are now.", details:"Upstream: not responding. Timeout: reached. Your request: still here, technically.", fix:"The upstream service is having a moment. Give it time. If time doesn't help, escalate." },
+  // 6xx invented
+  { code:600, name:"Deadline Exceeded", range:"6xx", desc:"The task completed successfully. However, it was due three weeks ago, so it doesn't count. Completion without timeliness is a philosophical victory and a practical failure.", details:"Task state: complete. Deadline state: missed. Sprint velocity: declining.", fix:"Communicate earlier next time. Retrospective scheduled." },
+  { code:601, name:"Blame Redirected", range:"6xx", desc:"The error has been acknowledged and formally redirected to the previous developer. An investigation is underway. The previous developer has left the company.", details:"Blame: reassigned. Original developer: unavailable. Current developer: also unavailable in this matter.", fix:"git blame for context. Accept that the error is now yours regardless." },
+  { code:602, name:"Works On My Machine", range:"6xx", desc:"The server cannot reproduce this issue. The server would like to see your environment variables, your OS version, your moon phase, and your mindset.", details:"Local environment: functional. Production: not. Parity: nonexistent.", fix:"Ship your machine. Alternatively, investigate what's different about your local setup. It's always something." },
+  { code:603, name:"In Progress Forever", range:"6xx", desc:"This request has been accepted and will be processed during the next available sprint, which is undefined. The ticket exists. The priority is TBD.", details:"Ticket created: yes. Priority: undefined. ETA: ask again next quarter.", fix:"Escalate. If escalation doesn't work, escalate further. At some point someone will notice." },
+  { code:604, name:"Deprecated But Beloved", range:"6xx", desc:"This feature is deprecated and has been for three years. It also powers 40% of production traffic. Removal has been attempted twice. Both attempts failed.", details:"Deprecation notice: issued 2021. Usage: increased since deprecation. Removal: not imminent.", fix:"Don't touch it. Don't look at it. Don't mention it in planning sessions." },
+  { code:605, name:"Not My Problem", range:"6xx", desc:"This error falls under another team's domain. A ticket has been opened. The ticket has been assigned. The ticket has been acknowledged. Progress is being made in the sense that time is passing.", details:"Ownership: unclear. Responsible team: not us. Ticket: exists.", fix:"Talk to the other team. Schedule a sync. Accept that the sync will produce another sync." },
+  { code:606, name:"Approved In Principle", range:"6xx", desc:"Your request has been approved in principle. In principle means yes in theory and no in practice. A follow-up meeting has been scheduled to discuss implementation.", details:"Approval: conditional. Conditions: unspecified. Next steps: another meeting.", fix:"Attend the follow-up meeting. Lower your expectations proportionally." },
+  { code:607, name:"Works As Designed", range:"6xx", desc:"This behaviour is intentional. The design document is from 2018. The design document cannot be changed. The design document was written in PowerPoint and has been lost.", details:"Behaviour: correct per spec. Spec: last updated 2018. Spec author: unavailable.", fix:"Accept the design. Or redesign. Redesigning takes six months and a stakeholder alignment meeting." },
+  { code:608, name:"Needs More Context", range:"6xx", desc:"Your error report is insufficient. Please reproduce it with detailed steps, a HAR file, the exact timestamp, your browser version, and a diagram of your emotional state at time of failure.", details:"Bug report: received. Reproducibility: not established. Information: insufficient.", fix:"Add more context. Then more. The right amount of context is always more than you've provided." },
+  { code:609, name:"Knowledge Gap", range:"6xx", desc:"This error requires expertise that no one currently at the company has. The person who had this knowledge departed in 2021. We are hiring.", details:"Required expertise: absent. Documentation: also absent. The person who knew: gone.", fix:"Hire someone. Or reverse-engineer it. Both options take longer than you think." },
+  // 7xx corporate
+  { code:700, name:"Request Ghosted", range:"7xx", desc:"Your request was received, read, and deliberately not responded to. The recipient has been online. They have seen your message. They have made a choice.", details:"Delivery: confirmed. Read receipt: enabled. Response: chose not to.", fix:"Follow up once. Then accept silence as an answer. The silence is an answer." },
+  { code:701, name:"Commitment Pending", range:"7xx", desc:"A decision has been made to make a decision about this. The decision-making process is underway. A timeline for the decision has not been committed to.", details:"Status: pending alignment. Stakeholders: in a meeting. Decision: meeting about the meeting first.", fix:"Wait for the commitment. While waiting, consider whether commitment is coming." },
+  { code:702, name:"Bandwidth Exceeded", range:"7xx", desc:"We'd love to help but capacity is constrained this quarter. And next quarter. The team is fully allocated to existing commitments that also haven't shipped.", details:"Team bandwidth: 100% allocated. Available bandwidth: 0%. This will not change.", fix:"Reprioritise. Remove something from the roadmap. Something will refuse to be removed." },
+  { code:703, name:"Not In Scope", range:"7xx", desc:"This request is valid, sensible, and clearly needed. It was not included in the project scope. A change request can be submitted. The change request will take six weeks.", details:"Scope document: does not include this. Change request process: documented.", fix:"Submit the change request. Fill out the form. All seven pages of the form." },
+  { code:704, name:"Legacy Warning", range:"7xx", desc:"This code path hasn't been touched since the last election cycle. It works. Nobody knows why. Nobody will find out why. It will work until it doesn't, at which point everyone will retire.", details:"Last modified: 2019. Test coverage: 0%. Understanding: institutional, not documented.", fix:"Don't touch it. This is not a suggestion. This is a warning from everyone who came before you." },
+  // 9xx user error
+  { code:900, name:"User Error", range:"9xx", desc:"The problem is on your end. We cannot be more specific than that. You will know what it is when you find it. You have already found it. You are not ready to admit it.", details:"Server behaviour: correct. User behaviour: not. Gap: significant.", fix:"Review what you did. Specifically the last thing. It was that." },
+  { code:901, name:"PEBCAK", range:"9xx", desc:"Problem Exists Between Chair And Keyboard. This is a you situation. The system is functioning correctly. The input was not correct. The input came from you.", details:"Error source: operator. System status: fine. Ego: requires adjustment.", fix:"Try again without doing the thing you just did. That thing was the problem." },
+  { code:902, name:"Works On Prod", range:"9xx", desc:"This works perfectly in production and we are specifically choosing not to investigate why. What works in production stays in production. Some questions are better unasked.", details:"Production status: stable. Local status: broken. Reason: not our problem.", fix:"Deploy and see what happens. (We know what happens. It works. Don't ask why.)" },
+  { code:903, name:"Read The Docs", range:"9xx", desc:"The answer to your request is in the documentation. It has been in the documentation since the documentation was written. The documentation was written for you.", details:"Documentation: exists. Documentation: contains the answer. Documentation: unread.", fix:"Read the documentation. Specifically the part that answers this. It's in there." },
+  { code:999, name:"Unknown Unknown", range:"9xx", desc:"We don't know what went wrong. We don't know that we don't know. There are things we know we don't know, and then there is this. This is worse.", details:"Root cause: unknown. Unknown unknowns: unknown. Confidence: none. Progress: none.", fix:"Reboot everything. If that doesn't work, reboot more things. At some point, a rebooted thing fixes a different thing." },
+];
+
+const RANGE_MAP = { '2xx': e => e.code >= 200 && e.code < 300, '3xx': e => e.code >= 300 && e.code < 400, '4xx': e => e.code >= 400 && e.code < 500, '5xx': e => e.code >= 500 && e.code < 600, '6xx': e => e.code >= 600 && e.code < 700, '7xx': e => e.code >= 700 && e.code < 800, '9xx': e => e.code >= 900, all: () => true };
+
+let activeRange = 'all';
+let errCount = 0;
+let currentErrText = '';
+
+function selectRange(btn) {
+  document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeRange = btn.dataset.range;
+}
+
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function onGenerate() {
+  const pool = ERRORS.filter(RANGE_MAP[activeRange] || (() => true));
+  if (!pool.length) { showToast('No errors in that range'); return; }
+  const err = pick(pool);
+  errCount++;
+  currentErrText = `${err.code} ${err.name}\n\n${err.desc}\n\nTechnical Details: ${err.details}\n\nSuggested Fix: ${err.fix}`;
+
+  document.getElementById('errCode').textContent = err.code;
+  document.getElementById('errName').textContent = err.name;
+  document.getElementById('errBadge').textContent = err.range;
+  document.getElementById('errCount').textContent = errCount;
+
+  const desc = document.getElementById('errDesc');
+  desc.textContent = err.desc;
+  desc.classList.remove('pop');
+  void desc.offsetWidth;
+  desc.classList.add('pop');
+
+  document.getElementById('errDetails').textContent = err.details;
+  document.getElementById('errFix').textContent = err.fix;
+
+  const card = document.getElementById('errorCard');
+  card.classList.add('show');
+}
+
+function copyError() {
+  if (!currentErrText) return;
+  navigator.clipboard.writeText(currentErrText).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    showToast('Error copied — file responsibly');
+    setTimeout(() => { btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Error'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded','false'); });
+  if (!open) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+}
+
+function toggleTheme() {
+  const d = document.documentElement;
+  const next = d.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  d.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>

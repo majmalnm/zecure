@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Excuse Generator — 100+ Professional Alibi Machine | Zecure</title>
+  <meta name="description" content="Free developer excuse generator — 100+ handcrafted alibis across 5 categories: Classic Deflection, Git Archaeology, Infrastructure Gremlins, Scope Creep, and Cosmic Forces. One click, instant excuse.">
+  <meta name="keywords" content="developer excuse generator, programmer excuse, works on my machine, coding excuse, it's not a bug it's a feature, developer humor, programmer humor, software developer jokes">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/dev-excuse-generator.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Csvg x='20' y='20' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Developer Excuse Generator — Professional Alibi Machine | Zecure">
+  <meta property="og:description" content="100+ handcrafted developer excuses. Classic, Git blame, Infrastructure, Scope creep, and Cosmic. One click.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#22c55e;--accent-h:#16a34a;--accent-s:rgba(34,197,94,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--clr:#22c55e;--clr-s:rgba(34,197,94,0.12);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#16a34a;--accent-h:#15803d;--accent-s:rgba(22,163,74,0.08);--clr:#16a34a;--clr-s:rgba(22,163,74,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--accent-s);color:var(--text)}
+    :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}
+    .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}
+    .logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:#6366f1;color:#fff;display:flex;align-items:center;justify-content:center}
+    .nav-links{display:flex;list-style:none;gap:.125rem}
+    .nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}
+    .nav-links a:hover{color:var(--text);background:var(--surface2)}
+    @media(max-width:640px){.nav-links{display:none}}
+    .nav-right{margin-left:auto;display:flex;align-items:center}
+    .icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,background .15s}
+    .icon-btn:hover{color:var(--text);background:var(--surface2)}
+    .icon-btn .sun{display:none}.icon-btn .moon{display:block}
+    [data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    main{max-width:680px;margin:0 auto;padding:0 1.5rem}
+    .hero{padding:3rem 0 1.5rem;text-align:center}
+    .hero-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+    .pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}
+    .pill-dot{width:5px;height:5px;border-radius:50%;background:var(--clr);box-shadow:0 0 0 2px var(--clr-s)}
+    .hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:.875rem}
+    .hero h1 mark{background:none;color:var(--clr)}
+    .hero-sub{font-size:.9375rem;color:var(--text-2);line-height:1.7;max-width:480px;margin:0 auto}
+
+    /* category filter */
+    .cat-row{display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:wrap;margin:.75rem 0 1.5rem}
+    .cat-btn{display:inline-flex;align-items:center;gap:.3rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-3);font-size:.75rem;font-weight:500;padding:.3rem .7rem;border-radius:100px;cursor:pointer;transition:all .15s;font-family:var(--sans)}
+    .cat-btn:hover,.cat-btn.active{background:var(--clr-s);border-color:var(--clr);color:var(--clr)}
+
+    /* terminal stage */
+    .terminal-stage{display:flex;flex-direction:column;align-items:center;padding:1rem 0 1.5rem}
+    .hint{font-size:.8125rem;color:var(--text-3);display:flex;align-items:center;gap:.4rem;margin-bottom:1.25rem;animation:hint-bob 2s ease-in-out infinite}
+    @keyframes hint-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+    .hint svg{color:var(--clr)}
+    .terminal-btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+      background:linear-gradient(135deg,#064e3b 0%,#065f46 50%,#047857 100%);
+      color:#4ade80;font-family:var(--mono);font-size:1.1rem;font-weight:600;
+      padding:.875rem 2.5rem;border:1px solid rgba(74,222,128,.25);border-radius:var(--r-lg);
+      cursor:pointer;transition:all .15s;letter-spacing:.02em;
+      box-shadow:0 0 0 1px rgba(74,222,128,.1),0 8px 24px rgba(0,0,0,.4);
+    }
+    [data-theme="light"] .terminal-btn{background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#15803d;border-color:rgba(22,163,74,.3)}
+    .terminal-btn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(74,222,128,.2),0 12px 32px rgba(0,0,0,.5)}
+    .terminal-btn:active{transform:scale(.98) translateY(0)}
+    .terminal-btn.shake{animation:shake .4s cubic-bezier(.36,.07,.19,.97)}
+    @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+    .cursor{display:inline-block;animation:blink 1s step-end infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+    /* output */
+    .output-box{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin:1.5rem 0}
+    .output-head{padding:.75rem 1rem;border-bottom:1px solid var(--border-s);display:flex;align-items:center;gap:.65rem}
+    .out-icon{width:30px;height:30px;border-radius:var(--r-sm);background:var(--clr-s);color:var(--clr);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .out-label{font-size:.8125rem;font-weight:600;color:var(--text);flex:1}
+    .cat-badge{font-size:.68rem;font-weight:600;padding:.15rem .55rem;border-radius:4px;background:var(--clr-s);color:var(--clr);letter-spacing:.04em;text-transform:uppercase}
+    .excuse-body{padding:1.125rem}
+    .excuse-text{font-size:1rem;color:var(--clr);line-height:1.7;min-height:3rem;font-family:var(--mono);word-break:break-word;user-select:all}
+    .excuse-text.empty{color:var(--text-4);font-family:var(--sans);font-size:.9rem;font-style:italic}
+    .excuse-text.pop{animation:pop .35s cubic-bezier(.34,1.56,.64,1)}
+    @keyframes pop{0%{transform:scale(.92);opacity:.3}100%{transform:scale(1);opacity:1}}
+    .translation{margin-top:.75rem;padding:.625rem .875rem;background:var(--surface2);border-radius:var(--r-sm);font-size:.8125rem;color:var(--text-3);font-style:italic;display:none}
+    .translation.show{display:block}
+    .translation strong{color:var(--text-2);font-style:normal}
+    .output-footer{padding:.75rem 1rem;border-top:1px solid var(--border-s);display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+    .copy-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border:none;border-radius:var(--r-sm);cursor:pointer;transition:background .15s}
+    .copy-btn:hover{background:var(--accent-h)}
+    .copy-btn.copied{background:#06b6d4!important}
+    .regen-link{font-size:.8125rem;color:var(--text-3);cursor:pointer;background:none;border:none;font-family:var(--sans);display:flex;align-items:center;gap:.3rem;transition:color .15s}
+    .regen-link:hover{color:var(--clr)}
+    .translate-toggle{font-size:.8125rem;color:var(--text-4);cursor:pointer;background:none;border:none;font-family:var(--sans);transition:color .15s;margin-left:auto}
+    .translate-toggle:hover{color:var(--text-3)}
+
+    /* stats */
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:0 0 2rem}
+    .stat-card{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1rem;text-align:center}
+    .stat-num{font-size:1.75rem;font-weight:700;color:var(--clr);line-height:1}
+    .stat-label{font-size:.72rem;color:var(--text-4);letter-spacing:.04em;text-transform:uppercase;margin-top:.35rem}
+
+    /* Easter egg */
+    .egg{display:none;text-align:center;font-size:.875rem;color:var(--clr);margin-bottom:1rem;padding:.625rem;background:var(--clr-s);border-radius:var(--r);border:1px solid rgba(34,197,94,.2);animation:pop .4s ease}
+
+    .info-section{padding:2rem 0;border-top:1px solid var(--border-s)}
+    .info-section h2{font-size:1.125rem;font-weight:600;letter-spacing:-.015em;margin-bottom:.75rem}
+    .info-section p{font-size:.9rem;color:var(--text-2);line-height:1.8;margin-bottom:1rem}
+    .info-section strong{color:var(--text);font-weight:600}
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+    .faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden}
+    .faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}
+    .faq-q:hover{color:var(--text);background:var(--surface2)}
+    .faq-item.open .faq-q{color:var(--text)}
+    .faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease}
+    .faq-item.open .faq-chev{transform:rotate(180deg);color:var(--clr)}
+    .faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-item.open .faq-body{max-height:400px}
+    .faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}
+    .footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+    @media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr}}
+    .footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}
+    .footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}
+    .footer-col ul a:hover{color:var(--text)}
+    .footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+    .footer-bottom p{font-size:.75rem;color:var(--text-4)}
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  </style>
+</head>
+<body>
+<script>(function(){const t=localStorage.getItem('zecure-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();</script>
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      Zecure
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">All Generators</a></li>
+      <li><a href="password-generator.html">Password</a></li>
+      <li><a href="funny-password-generator.html">Fun Tools</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-pills">
+      <div class="pill"><span class="pill-dot"></span>100+ Excuses</div>
+      <div class="pill">5 Categories</div>
+      <div class="pill">With Translation</div>
+      <div class="pill">Works on My Machine™</div>
+    </div>
+    <h1>Developer <mark>Excuse Generator</mark></h1>
+    <p class="hero-sub">Something broke. It wasn't your fault. (It might have been your fault.) Generate a professional-grade alibi in one click — five categories, 100+ excuses, optional honest translation.</p>
+  </div>
+
+  <div class="cat-row" role="group" aria-label="Excuse category">
+    <button class="cat-btn active" data-cat="all" onclick="selectCat(this)">All</button>
+    <button class="cat-btn" data-cat="classic" onclick="selectCat(this)">💾 Classic</button>
+    <button class="cat-btn" data-cat="git" onclick="selectCat(this)">🕵️ Git Archaeology</button>
+    <button class="cat-btn" data-cat="infra" onclick="selectCat(this)">🔥 Infrastructure</button>
+    <button class="cat-btn" data-cat="scope" onclick="selectCat(this)">📋 Scope Creep</button>
+    <button class="cat-btn" data-cat="cosmic" onclick="selectCat(this)">🌌 Cosmic Forces</button>
+  </div>
+
+  <div class="terminal-stage">
+    <div class="hint">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      generate your alibi
+    </div>
+    <button class="terminal-btn" id="genBtn" onclick="onGenerate()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      ./generate_excuse.sh<span class="cursor">_</span>
+    </button>
+  </div>
+
+  <div class="egg" id="easterEgg"></div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" id="statCount">0</div><div class="stat-label">Excuses generated</div></div>
+    <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">Categories</div></div>
+    <div class="stat-card"><div class="stat-num">100+</div><div class="stat-label">Unique excuses</div></div>
+  </div>
+
+  <div class="output-box">
+    <div class="output-head">
+      <div class="out-icon">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <span class="out-label">Official Developer Statement</span>
+      <span class="cat-badge" id="catBadge">Ready</span>
+    </div>
+    <div class="excuse-body">
+      <div class="excuse-text empty" id="excuseText" aria-live="polite">Hit the button. Get your excuse. Walk into that meeting with confidence.</div>
+      <div class="translation" id="translation"></div>
+    </div>
+    <div class="output-footer">
+      <button class="copy-btn" id="copyBtn" onclick="copyExcuse()" disabled>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy Excuse
+      </button>
+      <button class="regen-link" id="regenBtn" onclick="onGenerate()" disabled>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Another
+      </button>
+      <button class="translate-toggle" id="translateToggle" onclick="toggleTranslation()" disabled>👁 Show honest translation</button>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>The Five Pillars of Developer Excuses</h2>
+    <p>Every developer excuse in history belongs to one of five canonical categories, each with its own logic and use case:</p>
+    <ul style="margin:.5rem 0 1.25rem 1.25rem;display:flex;flex-direction:column;gap:.6rem">
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>💾 Classic Deflection</strong> — The timeless staples. "It works on my machine." "That's not a bug, that's a feature." These are the load-bearing pillars of developer culture.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>🕵️ Git Archaeology</strong> — The blame lies in the commit history. Specifically in a commit written before you joined and touched by someone who no longer works here.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>🔥 Infrastructure Gremlins</strong> — It's DNS. It's the cache. It's the load balancer doing something nobody understands. The servers have feelings and today they're sad.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>📋 Scope Creep</strong> — The requirements changed. Again. After you finished. The original ticket no longer describes what was actually asked for.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong>🌌 Cosmic Forces</strong> — Mercury is in retrograde. Solar flares flipped a bit. The universe is simply not aligned for this feature to work today.</li>
+    </ul>
+
+    <h2 style="margin-top:1.75rem">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Can I use these in a real standup?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>The Classic and Infrastructure categories are largely indistinguishable from real developer communication. The Cosmic Forces category requires a very understanding team. Use the "honest translation" toggle before deploying any excuse to a professional context to assess risk.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          What's the honest translation?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>Each excuse comes with a hidden honest translation — what you actually mean underneath the professional language. Toggle it with the "Show honest translation" button after generating an excuse. Not recommended for use in the excuse itself.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Is "it's always DNS" a real category?
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><p>It's always DNS. This is not a joke. It is the oldest and most reliable truth in systems administration, transcending genre, language, and network topology. The Infrastructure category honours this truth appropriately.</p></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <a href="index.html" class="logo" style="margin-bottom:.5rem;display:inline-flex">
+        <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        Zecure
+      </a>
+      <p>Free, browser-only security tools. No tracking, no servers, no nonsense.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Fun Generators</h4>
+      <ul>
+        <li><a href="funny-password-generator.html">Funny Password</a></li>
+        <li><a href="no-as-a-service.html">No as a Service</a></li>
+        <li><a href="password-roaster.html">Password Roaster</a></li>
+        <li><a href="dev-excuse-generator.html">Dev Excuse Generator</a></li>
+        <li><a href="meeting-decline-generator.html">Meeting Decline</a></li>
+        <li><a href="error-message-generator.html">Error Generator</a></li>
+        <li><a href="tech-horoscope.html">Tech Horoscope</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Security Tools</h4>
+      <ul>
+        <li><a href="password-generator.html">Password</a></li>
+        <li><a href="passphrase-generator.html">Passphrase</a></li>
+        <li><a href="uuid-generator.html">UUID Generator</a></li>
+        <li><a href="hash-generator.html">Hash Generator</a></li>
+        <li><a href="api-key-generator.html">API Key</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="blog/index.html">Blog</a></li>
+        <li><a href="blog/password-entropy-explained.html">Password Entropy</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Zecure. All tools run client-side — your data never leaves your browser.</p>
+    <p>No cookies &middot; No analytics &middot; No accounts</p>
+  </div>
+</footer>
+
+<script>
+const EXCUSES = {
+  classic: [
+    { e:"It works on my machine.", t:"My machine has a different OS, four custom env vars, and a patch I applied in 2021 and forgot about." },
+    { e:"That's not a bug, that's a feature.", t:"It's a bug. We're calling it a feature until someone writes the ticket." },
+    { e:"It was like that when I got here.", t:"I saw it, chose not to fix it, and now regret that choice." },
+    { e:"The tests are passing, so it's technically fine.", t:"The tests test the wrong thing. I wrote them." },
+    { e:"We can fix it in the next sprint.", t:"We will not fix it in the next sprint." },
+    { e:"That's a known issue.", t:"It's been known for three years. It will be known for three more." },
+    { e:"It only happens in production.", t:"I've never seen it in staging. Staging is nothing like production. This is also a known issue." },
+    { e:"Have you tried turning it off and on again?", t:"I have no idea what's wrong and this buys me time." },
+    { e:"That's technically out of scope.", t:"I don't want to do it and I found a contractual reason not to." },
+    { e:"We're calling it a beta feature.", t:"It doesn't work reliably, so we've made instability part of the brand." },
+    { e:"It's on the roadmap.", t:"Someone put it on a slide once. The slide has not been updated." },
+    { e:"The documentation said it might do that.", t:"I wrote that part of the documentation. After the fact." },
+    { e:"That's a configuration issue, not a code issue.", t:"The code is broken in a way that requires configuration to be wrong to trigger." },
+    { e:"It's an edge case.", t:"Two of our biggest customers are hitting it daily." },
+    { e:"Nobody reported it before.", t:"Nobody reported it before. We are now reconsidering our reporting culture." },
+    { e:"We don't have time to do it right — only time to do it twice.", t:"This is an observation, not a defence. We're doing it twice." },
+    { e:"It's working as designed. The design is just aspirational.", t:"The design is wrong." },
+    { e:"The spec was ambiguous.", t:"I didn't read the spec." },
+    { e:"We inherited this codebase.", t:"We've had it for four years. It's ours now. This is our fault." },
+    { e:"This is a known limitation of the framework.", t:"This is a known limitation of how we're using the framework, which is incorrectly." },
+  ],
+  git: [
+    { e:"That code predates me. I'm not touching it.", t:"I understand it. I choose not to." },
+    { e:"git blame shows this was written before version control. Somehow.", t:"The original developer is a mystery. The code is a warning." },
+    { e:"There's no commit message. From anyone. Ever.", t:"We all know who did this." },
+    { e:"The person who wrote this no longer works here. Hasn't for eight years.", t:"They knew what they were doing when they left." },
+    { e:"I'm afraid to refactor it because I don't know what it's doing or why it's working.", t:"I know exactly what it's doing. That's why I'm afraid." },
+    { e:"It was 'temporary' code. Written in 2014.", t:"All temporary code is permanent. We know this." },
+    { e:"There are no tests because 'there wasn't time.' In 2012.", t:"There was time. There were choices." },
+    { e:"The original author commented 'don't ask.' I'm not asking.", t:"I asked. I regret asking." },
+    { e:"This function has been copy-pasted four times across the codebase. Changing one changes nothing.", t:"Changing one changes something. We don't know what." },
+    { e:"There are seven TODOs in this function and they all say 'fix later.' It's later.", t:"Later has arrived. Nobody is ready." },
+    { e:"This was marked as deprecated in 2019 and is now our most critical path.", t:"We discovered this during the outage." },
+    { e:"Someone removed the error handling 'to improve performance.'", t:"Performance improved by 2%. Debugging became impossible. Net negative." },
+    { e:"There's a commented-out block that says 'DO NOT UNCOMMENT.' It has no explanation.", t:"I uncommented it to see what would happen. I recommend not doing this." },
+    { e:"The function is 800 lines long and touches 14 services. Nobody touches it.", t:"Somebody touched it. This is why we're here." },
+    { e:"The original developer left a note: 'if this breaks, good luck.' It broke.", t:"The note was the most documentation we had." },
+    { e:"git log says the last commit was 'asdfg'. I don't know either.", t:"We've all been there." },
+    { e:"This regex was copied from Stack Overflow in 2011. The answer was marked wrong in 2013.", t:"The regex works for 94% of inputs. We have now met the other 6%." },
+    { e:"This was marked as a hotfix. It's been in production for four years.", t:"The coldfix never shipped." },
+    { e:"There are no unit tests. The comment says 'the whole system is the test.'", t:"The test failed." },
+    { e:"I can see what it does. I cannot explain why it does it in this particular way.", t:"I tried. I stopped trying. Some mysteries are not for us." },
+  ],
+  infra: [
+    { e:"DNS. It's always DNS.", t:"It was DNS. It is DNS. It will be DNS." },
+    { e:"The load balancer is doing something we don't fully understand.", t:"We've never fully understood the load balancer." },
+    { e:"The cache is lying to us.", t:"We told the cache to lie to everyone. We forgot." },
+    { e:"The third-party API is having one of its moods.", t:"Their status page says operational. Their API says otherwise." },
+    { e:"Someone deployed to the wrong environment. Again.", t:"The environments are identically named except for a suffix nobody reads." },
+    { e:"The database decided to take a little break.", t:"We ran out of connections. This is our fault." },
+    { e:"The CDN is caching things it was specifically told not to cache.", t:"We told it wrong." },
+    { e:"Someone changed a firewall rule and didn't tell anyone.", t:"It was me. I forgot." },
+    { e:"The cron job has developed independent decision-making capabilities.", t:"The cron job has a typo in the schedule. It runs when it feels like it." },
+    { e:"AWS is doing that thing again. You know the thing.", t:"We all know the thing. Nobody can explain the thing." },
+    { e:"The certificate expired. We had a ticket for this. We had a reminder.", t:"The reminder went to a distribution list that was deleted in 2021." },
+    { e:"The memory leak is back. It has been back before. It will be back again.", t:"We've fixed the symptom four times. We have not fixed the cause." },
+    { e:"The webhook is firing — just at the wrong service.", t:"The webhook URL was never updated after the migration. Nobody noticed." },
+    { e:"The container exited with code 137. It does that sometimes.", t:"OOM kill. We need more memory. We have not requested more memory." },
+    { e:"The logs say everything is fine. The logs are wrong.", t:"Logging is async. By the time the error logged, the process was gone." },
+    { e:"The CI pipeline is broken in a way that only fails for this specific commit.", t:"It's not the commit. It's a race condition. The commit triggered it." },
+    { e:"The auto-scaling group decided today was a good day to scale to zero.", t:"The health check endpoint returns 200 even when the service is dead. Our fault." },
+    { e:"Someone set the timeout to 200 milliseconds. The database takes 250.", t:"Someone was me. 2019. Different traffic patterns. We grew." },
+    { e:"The VPN is up. The servers are reachable. The specific port you need is not.", t:"Security hardened the servers last week and didn't tell engineering." },
+    { e:"The staging environment has diverged from production in a very specific and very bad way.", t:"Staging diverged in 2020. We've been shipping surprises to prod ever since." },
+  ],
+  scope: [
+    { e:"The requirements changed on Thursday. Today is Monday. Last Monday.", t:"The requirements changed before I started." },
+    { e:"The stakeholder said 'small change.' Both words were wrong.", t:"It required a new service, a database migration, and a redesign." },
+    { e:"The client saw a competitor's demo and wants that instead.", t:"We are now building a different product than the one we scoped." },
+    { e:"The ticket said 'make it pop.' We're still discovering what that means.", t:"We built six versions. None were correct. The brief was metaphorical." },
+    { e:"Legal came in at the last minute.", t:"Legal was available throughout. We did not involve legal." },
+    { e:"The feature was approved, then unapproved, then re-approved with a different spec.", t:"The feature is now three different features. One is deployed. Two are orphans." },
+    { e:"Someone saw a competitor's product and now we're rebuilding from scratch.", t:"The competitor's product took them three years. We have a sprint." },
+    { e:"The original estimate assumed a different project.", t:"The estimate was correct for what was described. What was described changed." },
+    { e:"The MVP kept gaining features until it became the entire product.", t:"The P in MVP stood for Product all along, apparently." },
+    { e:"The definition of done changed twice during development.", t:"It changed a third time during QA." },
+    { e:"Leadership saw the mockup and have 'just a few thoughts.'", t:"There are fourteen thoughts. They are not small." },
+    { e:"The deadline moved forward. The scope did not move backward.", t:"We raised this. It was noted. We shipped anyway." },
+    { e:"The user story was written by someone who hadn't used the software before.", t:"The user story was written by someone who hadn't used software before." },
+    { e:"Halfway through, we discovered what the client actually wanted.", t:"We finished anyway. Then we started over." },
+    { e:"The feature that was cut to hit the deadline is now the main feature.", t:"This happens every time." },
+    { e:"It was a weekend project until someone put it in the roadmap.", t:"The weekend project is now two engineers, a PM, and a deadline." },
+    { e:"We built exactly what was requested. We now know what was actually needed.", t:"We always know after we build it. We never know before." },
+    { e:"The acceptance criteria were added after development was complete.", t:"By the same person who wrote the ticket. This was intentional." },
+    { e:"The requirements document had seventeen versions. We built version nine.", t:"Version seventeen was not shared until after go-live." },
+    { e:"The sprint goal shifted mid-sprint. The sprint is four days long.", t:"We have learned nothing from previous sprints." },
+  ],
+  cosmic: [
+    { e:"Mercury is in retrograde. Deployments are on pause.", t:"Mercury is always in retrograde when something breaks. We've noticed the pattern." },
+    { e:"Solar flares are interfering with the bit stability on our servers.", t:"A bit flipped. It happens. The sun is a convenient explanation." },
+    { e:"The alignment of the outer planets suggests we hold on this release.", t:"The release isn't ready. The planets are a diplomatic vehicle." },
+    { e:"A butterfly flapped its wings in São Paulo and our service responded.", t:"We have a race condition. It is triggered by load. The butterfly is a metaphor." },
+    { e:"The universe is simply not ready for this code to work yet.", t:"We are not ready. The universe is innocent." },
+    { e:"Cosmic radiation flipped a bit in production. Specifically, the important one.", t:"This actually happens. We're using it as cover for our own bug." },
+    { e:"We deployed on a full moon. Honestly, that's on us.", t:"We deployed on a Friday. The moon is a coincidence." },
+    { e:"Quantum tunnelling is causing non-deterministic test failures.", t:"We have a race condition. Quantum tunnelling is not involved. We checked." },
+    { e:"The code is correct. Reality is incorrect. We're filing a bug report with the universe.", t:"The code has an off-by-one error. The universe did not cause it." },
+    { e:"The entropy of the universe increased. Our system noticed.", t:"We increased entropy by shipping untested code. Specifically." },
+    { e:"The stars were not aligned for a production deployment. They rarely are, but this time especially.", t:"We deployed anyway. The stars were right." },
+    { e:"Schrödinger's bug: it both exists and doesn't exist until the customer opens a ticket.", t:"It exists. A customer has opened a ticket." },
+    { e:"The timeline in which this works is adjacent to ours. We're working on a bridge.", t:"We're refactoring. We don't have a bridge." },
+    { e:"We've traced the root cause to a fundamental property of spacetime. The ticket is with the physics team.", t:"The ticket is not with the physics team. There is no physics team." },
+    { e:"Sometimes the universe just says no. Mercury was involved.", t:"We said no to proper testing. Mercury is not involved." },
+    { e:"The server room faces magnetic north and the magnetic north pole has been shifting.", t:"The server room is air-conditioned. The pole is not relevant. We checked." },
+    { e:"This coincided with peak solar wind. The correlation is troubling.", t:"The correlation is not causal. The correlation is a coincidence. The bug is ours." },
+    { e:"The feature launched during a Mercury-Pluto square. The timing was not ideal.", t:"The timing was not ideal because we launched on a Friday." },
+    { e:"We're not saying it's aliens. We're not not saying it's aliens.", t:"It's not aliens. It's a null pointer exception. We're embarrassed." },
+    { e:"The heat death of the universe is making our eventual consistency eventually less consistent.", t:"Our eventual consistency was never very consistent to begin with." },
+  ],
+};
+
+const ALL = Object.entries(EXCUSES).flatMap(([cat, items]) => items.map(e => ({ cat, ...e })));
+
+const CAT_LABELS = { classic:'💾 Classic', git:'🕵️ Git', infra:'🔥 Infra', scope:'📋 Scope', cosmic:'🌌 Cosmic' };
+
+let activeCat = 'all';
+let currentExcuse = '';
+let currentTranslation = '';
+let count = 0;
+let showingTranslation = false;
+
+function selectCat(btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+}
+
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function onGenerate() {
+  const pool = activeCat === 'all' ? ALL : ALL.filter(e => e.cat === activeCat);
+  const picked = pick(pool);
+  currentExcuse = picked.e;
+  currentTranslation = picked.t;
+
+  count++;
+  document.getElementById('statCount').textContent = count.toLocaleString();
+
+  const el = document.getElementById('excuseText');
+  el.textContent = currentExcuse;
+  el.classList.remove('empty', 'pop');
+  void el.offsetWidth;
+  el.classList.add('pop');
+
+  document.getElementById('catBadge').textContent = CAT_LABELS[picked.cat] || picked.cat;
+
+  // reset translation
+  showingTranslation = false;
+  const tr = document.getElementById('translation');
+  tr.className = 'translation';
+  document.getElementById('translateToggle').textContent = '👁 Show honest translation';
+
+  document.getElementById('copyBtn').disabled = false;
+  document.getElementById('regenBtn').disabled = false;
+  document.getElementById('translateToggle').disabled = false;
+
+  const btn = document.getElementById('genBtn');
+  btn.classList.remove('shake');
+  void btn.offsetWidth;
+  btn.classList.add('shake');
+  setTimeout(() => btn.classList.remove('shake'), 400);
+
+  // Easter eggs
+  const egg = document.getElementById('easterEgg');
+  if (count === 10) { egg.textContent = "Ten excuses generated. Your incident report is practically writing itself."; egg.style.display = 'block'; }
+  else if (count === 25) { egg.textContent = "25 excuses. At this rate you're building a defence strategy, not an alibi."; }
+  else if (count === 50) { egg.textContent = "50 excuses. You have now generated more excuses than commits. This is fine."; }
+  else if (count === 100) { egg.textContent = "100 excuses. You are the excuse. You have transcended the generator."; }
+}
+
+function toggleTranslation() {
+  showingTranslation = !showingTranslation;
+  const tr = document.getElementById('translation');
+  const btn = document.getElementById('translateToggle');
+  if (showingTranslation) {
+    tr.innerHTML = `<strong>Honest translation:</strong> ${currentTranslation}`;
+    tr.classList.add('show');
+    btn.textContent = '🙈 Hide honest translation';
+  } else {
+    tr.classList.remove('show');
+    btn.textContent = '👁 Show honest translation';
+  }
+}
+
+function copyExcuse() {
+  if (!currentExcuse) return;
+  navigator.clipboard.writeText(currentExcuse).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    showToast('Excuse ready for deployment');
+    setTimeout(() => { btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Excuse'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded','false'); });
+  if (!open) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+}
+
+function toggleTheme() {
+  const d = document.documentElement;
+  const next = d.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  d.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>
