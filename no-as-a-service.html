@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No as a Service — Free Rejection Generator | Zecure</title>
+  <meta name="description" content="Need to say no? Let us do it for you. Free No-as-a-Service (NaaS) — 200+ creative, funny, and brutally honest rejection reasons. Click the button, copy the no. 100% client-side.">
+  <meta name="keywords" content="no as a service, NaaS, rejection generator, funny no generator, excuse generator, say no generator, creative rejection, random no, funny rejection reasons, no button, free no generator">
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href="https://zecure.net/no-as-a-service.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Csvg x='20' y='20' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="No as a Service — Free Rejection Generator | Zecure">
+  <meta property="og:description" content="200+ creative, funny, and brutally honest rejection reasons. Click the button. Copy the no. Totally free.">
+  <meta name="robots" content="index, follow">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"No as a Service","url":"https://zecure.net/no-as-a-service.html","description":"Free No-as-a-Service (NaaS) rejection generator with 200+ creative, funny, and brutally honest rejection reasons. 100% client-side.","applicationCategory":"EntertainmentApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is No as a Service?","acceptedAnswer":{"@type":"Answer","text":"No as a Service (NaaS) is a free tool that generates creative, funny, and professionally-worded rejection reasons on demand. Instead of struggling to say no yourself, you click a button and get an instant, copy-ready excuse ranging from absurdist humour to corporate speak."}},
+      {"@type":"Question","name":"Can I use these rejection reasons for real?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. Many of the reasons are crafted to sound entirely plausible in professional or social contexts. Whether you need to decline a meeting, reject a request, or turn down a sketchy invitation, there is a no here for you."}},
+      {"@type":"Question","name":"How many rejection reasons are there?","acceptedAnswer":{"@type":"Answer","text":"The generator includes 200+ handcrafted rejection reasons spanning multiple categories: Security Expert, Corporate Speak, Deep Philosophy, Historical Gravitas, Tech Bro Energy, and Pure Chaos."}},
+      {"@type":"Question","name":"Does this store any data?","acceptedAnswer":{"@type":"Answer","text":"No. Everything runs client-side in your browser. No data is sent to a server, nothing is logged, and there are no cookies. This is consistent with how all Zecure tools operate."}}
+    ]}
+  ]}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#ef4444;--accent-h:#dc2626;--accent-s:rgba(239,68,68,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--red:#ef4444;--clr:#ef4444;--clr-s:rgba(239,68,68,0.12);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#dc2626;--accent-h:#b91c1c;--accent-s:rgba(220,38,38,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--red:#dc2626;--clr:#dc2626;--clr-s:rgba(220,38,38,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--accent-s);color:var(--text)}
+    :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+    /* ── NAV ── */
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}
+    .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}
+    .logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:#6366f1;color:#fff;display:flex;align-items:center;justify-content:center}
+    .nav-links{display:flex;list-style:none;gap:.125rem}
+    .nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}
+    .nav-links a:hover{color:var(--text);background:var(--surface2)}
+    @media(max-width:640px){.nav-links{display:none}}
+    .nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}
+    .icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,border-color .15s,background .15s}
+    .icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}
+    .icon-btn .sun{display:none}.icon-btn .moon{display:block}
+    [data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+
+    /* ── MAIN ── */
+    main{max-width:680px;margin:0 auto;padding:0 1.5rem}
+
+    /* ── HERO ── */
+    .hero{padding:3rem 0 1.5rem;text-align:center}
+    .hero-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+    .pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}
+    .pill-dot{width:5px;height:5px;border-radius:50%;background:var(--clr);box-shadow:0 0 0 2px var(--clr-s)}
+    .hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:.875rem}
+    .hero h1 mark{background:none;color:var(--clr)}
+    .hero-sub{font-size:.9375rem;color:var(--text-2);line-height:1.7;max-width:480px;margin:0 auto}
+
+    /* ── CATEGORY FILTER ── */
+    .category-row{display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:wrap;margin:.75rem 0 1.5rem}
+    .cat-btn{display:inline-flex;align-items:center;gap:.3rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-3);font-size:.75rem;font-weight:500;padding:.3rem .7rem;border-radius:100px;cursor:pointer;transition:all .15s;font-family:var(--sans)}
+    .cat-btn:hover{border-color:var(--clr);color:var(--clr)}
+    .cat-btn.active{background:var(--clr-s);border-color:var(--clr);color:var(--clr)}
+    .cat-label{font-size:.65rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text-4);margin-right:.2rem}
+
+    /* ── NO BUTTON STAGE ── */
+    .no-stage{display:flex;flex-direction:column;align-items:center;padding:1.5rem 0;user-select:none}
+    .hint{font-size:.8125rem;color:var(--text-3);display:flex;align-items:center;gap:.4rem;margin-bottom:1.25rem;animation:hint-bob 2s ease-in-out infinite}
+    @keyframes hint-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+    .hint svg{color:var(--clr)}
+
+    .no-btn-wrap{position:relative;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;user-select:none}
+    .no-btn-wrap:active{transform:scale(.95)}
+
+    .no-btn{
+      width:160px;height:160px;border-radius:50%;
+      background:radial-gradient(circle at 38% 36%, #ff6b6b 0%, #ef4444 40%, #b91c1c 100%);
+      border:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--sans);font-size:3.5rem;font-weight:800;
+      color:white;letter-spacing:-.04em;
+      box-shadow:0 0 0 0 rgba(239,68,68,.4), 0 8px 32px rgba(239,68,68,.3), 0 2px 8px rgba(0,0,0,.4);
+      transition:transform .1s;
+      position:relative;overflow:hidden;
+      animation:idle-pulse 3s ease-in-out infinite;
+    }
+    @keyframes idle-pulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4),0 8px 32px rgba(239,68,68,.3),0 2px 8px rgba(0,0,0,.4)}
+      50%{box-shadow:0 0 0 12px rgba(239,68,68,.0),0 12px 40px rgba(239,68,68,.45),0 2px 8px rgba(0,0,0,.4)}
+    }
+    .no-btn::before{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 28%, rgba(255,255,255,.35) 0%, transparent 60%)}
+    .no-btn.slam{animation:slam .45s cubic-bezier(.36,.07,.19,.97) both}
+    @keyframes slam{
+      0%{transform:scale(1) rotate(0deg)}
+      15%{transform:scale(1.15) rotate(-5deg)}
+      30%{transform:scale(.9) rotate(3deg)}
+      50%{transform:scale(1.08) rotate(-2deg)}
+      70%{transform:scale(.96) rotate(1deg)}
+      100%{transform:scale(1) rotate(0deg)}
+    }
+    .no-btn.cooling{animation:idle-pulse 3s ease-in-out infinite}
+
+    /* ring decoration */
+    .no-ring{position:absolute;border-radius:50%;border:2px solid rgba(239,68,68,.25);pointer-events:none}
+    .no-ring-1{width:190px;height:190px;animation:ring-pulse 3s ease-in-out infinite}
+    .no-ring-2{width:220px;height:220px;animation:ring-pulse 3s ease-in-out infinite .5s}
+    @keyframes ring-pulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.15;transform:scale(1.05)}}
+
+    /* particles */
+    .particle{position:fixed;pointer-events:none;font-size:1.1rem;animation:particle-fly .75s ease-out forwards;z-index:9999}
+    @keyframes particle-fly{0%{opacity:1;transform:translate(0,0) scale(1.2)}100%{opacity:0;transform:var(--p-end) scale(.2)}}
+
+    /* ── REASON OUTPUT ── */
+    .reason-box{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin:1.75rem 0}
+    .reason-head{padding:.75rem 1rem;border-bottom:1px solid var(--border-s);display:flex;align-items:center;gap:.65rem}
+    .out-icon{width:30px;height:30px;border-radius:var(--r-sm);background:var(--clr-s);color:var(--clr);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .out-label{font-size:.8125rem;font-weight:600;color:var(--text);flex:1}
+    .cat-badge{font-size:.68rem;font-weight:600;padding:.15rem .55rem;border-radius:4px;background:var(--surface2);color:var(--text-3);letter-spacing:.04em;text-transform:uppercase}
+    .reason-body{padding:1.125rem 1.125rem}
+    .reason-text{font-size:1.0125rem;color:var(--clr);line-height:1.65;min-height:3rem;font-style:italic;transition:color .15s;cursor:text;user-select:all}
+    .reason-text.empty{color:var(--text-4);font-style:normal;font-size:.9rem}
+    .reason-text.pop{animation:pop .35s cubic-bezier(.34,1.56,.64,1)}
+    @keyframes pop{0%{transform:scale(.9);opacity:.3}100%{transform:scale(1);opacity:1}}
+    .reason-footer{padding:.75rem 1rem;border-top:1px solid var(--border-s);display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+    .copy-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border:none;border-radius:var(--r-sm);cursor:pointer;transition:background .15s}
+    .copy-btn:hover{background:var(--accent-h)}
+    .copy-btn.copied{background:var(--green)!important}
+    .regen-link{font-size:.8125rem;color:var(--text-3);cursor:pointer;transition:color .15s;background:none;border:none;font-family:var(--sans);display:flex;align-items:center;gap:.3rem}
+    .regen-link:hover{color:var(--clr)}
+    .no-counter-inline{margin-left:auto;font-size:.75rem;color:var(--text-4)}
+    .no-counter-inline span{color:var(--clr);font-weight:600}
+
+    /* ── STATS ROW ── */
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:0 0 2rem}
+    .stat-card{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1rem;text-align:center}
+    .stat-num{font-size:1.75rem;font-weight:700;color:var(--clr);line-height:1}
+    .stat-label{font-size:.72rem;color:var(--text-4);letter-spacing:.04em;text-transform:uppercase;margin-top:.35rem}
+
+    /* ── EASTER EGG ── */
+    .egg{display:none;text-align:center;font-size:.875rem;color:var(--clr);margin-bottom:1rem;animation:pop .4s ease;padding:.625rem;background:var(--clr-s);border-radius:var(--r);border:1px solid rgba(239,68,68,.2)}
+
+    /* ── INFO ── */
+    .info-section{padding:2rem 0;border-top:1px solid var(--border-s)}
+    .info-section h2{font-size:1.125rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin-bottom:.75rem}
+    .info-section p{font-size:.9rem;color:var(--text-2);line-height:1.8;margin-bottom:1rem}
+    .info-section strong{color:var(--text);font-weight:600}
+    .info-section code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    .example-nos{display:flex;flex-direction:column;gap:.5rem;margin:.75rem 0 1.25rem}
+    .example-no{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r);padding:.75rem 1rem;font-size:.875rem;color:var(--text-2);line-height:1.6;border-left:3px solid var(--clr)}
+
+    /* ── FOOTER ── */
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}
+    .footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+    @media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr}}
+    .footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}
+    .footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}
+    .footer-col ul a:hover{color:var(--text)}
+    .footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+    .footer-bottom p{font-size:.75rem;color:var(--text-4)}
+
+    /* ── TOAST ── */
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);display:flex;align-items:center;gap:.5rem;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* ── FAQ ── */
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+    .faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;transition:border-color .15s}
+    .faq-item:hover{border-color:var(--border)}
+    .faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}
+    .faq-q:hover{color:var(--text);background:var(--surface2)}
+    .faq-item.open .faq-q{color:var(--text)}
+    .faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease,color .15s}
+    .faq-item.open .faq-chev{transform:rotate(180deg);color:var(--clr)}
+    .faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-item.open .faq-body{max-height:400px}
+    .faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}
+  </style>
+</head>
+<body>
+<script>(function(){const t=localStorage.getItem('zecure-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();</script>
+
+<header>
+  <nav class="nav-inner" aria-label="Site navigation">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      Zecure
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">All Generators</a></li>
+      <li><a href="password-generator.html">Password</a></li>
+      <li><a href="passphrase-generator.html">Passphrase</a></li>
+      <li><a href="uuid-generator.html">UUID</a></li>
+      <li><a href="hash-generator.html">Hash</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-pills">
+      <div class="pill"><span class="pill-dot"></span>Professional Grade</div>
+      <div class="pill">200+ Rejections</div>
+      <div class="pill">Client-side only</div>
+      <div class="pill">No Signup Needed</div>
+    </div>
+    <h1>No as a <mark>Service</mark></h1>
+    <p class="hero-sub">Can't be bothered to say no yourself? We've outsourced it. Click the big red button and receive a freshly generated, professionally-crafted rejection — ready to paste anywhere.</p>
+  </div>
+
+  <!-- Category filter -->
+  <div style="text-align:center;margin-bottom:.5rem">
+    <span class="cat-label">Filter by vibe</span>
+  </div>
+  <div class="category-row" role="group" aria-label="Rejection category">
+    <button class="cat-btn active" data-cat="all" onclick="selectCat(this)">All Nos</button>
+    <button class="cat-btn" data-cat="security" onclick="selectCat(this)">🔐 Security Expert</button>
+    <button class="cat-btn" data-cat="corporate" onclick="selectCat(this)">💼 Corporate Speak</button>
+    <button class="cat-btn" data-cat="philosophy" onclick="selectCat(this)">🧠 Deep Philosophy</button>
+    <button class="cat-btn" data-cat="historical" onclick="selectCat(this)">📜 Historical</button>
+    <button class="cat-btn" data-cat="techbro" onclick="selectCat(this)">🚀 Tech Bro</button>
+    <button class="cat-btn" data-cat="chaos" onclick="selectCat(this)">🌀 Pure Chaos</button>
+  </div>
+
+  <!-- The Big NO Button -->
+  <div class="no-stage">
+    <div class="hint">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      press for instant rejection
+    </div>
+
+    <div class="no-btn-wrap" id="noBtnWrap">
+      <div class="no-ring no-ring-2"></div>
+      <div class="no-ring no-ring-1"></div>
+      <button
+        class="no-btn"
+        id="noBtn"
+        onclick="onNoClick()"
+        aria-label="Generate a rejection reason"
+      >NO</button>
+    </div>
+  </div>
+
+  <!-- Easter egg -->
+  <div class="egg" id="easterEgg"></div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="statNos">0</div>
+      <div class="stat-label">Nos dispensed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statCats">7</div>
+      <div class="stat-label">Categories</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">Unique rejections</div>
+    </div>
+  </div>
+
+  <!-- Reason output -->
+  <div class="reason-box">
+    <div class="reason-head">
+      <div class="out-icon">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+      </div>
+      <span class="out-label">Your Official Rejection</span>
+      <span class="cat-badge" id="catBadge">Ready</span>
+    </div>
+    <div class="reason-body">
+      <div class="reason-text empty" id="reasonText" aria-live="polite">
+        Press the big red button to generate your no.
+      </div>
+    </div>
+    <div class="reason-footer">
+      <button class="copy-btn" id="copyBtn" onclick="copyReason()" disabled>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy the No
+      </button>
+      <button class="regen-link" id="regenBtn" onclick="generate()" disabled>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Try another
+      </button>
+      <div class="no-counter-inline">
+        Session nos: <span id="sessionCount">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content sections -->
+  <div class="info-section">
+    <h2>What is No as a Service?</h2>
+    <p><strong>No as a Service (NaaS)</strong> is a free, instant rejection generator for people who are simply too busy, too polite, or too tired to say no themselves. Think of it as <strong>outsourced disapproval</strong> — professionally curated refusals for every occasion, powered entirely by your browser with zero servers involved.</p>
+    <p>Born from the DevOps tradition of naming everything "-as-a-Service," NaaS brings the same principle to interpersonal communication. Whether you need to decline a meeting invite, reject a suspicious email, or just admire a perfectly-worded refusal, we've got you covered.</p>
+
+    <h2 style="margin-top:1.75rem">A Few Sample Nos</h2>
+    <p>Not sure what to expect? Here are some examples from each category:</p>
+    <div class="example-nos">
+      <div class="example-no">"After conducting a full threat assessment, I've determined this request poses an unacceptable risk to my Saturday."</div>
+      <div class="example-no">"This falls outside the current sprint scope and will be deprioritised accordingly. Thank you for your understanding."</div>
+      <div class="example-no">"In a universe of infinite possibilities, this particular request has been allocated zero of them."</div>
+      <div class="example-no">"The council of elders has reviewed thy petition and found it lacking in merit, vigour, and general coherence."</div>
+      <div class="example-no">"That doesn't align with my 10-year roadmap. I'm focused on things that scale."</div>
+      <div class="example-no">"No. And frankly, the audacity of this question has disturbed my houseplant."</div>
+    </div>
+
+    <h2 style="margin-top:1.75rem">The Six Categories of No</h2>
+    <p>Every rejection belongs to one of six carefully crafted categories, each with its own distinct energy:</p>
+    <ul style="margin:.5rem 0 1rem 1.25rem;display:flex;flex-direction:column;gap:.6rem">
+      <li style="font-size:.9rem;color:var(--text-2)"><strong style="color:var(--text)">🔐 Security Expert</strong> — Technically correct and appropriately paranoid. Ideal for deflecting sketchy requests using cybersecurity jargon.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong style="color:var(--text)">💼 Corporate Speak</strong> — Bureaucratic masterpieces. Dense, meaningless, and completely unarguable. HR approved.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong style="color:var(--text)">🧠 Deep Philosophy</strong> — Camus would be proud. Existential rejections that make the requester question their own existence.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong style="color:var(--text)">📜 Historical Gravitas</strong> — Delivered with the authority of someone who has studied millennia of human refusals. Very serious. Very no.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong style="color:var(--text)">🚀 Tech Bro</strong> — Disrupting the rejection space. Move fast, say no, pivot to not caring.</li>
+      <li style="font-size:.9rem;color:var(--text-2)"><strong style="color:var(--text)">🌀 Pure Chaos</strong> — No logic. No pattern. Maximum bewilderment. Use responsibly.</li>
+    </ul>
+
+    <h2 style="margin-top:1.75rem">When Should You Use NaaS?</h2>
+    <p>The applications are boundless, but here are some proven use cases:</p>
+    <ul style="margin:.5rem 0 1rem 1.25rem;display:flex;flex-direction:column;gap:.4rem">
+      <li style="font-size:.9rem;color:var(--text-2)">Declining a meeting that could have been an email</li>
+      <li style="font-size:.9rem;color:var(--text-2)">Responding to a suspicious "quick favour" from a colleague</li>
+      <li style="font-size:.9rem;color:var(--text-2)">Rejecting phishing attempts with unnecessary flair</li>
+      <li style="font-size:.9rem;color:var(--text-2)">Turning down terrible password suggestions from users</li>
+      <li style="font-size:.9rem;color:var(--text-2)">Explaining to your brain why you cannot, in fact, start a new hobby right now</li>
+      <li style="font-size:.9rem;color:var(--text-2)">Sending to friends who ask if you want to do anything social</li>
+    </ul>
+
+    <h2 style="margin-top:1.75rem">Frequently Asked Questions</h2>
+    <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span itemprop="name">What is No as a Service?</span>
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">No as a Service (NaaS) is a free rejection generator that produces creative, category-specific "no" responses on demand. It was inspired by the developer tradition of naming everything "-as-a-Service" and provides 200+ handcrafted refusals ranging from corporate bureaucracy to chaotic absurdism. No servers, no signup, no data collected — just beautiful, artisanal nos.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span itemprop="name">Can I actually use these in real life?</span>
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes, especially the Corporate Speak and Security Expert categories — they're engineered to sound plausible and professional. The Philosophy and Historical ones are best used ironically, unless your office culture supports citing Kierkegaard in Slack messages (in which case, carry on). Pure Chaos is for personal use only. We accept no responsibility for workplace consequences.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span itemprop="name">How are the rejections selected?</span>
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Selections use <code>crypto.getRandomValues()</code> — the same cryptographically secure random number generator used in our password tools. The irony of using bank-grade cryptography to randomise refusals is not lost on us. You can filter by category to stay within a specific vibe.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span itemprop="name">Does this send any data to a server?</span>
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">No. The entire rejection database lives in your browser. No requests leave your machine, no analytics are collected, and no cookies are used. This is consistent with how every Zecure tool operates. We say no to tracking as enthusiastically as we say no to everything else.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          <span itemprop="name">What's the difference between the categories?</span>
+          <svg class="faq-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Security Expert nos cite threat models, attack surfaces, and CVEs. Corporate Speak nos are impenetrable bureaucratic mazes. Philosophy nos will make you stare at the ceiling. Historical nos carry the weight of civilisations. Tech Bro nos mention disruption and pivots. Pure Chaos nos follow no rules and answer to no one — especially not you.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <a href="index.html" class="logo" style="margin-bottom:.5rem;display:inline-flex">
+        <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        Zecure
+      </a>
+      <p>Free, browser-only security tools. No tracking, no servers, no nonsense.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Fun Generators</h4>
+      <ul>
+        <li><a href="funny-password-generator.html">Funny (Panda)</a></li>
+        <li><a href="movie-password-generator.html">Movie Password</a></li>
+        <li><a href="zodiac-password-generator.html">Zodiac Password</a></li>
+        <li><a href="gamer-password-generator.html">Gamer Password</a></li>
+        <li><a href="superhero-password-generator.html">Superhero</a></li>
+        <li><a href="space-password-generator.html">Space Password</a></li>
+        <li><a href="no-as-a-service.html">No as a Service</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Security Tools</h4>
+      <ul>
+        <li><a href="password-generator.html">Password</a></li>
+        <li><a href="passphrase-generator.html">Passphrase</a></li>
+        <li><a href="uuid-generator.html">UUID Generator</a></li>
+        <li><a href="hash-generator.html">Hash Generator</a></li>
+        <li><a href="base64-encoder.html">Base64 Encoder</a></li>
+        <li><a href="api-key-generator.html">API Key</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="blog/index.html">Blog</a></li>
+        <li><a href="blog/how-to-create-strong-random-password.html">Strong Passwords</a></li>
+        <li><a href="blog/password-entropy-explained.html">Password Entropy</a></li>
+        <li><a href="blog/sha256-hashing-explained.html">SHA-256 Explained</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Zecure. All tools run client-side — your data never leaves your browser.</p>
+    <p>No cookies &middot; No analytics &middot; No accounts</p>
+  </div>
+</footer>
+
+<script>
+// ── Rejection database ─────────────────────────────────
+const NOS = {
+  security: [
+    "After conducting a full threat-model analysis, I've determined this request poses an unacceptable risk to my Saturday.",
+    "Your request has been flagged by my internal intrusion detection system and quarantined accordingly.",
+    "This falls outside my current attack surface and I have no intention of expanding it.",
+    "I've reviewed the CVE database and found no evidence that saying yes has ever ended well.",
+    "Access denied. You do not have the required permissions and your privilege escalation attempt has been logged.",
+    "My firewall rules explicitly block inbound requests of this nature on port 443 and all others.",
+    "I've run a static analysis on this request and it contains several critical vulnerabilities including 'bad idea', 'not my problem', and 'absolutely not'.",
+    "This request violates my zero-trust architecture. All entities — including you — are assumed hostile until proven otherwise. You have not been proven otherwise.",
+    "I've patched this vulnerability in myself. The patch notes read: 'Fixed: saying yes when the answer is clearly no'.",
+    "Multi-factor authentication has been enabled on my goodwill. You have failed step one.",
+    "My threat intelligence feed indicates this request has a high probability of leading to regret. Blocked.",
+    "SHA-256 hashing this request has produced a digest that looks suspiciously like a bad idea.",
+    "This endpoint is deprecated and will no longer be returning 200 OK responses to requests of this type.",
+    "I've implemented rate limiting on my patience. You've exceeded the threshold.",
+    "No. This is my answer and it is signed, encrypted, and timestamped for the record.",
+    "Your request has been submitted to /dev/null for urgent processing.",
+    "The SSL certificate for this conversation has expired and I cannot in good conscience continue without secure channels.",
+    "I've reviewed your request against OWASP Top 10 and found it violates at least four entries.",
+    "This requires root access to my schedule and that permission has been revoked effective immediately.",
+    "My security policy mandates a full risk assessment before agreeing to anything, which I estimate will complete never.",
+  ],
+  corporate: [
+    "This falls outside the current sprint scope and will be deprioritised accordingly. Thank you for your understanding.",
+    "We appreciate your input and will be taking it into consideration during our next quarterly review, which is hypothetical.",
+    "Due to bandwidth constraints and competing priorities, I'm unable to allocate capacity to this initiative at this time or any foreseeable time.",
+    "After a thorough stakeholder alignment exercise, we have determined that this request does not deliver sufficient business value.",
+    "I'd love to circle back on this, but my calendar is fully committed through the foreseeable future and possibly beyond.",
+    "This has been escalated to the appropriate team for review. The appropriate team is no one.",
+    "Per our conversation, this is not something we're positioned to move forward with at this juncture.",
+    "I'm going to have to take this offline and revert. By 'revert' I mean decline. By 'offline' I mean permanently.",
+    "We're not aligned on this. I propose we schedule a sync to discuss how we're not aligned, at which point we can document our misalignment and archive it.",
+    "This doesn't move the needle for us strategically. We need to focus on our core competencies, which don't include this.",
+    "I'm happy to connect you with the right person. The right person does not exist.",
+    "This is a lift that isn't feasible given current resource constraints. And future resource constraints. And historical ones.",
+    "We're going to park this one for now. 'Now' is scheduled to end sometime after never.",
+    "I've looped in the relevant parties and they have agreed unanimously that no is the appropriate response.",
+    "Going forward, let's plan to not do this. I'll send a calendar invite.",
+    "This request requires sign-off from stakeholders who have pre-declined on your behalf.",
+    "Per my last email — which I never sent — the answer remains no.",
+    "I'll need more runway before committing to anything, and when that runway ends, I'll need another runway.",
+    "We're in a period of strategic realignment. This request does not survive the realignment.",
+    "The ROI on this ask doesn't pencil out. Specifically, the R is zero and the I is my entire sanity.",
+  ],
+  philosophy: [
+    "In a universe of infinite possibilities, this particular request has been allocated zero of them.",
+    "The absurdity of your request is dwarfed only by the absurdity of expecting a different answer.",
+    "Sartre said 'Hell is other people'. He was describing this exact conversation.",
+    "I exist. You exist. This request should not.",
+    "Time is a flat circle and I will be saying no at every point on it.",
+    "The question is not whether I will say no, but whether the concept of no can truly be communicated across the chasm of human experience. It can. No.",
+    "My categorical imperative, universalised, results in a world where everyone declines this request. Good.",
+    "The Tao that can be described is not the eternal Tao. The no that must be explained is still a no.",
+    "Plato's ideal form of an answer to this request is no. Everything else is a shadow on the cave wall.",
+    "Schopenhauer would have said no. Nietzsche would have said no more dramatically. I simply say no.",
+    "The ship of Theseus has been replaced plank by plank. The answer, however, has remained no throughout.",
+    "In the multiverse, there exists a version of me that said yes. That version has since ceased to exist.",
+    "Descartes doubted everything. Having applied his method, I doubt your request has merit. Ergo, no.",
+    "The examined life is worth living. The examined request reveals it should be declined.",
+    "This reminds me of the trolley problem, except the trolley is your request, and both tracks lead to no.",
+    "All of Western philosophy has been building to this moment. The answer is no.",
+    "Kant's noumenal realm, the thing-in-itself beyond perception — that's where your yes lives. Unreachable.",
+    "Sisyphus pushed his boulder. I've reviewed your request. I choose not to push this one.",
+    "The unexamined no is not worth saying. I have examined it. It is worth saying.",
+    "Epicurus sought the absence of pain. This request is pain. Hence: no.",
+  ],
+  historical: [
+    "The council of elders has reviewed thy petition and found it lacking in merit, vigour, and general coherence.",
+    "By royal decree, this request is hereby denied, banished from the realm, and stricken from all records.",
+    "Julius Caesar was asked a similar question. He said no. Then his friends got upset. I'm not taking chances.",
+    "The Oracle at Delphi has consulted the gods. The gods are busy. Their voicemail says no.",
+    "This petition has been reviewed by the Senate, the Forum, and the attached Colosseum. The thumbs are down.",
+    "Historians will record this as the moment the request was made, considered briefly, and rejected with full ceremony.",
+    "The Magna Carta guarantees many rights. The right to my agreement is not among them.",
+    "Sun Tzu wrote: 'Know when to say no.' I know. It is now.",
+    "Napoleon faced many battles. He lost the final one. Your request is meeting a similar fate.",
+    "The Pharaoh has spoken. The Pharaoh says no. Let it be carved into the appropriate obelisk.",
+    "By the authority vested in me by centuries of accumulated human wisdom: no.",
+    "Confucius say: 'He who asks for too much receives a very formal no from a historical generator.'",
+    "The Vikings explored the known world seeking many things. Agreement to this request was not among them.",
+    "As decreed by the Treaty of Your Audacity (1423 AD): no.",
+    "The monks have illuminated this manuscript. It says no in seven colours.",
+    "The knights who say Ni have been consulted. They say no. With slightly more consonants.",
+    "The ancient scrolls have been unrolled, reviewed, and re-rolled. Their conclusion: absolutely not.",
+    "Marco Polo travelled thousands of miles. He would not travel this road.",
+    "The Rosetta Stone, translated for the first time in modern history, reads: 'No, in three languages.'",
+    "By the powers of the Holy Roman Empire, which was neither holy, Roman, nor an empire — no.",
+  ],
+  techbro: [
+    "That doesn't align with my 10-year roadmap. I'm focused on things that scale.",
+    "I'm disrupting the concept of agreement. No is my pivot.",
+    "I've run the numbers and the numbers say no. I trust the numbers.",
+    "This lacks product-market fit with my interest. Declining to invest.",
+    "I'm in stealth mode on all commitments right now. Can't share details.",
+    "I only operate in markets with a 10x return. This does not qualify.",
+    "My bandwidth is currently allocated to high-impact initiatives. This is not one of them.",
+    "We're building for scale and this doesn't fit the architecture. Hard pass.",
+    "I've validated this hypothesis and the data is clear. No.",
+    "This needs to go through my decision framework. Step one: no.",
+    "I'm iterating on my availability. Current version does not support this request.",
+    "We move fast and break things. I'm choosing to break this request.",
+    "This isn't an MVP. It's not even a V. It's just a P.",
+    "I've thought about it from first principles. The first principle is no.",
+    "I only say yes to things with network effects. This request's network effect is zero.",
+    "My OKRs for this quarter don't include agreeing to this. Closing this ticket as won't fix.",
+    "I'm optimising for impact. This has negative impact. Declining.",
+    "We need to be disciplined about what we say yes to. Today I'm saying no to your yes.",
+    "I'm 10x-ing my rejections. This is one of them.",
+    "This is a feature request for a product I'm not building. Backlogged indefinitely.",
+  ],
+  chaos: [
+    "No. And frankly, the audacity of this question has disturbed my houseplant.",
+    "My horoscope said Mercury is in retrograde and to avoid commitments. Blame Mercury.",
+    "A pigeon told me not to. I trust the pigeon.",
+    "I said no in a past life and the muscle memory is strong.",
+    "No, and also you have something on your shirt. Look. That's for the no.",
+    "I would say yes but my emotional support spreadsheet is full.",
+    "The clouds outside look like a no. I respect nature.",
+    "I asked my left sock and it said no. My left sock is rarely wrong.",
+    "This reminds me of something I hate. No.",
+    "No. (I tapped a fish for a second opinion and it also said no.)",
+    "I polled the voices in my head. It was unanimous.",
+    "My gut said no. My gut has a better track record than you do.",
+    "No. I'm going through something.",
+    "A butterfly flapped its wings in Brazil and somehow it's still a no.",
+    "I've run a vibe check. The vibes say absolutely not.",
+    "No. My cat walked on my keyboard and produced this response. I'm keeping it.",
+    "I would, but then we'd both regret it, and frankly I'm at my regret quota.",
+    "The situation is complicated. Actually it's not. It's a no.",
+    "I have a very specific energy today and that energy is no.",
+    "No. Sorry. Actually, not sorry. Just no.",
+    "I tried to say yes and my body produced this instead.",
+    "On reflection, considering all factors including my current mood, the weather, and the structural integrity of this request: no.",
+    "I checked my feelings. They were unavailable. The fallback is no.",
+    "No. The responsible party has been notified. The responsible party is you.",
+  ],
+};
+
+const ALL = Object.entries(NOS).flatMap(([cat, items]) =>
+  items.map(text => ({ cat, text }))
+);
+
+const CAT_LABELS = {
+  security: '🔐 Security',
+  corporate: '💼 Corporate',
+  philosophy: '🧠 Philosophy',
+  historical: '📜 Historical',
+  techbro: '🚀 Tech Bro',
+  chaos: '🌀 Chaos',
+};
+
+const PARTICLES = ['❌','🚫','👎','💀','🙅','⛔','😤','🤚','✋','💢','🔴','💔'];
+
+// ── State ──────────────────────────────────────────────
+let currentReason = '';
+let currentCat = '';
+let activeCat = 'all';
+let sessionCount = 0;
+
+// ── Random (crypto) ───────────────────────────────────
+function pickFrom(arr) {
+  const buf = new Uint32Array(1);
+  crypto.getRandomValues(buf);
+  return arr[buf[0] % arr.length];
+}
+
+// ── Category selection ─────────────────────────────────
+function selectCat(btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+}
+
+// ── Particles ─────────────────────────────────────────
+function shootParticles() {
+  const btn = document.getElementById('noBtn');
+  const rect = btn.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const N = 12;
+  for (let i = 0; i < N; i++) {
+    const el = document.createElement('span');
+    el.className = 'particle';
+    el.textContent = PARTICLES[Math.floor(Math.random() * PARTICLES.length)];
+    const angle = (i / N) * 2 * Math.PI;
+    const dist = 80 + Math.random() * 70;
+    const ex = Math.cos(angle) * dist;
+    const ey = Math.sin(angle) * dist - 30;
+    el.style.setProperty('--p-end', `translate(${ex}px,${ey}px)`);
+    el.style.left = `${cx - 10}px`;
+    el.style.top = `${cy - 10}px`;
+    el.style.animationDelay = `${i * 25}ms`;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1000);
+  }
+}
+
+// ── Sound: buzzer ──────────────────────────────────────
+let audioCtx = null;
+function playBuzz() {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = audioCtx;
+    const t = ctx.currentTime;
+    // harsh descending buzz
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(320, t);
+    osc.frequency.exponentialRampToValueAtTime(80, t + 0.22);
+    gain.gain.setValueAtTime(0.28, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+    osc.start(t);
+    osc.stop(t + 0.35);
+    // secondary thud
+    const osc2 = ctx.createOscillator();
+    const gain2 = ctx.createGain();
+    osc2.connect(gain2);
+    gain2.connect(ctx.destination);
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(55, t + 0.1);
+    osc2.frequency.exponentialRampToValueAtTime(30, t + 0.3);
+    gain2.gain.setValueAtTime(0.35, t + 0.1);
+    gain2.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+    osc2.start(t + 0.1);
+    osc2.stop(t + 0.4);
+  } catch (e) {}
+}
+
+// ── Animate button ─────────────────────────────────────
+function animateBtn() {
+  const btn = document.getElementById('noBtn');
+  btn.classList.remove('slam', 'cooling');
+  void btn.offsetWidth;
+  btn.classList.add('slam');
+  shootParticles();
+  setTimeout(() => {
+    btn.classList.remove('slam');
+    btn.classList.add('cooling');
+  }, 450);
+}
+
+// ── Generate ───────────────────────────────────────────
+function generate() {
+  const pool = activeCat === 'all' ? ALL : ALL.filter(r => r.cat === activeCat);
+  const picked = pickFrom(pool);
+  currentReason = picked.text;
+  currentCat = picked.cat;
+
+  const el = document.getElementById('reasonText');
+  el.textContent = '"' + currentReason + '"';
+  el.classList.remove('pop', 'empty');
+  void el.offsetWidth;
+  el.classList.add('pop');
+
+  document.getElementById('catBadge').textContent = CAT_LABELS[currentCat] || currentCat;
+  document.getElementById('copyBtn').disabled = false;
+  document.getElementById('regenBtn').disabled = false;
+}
+
+// ── Main click ─────────────────────────────────────────
+function onNoClick() {
+  sessionCount++;
+  document.getElementById('sessionCount').textContent = sessionCount.toLocaleString();
+  document.getElementById('statNos').textContent = sessionCount.toLocaleString();
+
+  playBuzz();
+  animateBtn();
+  generate();
+
+  // Easter eggs
+  const egg = document.getElementById('easterEgg');
+  if (sessionCount === 5) {
+    egg.textContent = "Five nos in a row. You're either very persistent or very bored. Either way — no.";
+    egg.style.display = 'block';
+  } else if (sessionCount === 15) {
+    egg.textContent = "Fifteen rejections collected. You're building a portfolio. Impressive. Still no.";
+  } else if (sessionCount === 30) {
+    egg.textContent = "Thirty nos. This is now a habit. Please get help. (No.)";
+  } else if (sessionCount === 50) {
+    egg.textContent = "50 nos. You've rejected the concept of rejection. Paradox. No.";
+  } else if (sessionCount === 100) {
+    egg.textContent = "100 nos. You have achieved No Enlightenment. The student has become the master.";
+  }
+}
+
+// keyboard access
+document.getElementById('noBtn').addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onNoClick(); }
+});
+
+// ── Copy ───────────────────────────────────────────────
+function copyReason() {
+  if (!currentReason) return;
+  navigator.clipboard.writeText('"' + currentReason + '"').then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    showToast('Rejection copied. Use wisely.');
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy the No';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// ── Toast ──────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ── FAQ accordion ──────────────────────────────────────
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+  });
+  if (!open) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+}
+
+// ── Theme ──────────────────────────────────────────────
+function toggleTheme() {
+  const d = document.documentElement;
+  const next = d.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  d.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+</script>
+</body>
+</html>
