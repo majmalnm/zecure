@@ -1,0 +1,187 @@
+<!--meta
+{
+  "title": "UUID أم GUID: ما الفرق ومتى تستخدم كلًّا منهما | مدونة Zecure",
+  "description": "كثيرًا ما يُخلط بين UUID وGUID. تعرّف على ماهيتهما، والفروق بين إصدارات UUID v1 وv4 وv7، ومتى تستخدم كل إصدار، ولماذا يُعد UUID v7 الخيار الأفضل للمفاتيح الأساسية في قواعد البيانات.",
+  "keywords": "uuid أم guid, ما هو uuid, شرح uuid, الفرق بين uuid و guid, uuid v4 أم v7, إصدارات uuid, uuid مفتاح أساسي قاعدة بيانات, مولد uuid",
+  "robots": "index, follow",
+  "ogType": "article",
+  "ogTitle": "UUID أم GUID: ما الفرق ومتى تستخدم كلًّا منهما",
+  "ogDescription": "شرح واضح لـ UUID وGUID: ما هما، وشرح لكل الإصدارات، ولماذا يُعد UUID v7 الخيار الأفضل للمفاتيح الأساسية في قواعد البيانات.",
+  "sitemap": true
+}
+-->
+<!--head-->
+<script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","inLanguage":"ar","headline":"UUID أم GUID: ما الفرق ومتى تستخدم كلًّا منهما","author":{"@type":"Organization","name":"Zecure"},"publisher":{"@type":"Organization","name":"Zecure","url":"https://zecure.net"},"datePublished":"2026-04-16","dateModified":"2026-04-16","description":"دليل شامل إلى UUID وGUID، يشرح كل إصدارات UUID (v1 وv3 وv4 وv5 وv7)، والعلاقة بين GUID وUUID، وكيف تختار الإصدار المناسب لحالة استخدامك."}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#6366f1;--accent-h:#4f46e5;--accent-s:rgba(99,102,241,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--amber-s:rgba(245,158,11,0.1);--red:#ef4444;--red-s:rgba(239,68,68,0.1);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#4f46e5;--accent-h:#4338ca;--accent-s:rgba(79,70,229,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--amber-s:rgba(217,119,6,0.08);--red:#dc2626;--red-s:rgba(220,38,38,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--accent-s);color:var(--text)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+    body>header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}.nav-inner{max-width:800px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1rem}.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}.logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}.back-link{margin-left:auto;display:inline-flex;align-items:center;gap:.35rem;color:var(--text-2);font-size:.8125rem;font-weight:500;text-decoration:none;padding:.375rem .75rem;border-radius:var(--r-sm);border:1px solid var(--border);transition:all .15s}.back-link:hover{color:var(--text);background:var(--surface2);border-color:var(--text-4)}.icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:all .15s}.icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.icon-btn .sun{display:none}.icon-btn .moon{display:block}[data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    .article-wrap{max-width:800px;margin:0 auto;padding:0 1.5rem}.article-hero{padding:3.5rem 0 2.5rem}.article-category{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent-s);color:var(--accent);font-size:.75rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.25rem .75rem;border-radius:100px;margin-bottom:1.25rem}.article-h1{font-size:clamp(1.75rem,4vw,2.625rem);font-weight:700;line-height:1.15;letter-spacing:-.025em;color:var(--text);margin-bottom:1rem}.article-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}.article-meta span{font-size:.8125rem;color:var(--text-3);display:flex;align-items:center;gap:.35rem}.article-meta .sep{width:3px;height:3px;border-radius:50%;background:var(--text-4)}.article-lead{font-size:1.0625rem;color:var(--text-2);line-height:1.75;border-left:3px solid var(--accent);padding-left:1.25rem;margin-bottom:2.5rem}.article-body{padding-bottom:4rem}.article-body h2{font-size:1.3125rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin:2.5rem 0 .875rem}.article-body h3{font-size:1.0625rem;font-weight:600;color:var(--text);margin:1.75rem 0 .625rem}.article-body p{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:1.25rem}.article-body a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}.article-body ul,.article-body ol{margin:.5rem 0 1.25rem 1.5rem}.article-body li{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:.35rem}.article-body strong{color:var(--text);font-weight:600}.article-body code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    .callout{display:flex;gap:1rem;background:var(--surface);border:1px solid var(--border-s);border-left:3px solid var(--accent);border-radius:var(--r-lg);padding:1.125rem 1.25rem;margin:1.5rem 0}.callout-icon{flex-shrink:0;margin-top:2px;color:var(--accent)}.callout p{margin:0;font-size:.875rem}.callout.warn{border-left-color:var(--amber)}.callout.warn .callout-icon{color:var(--amber)}.callout.good{border-left-color:var(--green)}.callout.good .callout-icon{color:var(--green)}
+    .uuid-anatomy{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.25rem;margin:1.5rem 0;overflow-x:auto}.uuid-string{font-family:var(--mono);font-size:1.125rem;letter-spacing:.05em;text-align:center;margin-bottom:1rem}.uuid-seg{display:inline}.s1{color:#f87171}.s2{color:#fb923c}.s3{color:#fbbf24}.s4{color:#34d399}.s5{color:#38bdf8}.sep{color:var(--text-4)}.uuid-legend{display:flex;flex-wrap:wrap;gap:.5rem .75rem;justify-content:center}.legend-item{display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--text-3)}.legend-dot{width:8px;height:8px;border-radius:2px}
+    .version-table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.875rem}.version-table th{text-align:left;font-weight:600;color:var(--text-2);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;padding:.5rem .75rem;border-bottom:1px solid var(--border)}.version-table td{padding:.6rem .75rem;border-bottom:1px solid var(--border-s);color:var(--text-2);vertical-align:top}.version-table td:first-child{font-family:var(--mono);font-size:.8rem;font-weight:700;color:var(--accent);white-space:nowrap}.version-table tr:last-child td{border-bottom:none}
+    pre.code-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.125rem 1.25rem;overflow-x:auto;margin:.5rem 0 1.5rem}pre.code-block code{background:none;color:var(--text-2);font-size:.8125rem;padding:0;line-height:1.7}.tk-cm{color:var(--text-4)}.tk-kw{color:#818cf8}.tk-st{color:#4ade80}.tk-fn{color:#38bdf8}[data-theme="light"] .tk-kw{color:#4f46e5}[data-theme="light"] .tk-st{color:#16a34a}[data-theme="light"] .tk-fn{color:#0284c7}
+    hr.divider{border:none;border-top:1px solid var(--border-s);margin:2.5rem 0}
+    .related{padding:2.5rem 0 4rem;border-top:1px solid var(--border-s)}.related-title{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:1.25rem}.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}.related-card{display:block;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.25rem;text-decoration:none;transition:border-color .15s,background .15s}.related-card:hover{border-color:var(--border);background:var(--surface2)}.related-cat{font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}.related-card-title{font-size:.9rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.4rem}.related-card-date{font-size:.75rem;color:var(--text-3)}
+    .article-cta{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:2rem;text-align:center;margin:2.5rem 0}.article-cta h3{font-size:1.125rem;font-weight:600;margin-bottom:.5rem}.article-cta p{font-size:.875rem;color:var(--text-2);margin-bottom:1.25rem}.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.875rem;font-weight:500;padding:.6rem 1.375rem;border-radius:var(--r);cursor:pointer;transition:all .15s;text-decoration:none}.btn-primary{background:var(--accent);color:#fff;border:none}.btn-primary:hover{background:var(--accent-h)}
+  </style>
+  <style>
+    html[dir=rtl] .back-link{margin-left:0;margin-right:auto}
+    html[dir=rtl] .article-lead{border-left:none;padding-left:0;border-right:3px solid var(--accent);padding-right:1.25rem}
+    html[dir=rtl] .article-body ul,html[dir=rtl] .article-body ol{margin:.5rem 1.5rem 1.25rem 0}
+    html[dir=rtl] .callout{border-left:1px solid var(--border-s);border-right:3px solid var(--accent)}
+    html[dir=rtl] .callout.warn{border-right-color:var(--amber)}
+    html[dir=rtl] .callout.good{border-right-color:var(--green)}
+    html[dir=rtl] .version-table th{text-align:right}
+  </style>
+<!--body-->
+<header>
+  <nav class="nav-inner" aria-label="التنقل في الموقع">
+    <a href="/" class="logo"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a>
+    <a href="/blog/" class="back-link"><svg class="flip-rtl" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>كل المقالات</a>
+    <button class="icon-btn" aria-label="تبديل المظهر" onclick="toggleTheme()">
+      <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="article-wrap">
+    <article>
+      <header class="article-hero">
+        <div class="article-category"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>للمطوّرين</div>
+        <h1 class="article-h1">UUID أم GUID: ما الفرق ومتى تستخدم كلًّا منهما</h1>
+        <div class="article-meta">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>أبريل 2026</span>
+          <span class="sep"></span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>قراءة 8 دقائق</span>
+          <span class="sep"></span>
+          <span>بقلم فريق Zecure</span>
+        </div>
+        <p class="article-lead">تظهر معرّفات UUID في كل مكان في البرمجيات الحديثة: كمفاتيح أساسية في قواعد البيانات، ومعرّفات لموارد REST، ورموز للجلسات، ومفاتيح عدم التكرار (idempotency keys). لكن المطوّرين كثيرًا ما يخلطون بين إصدارات UUID، أو يستخدمون الإصدار الخطأ لسياقهم، أو يتساءلون عن الفرق بين UUID وGUID. هذا الدليل يوضّح كل ذلك.</p>
+      </header>
+
+      <div class="article-body">
+
+        <h2>UUID أم GUID: هل هما الشيء نفسه؟</h2>
+        <p>الإجابة المختصرة: <strong>نعم، هما الشيء نفسه</strong>. فـ GUID (اختصار Globally Unique Identifier، أي المعرّف الفريد عالميًا) هو مصطلح Microsoft لصيغة المعرّف نفسها ذات الـ 128 بت التي اعتمدتها The Open Group معيارًا باسم UUID (اختصار Universally Unique Identifier، أي المعرّف الفريد الشامل) في RFC 4122 (المحدَّث عام 2024 بـ RFC 9562).</p>
+        <p>صاغت Microsoft مصطلح "GUID" عند تطبيقها لنموذج الكائنات المكوّنة الموزّعة (DCOM) في أوائل التسعينيات، بينما اعتمد باقي القطاع مصطلح "UUID". واليوم يمكن استخدام المصطلحين بالتبادل تمامًا؛ فالـ GUID هو UUID، والـ UUID هو GUID.</p>
+
+        <h2>كيف يبدو UUID؟</h2>
+        <p>يتكوّن UUID من 128 بت تُمثَّل بـ 32 حرفًا ست عشريًا في 5 مجموعات تفصل بينها شرطات:</p>
+
+        <div class="uuid-anatomy">
+          <div class="uuid-string" dir="ltr">
+            <span class="s1">550e8400</span><span class="sep">-</span><span class="s2">e29b</span><span class="sep">-</span><span class="s3">41d4</span><span class="sep">-</span><span class="s4">a716</span><span class="sep">-</span><span class="s5">446655440000</span>
+          </div>
+          <div class="uuid-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#f87171"></div>Time-low (32 بت)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#fb923c"></div>Time-mid (16 بت)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>الإصدار + time-high (16 بت)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>المتغيّر (variant) + clock seq (16 بت)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#38bdf8"></div>العقدة (Node) (48 بت)</div>
+          </div>
+        </div>
+
+        <p>يقع رقم الإصدار في الحرف الثالث عشر (الموضع 14 في السلسلة، وهو أول حرف في المجموعة الثالثة بعد الشرطتين). في UUID v4 يكون دائمًا <code>4</code>، وفي v7 يكون <code>7</code>.</p>
+
+        <h2>شرح كل إصدارات UUID</h2>
+        <table class="version-table">
+          <thead><tr><th>الإصدار</th><th>الطريقة</th><th>قابل للترتيب</th><th>الاستخدامات الشائعة</th></tr></thead>
+          <tbody>
+            <tr><td>v1</td><td>الوقت + عنوان MAC</td><td>نعم</td><td>الأنظمة القديمة؛ يكشف عنوان MAC للجهاز المضيف، فتجنّبه في الأعمال الجديدة</td></tr>
+            <tr><td>v3</td><td>تجزئة MD5 لنطاق الأسماء + الاسم</td><td>لا</td><td>معرّفات حتمية من مُدخلات معروفة (مُتقادم، استخدم v5)</td></tr>
+            <tr><td>v4</td><td>عشوائي بالكامل (CSPRNG)</td><td>لا</td><td>رموز الجلسات، ومفاتيح API، ومعرّفات الموارد، والمعرّفات الفريدة للأغراض العامة</td></tr>
+            <tr><td>v5</td><td>تجزئة SHA-1 لنطاق الأسماء + الاسم</td><td>لا</td><td>معرّفات حتمية: المُدخل نفسه يُنتج دائمًا UUID نفسه</td></tr>
+            <tr><td>v6</td><td>وقت مُعاد ترتيبه (متوافق مع v1)</td><td>نعم</td><td>مفاتيح قواعد البيانات في الأنظمة المتوافقة مع v1 (فضّل v7 في الأعمال الجديدة)</td></tr>
+            <tr><td>v7</td><td>طابع زمني Unix بالمللي ثانية + قيمة عشوائية</td><td>نعم</td><td>المفاتيح الأساسية في قواعد البيانات، وأي حالة تحتاج إلى UUID قابل للترتيب</td></tr>
+            <tr><td>v8</td><td>مخصّص / يحدده المورّد</td><td>يختلف</td><td>تطبيقات خاصة بمجالات معيّنة</td></tr>
+          </tbody>
+        </table>
+
+        <h2>UUID v4 أم UUID v7: الخيار الأهم</h2>
+        <p>بالنسبة لمعظم المطوّرين، ينحصر الاختيار بين v4 وv7:</p>
+
+        <h3>UUID v4: متى تستخدمه</h3>
+        <p>يولّد UUID v4 مقدار 122 بت من العشوائية التشفيرية. استخدم v4 عندما:</p>
+        <ul>
+          <li>تحتاج إلى رمز فريد و<strong>لا يهم ترتيب الإدخال</strong> (معرّفات الجلسات، والرموز قصيرة العمر، ومفاتيح API)</li>
+          <li>تستخدم UUID في عنوان URL أو نقطة نهاية API حيث يُشكّل الترتيب التسلسلي مشكلة أمنية</li>
+          <li>تريد أبسط طريقة ممكنة</li>
+        </ul>
+        <p>مثال: <code>550e8400-e29b-<strong>4</strong>1d4-a716-446655440000</code></p>
+
+        <h3>UUID v7: متى تستخدمه</h3>
+        <p>يضمّن UUID v7 طابعًا زمنيًا من Unix بالمللي ثانية في أول 48 بت، ما يجعله <strong>قابلًا للترتيب زمنيًا</strong>. استخدم v7 عندما:</p>
+        <ul>
+          <li>تستخدم UUID <strong>كمفاتيح أساسية في قاعدة البيانات</strong>، إذ تتسبب قيم v4 العشوائية في تجزئة فهرس B-tree</li>
+          <li>تريد أن تترتب صفوف قاعدة البيانات طبيعيًا حسب وقت الإنشاء</li>
+          <li>تبني أنظمة موزّعة تولّد فيها عدة عُقد معرّفات يجب أن تكون مرتّبة على مستوى النظام كله</li>
+        </ul>
+        <p>مثال: <code>01926a9e-<strong>7</strong>b00-<strong>7</strong>f9a-a716-446655440000</code>؛ تُرمّز أول 8 أحرف الطابع الزمني</p>
+
+        <div class="callout good">
+          <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <p><strong>قاعدة عامة:</strong> استخدم UUID v7 للمفاتيح الأساسية في قواعد البيانات، واستخدم UUID v4 لكل ما عدا ذلك (الرموز، ومعرّفات الجلسات، ومعرّفات الموارد التي لا ينبغي أن تكشف وقت إنشائها).</p>
+        </div>
+
+        <h2>لماذا UUID v7 أفضل من v4 لمفاتيح قواعد البيانات</h2>
+        <p>عندما تُدرج صفًا بمفتاح أساسي من نوع UUID v4 العشوائي، يجب على قاعدة البيانات أن تجد موضع تلك القيمة العشوائية في فهرس B-tree. ومع الوقت، تتبعثر عمليات الإدراج العشوائية في أنحاء الفهرس، متسببة في <strong>انقسام الصفحات</strong> (page splits)، وهي عمليات مكلفة تُجزّئ الفهرس وتبطئ القراءة والكتابة.</p>
+        <p>يتجنب العدد الصحيح ذاتي الزيادة هذه المشكلة لأن الصفوف الجديدة تُدرج دائمًا في نهاية الفهرس. ويمنحك UUID v7 الخاصية نفسها: فلأن البادئة الزمنية تتزايد باطّراد، تأتي قيم v7 الجديدة دائمًا بعد القديمة في الترتيب، فتُدرج في نهاية الفهرس تمامًا كالأعداد التسلسلية، لكنها فريدة عالميًا دون الحاجة إلى مولّد تسلسل مركزي.</p>
+
+        <pre class="code-block"><code><span class="tk-cm">// Node.js: generate UUID v4 and v7</span>
+<span class="tk-kw">import</span> { randomUUID } <span class="tk-kw">from</span> <span class="tk-st">'crypto'</span>;  <span class="tk-cm">// v4 built-in</span>
+<span class="tk-kw">import</span> { uuidv7 } <span class="tk-kw">from</span> <span class="tk-st">'uuidv7'</span>;        <span class="tk-cm">// v7 library</span>
+
+<span class="tk-kw">const</span> id_v4 = randomUUID();
+<span class="tk-cm">// → "550e8400-e29b-41d4-a716-446655440000"</span>
+
+<span class="tk-kw">const</span> id_v7 = uuidv7();
+<span class="tk-cm">// → "01926a9e-7b00-7f9a-a716-446655440000"</span>
+<span class="tk-cm">//   ^^^^^^^^ sortable timestamp prefix</span>
+
+<span class="tk-cm">// Python: both available in stdlib as of Python 3.13</span>
+<span class="tk-kw">import</span> uuid
+v4 = uuid.uuid4()
+v7 = uuid.uuid7()  <span class="tk-cm"># Python 3.13+</span></code></pre>
+
+        <h2>هل يمكن أن يتطابق معرّفا UUID؟</h2>
+        <p>نظريًا نعم، وعمليًا لا. يحتوي UUID v4 على 122 بت عشوائيًا. واحتمال توليد تكرار واحد بين <strong>تريليون UUID</strong> يبلغ نحو 0.000000001% (واحد في المليار). وستحتاج إلى توليد نحو 2.7 × 10¹⁸ UUID (أي 2.7 كوينتيليون) قبل أن تصل فرصة حدوث أي تصادم إلى 50%، وهذا أبعد بكثير من حجم أي نظام حقيقي.</p>
+        <p>يحتوي UUID v7 على بتات عشوائية أقل (74 بدلًا من 122 في v4)، لكنه يظل عمليًا خاليًا من التصادمات.</p>
+
+        <h2>صيغ UUID المختلفة</h2>
+        <p>تظهر قيمة UUID نفسها بصيغ مختلفة حسب النظام:</p>
+        <ul>
+          <li><strong>القياسية (بشرطات):</strong> <code>550e8400-e29b-41d4-a716-446655440000</code></li>
+          <li><strong>دون شرطات:</strong> <code>550e8400e29b41d4a716446655440000</code></li>
+          <li><strong>بأحرف كبيرة:</strong> <code>550E8400-E29B-41D4-A716-446655440000</code></li>
+          <li><strong>بين أقواس معقوصة (Microsoft):</strong> <code>{550e8400-e29b-41d4-a716-446655440000}</code></li>
+          <li><strong>صيغة URN:</strong> <code>urn:uuid:550e8400-e29b-41d4-a716-446655440000</code></li>
+        </ul>
+
+        <div class="article-cta">
+          <h3>ولّد معرّفات UUID فورًا</h3>
+          <p>أنشئ UUID v4 أو UUID v7 القابل للترتيب زمنيًا، فرديًا أو دفعة واحدة حتى 100، مع نسخ الكل بنقرة واحدة.</p>
+          <a href="/uuid-generator" class="btn btn-primary">افتح مولّد UUID <svg class="flip-rtl" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+      </div>
+    </article>
+
+    <div class="related">
+      <div class="related-title">قراءات ذات صلة</div>
+      <div class="related-grid">
+        <a href="/blog/api-keys-vs-passwords" class="related-card"><div class="related-cat">للمطوّرين</div><div class="related-card-title">مفاتيح API مقابل كلمات المرور: ما الفرق؟</div><div class="related-card-date">فبراير 2025</div></a>
+        <a href="/blog/sha256-hashing-explained" class="related-card"><div class="related-cat">الأمان</div><div class="related-card-title">شرح SHA-256: كيف تعمل دوال التجزئة التشفيرية</div><div class="related-card-date">أبريل 2026</div></a>
+        <a href="/uuid-generator" class="related-card"><div class="related-cat">أداة</div><div class="related-card-title">مولّد UUID مجاني: v4 وv7 دفعة واحدة عبر الإنترنت</div><div class="related-card-date">أداة</div></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('zecure-theme',n)}</script>

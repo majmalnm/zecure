@@ -1,0 +1,223 @@
+<!--meta
+{
+  "title": "مولّد UUID مجاني أونلاين — الإصداران v4 وv7 وتوليد بالجملة | Zecure",
+  "description": "أنشئ معرّفات UUID v4 وUUID v7 أونلاين، فرادى أو بالجملة (حتى 100). مجاني، آمن تشفيريًا، ويعمل داخل متصفحك بالكامل، دون تسجيل ودون خادم.",
+  "keywords": "مولد uuid, توليد uuid, مولد uuid v4, مولد uuid v7, مولد guid, إنشاء uuid أونلاين, توليد معرف فريد, uuid عشوائي, مولد uuid مجاني",
+  "robots": "index, follow",
+  "ogType": "website",
+  "ogTitle": "مولّد UUID مجاني أونلاين — الإصداران v4 وv7 وتوليد بالجملة | Zecure",
+  "ogDescription": "أنشئ معرّفات UUID v4 وv7 أونلاين، فرادى أو بالجملة حتى 100. يعمل داخل متصفحك بالكامل، مجاني، دون تسجيل.",
+  "sitemap": true
+}
+-->
+<!--head-->
+<meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"مولّد UUID","url":"https://zecure.net/uuid-generator","inLanguage":"ar","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"أنشئ معرّفات UUID v4 وUUID v7 أونلاين، فرادى أو بالجملة. آمن تشفيريًا، ويعمل داخل متصفحك بالكامل."},
+    {"@type":"FAQPage","inLanguage":"ar","mainEntity":[
+      {"@type":"Question","name":"ما هو UUID؟","acceptedAnswer":{"@type":"Answer","text":"UUID (المعرّف الفريد العالمي) قيمة بطول 128 بت موحّدة في RFC 4122 (وحدّثها RFC 9562). يُكتب في صورة 32 حرفًا ست عشريًا مقسّمة إلى 5 مجموعات: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx. صُمّمت معرّفات UUID لتكون فريدة عبر المكان والزمان دون جهة تسجيل مركزية."}},
+      {"@type":"Question","name":"ما الفرق بين UUID وGUID؟","acceptedAnswer":{"@type":"Answer","text":"GUID (المعرّف الفريد الشامل) هو ببساطة الاسم الذي تستخدمه Microsoft للمفهوم نفسه. كلاهما يشير إلى صيغة المعرّف نفسها بطول 128 بت. ويُستخدم المصطلحان بالتبادل: GUID هو UUID، والعكس صحيح."}},
+      {"@type":"Question","name":"هل يمكن أن يتطابق معرّفا UUID؟","acceptedAnswer":{"@type":"Answer","text":"نظريًا نعم، وعمليًا لا. يحتوي UUID v4 على 122 بت عشوائيًا. احتمال توليد معرّف مكرر بين تريليون معرّف UUID هو نحو 1 من مليار. وستحتاج إلى توليد نحو 2.7 × 10¹⁸ معرّف UUID قبل أن تصل فرصة حدوث أي تصادم إلى 50%، وهذا أبعد بكثير من أي نظام عملي."}},
+      {"@type":"Question","name":"لماذا أستخدم UUID v7 بدل v4 كمفاتيح في قاعدة البيانات؟","acceptedAnswer":{"@type":"Answer","text":"مفاتيح UUID v4 العشوائية تسبب تجزّؤ الفهارس من نوع B-tree (مثل PostgreSQL وMySQL) لأن عمليات الإدراج تتوزع عشوائيًا على الفهرس. أما UUID v7 فيتضمن طابعًا زمنيًا بالمللي ثانية، فتُدرج السجلات الجديدة دائمًا قرب نهاية الفهرس، وهو سلوك العدد الصحيح المتزايد تلقائيًا نفسه، لكنه فريد عالميًا دون تسلسل مركزي."}}
+    ]}
+  ]}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#6366f1;--accent-h:#4f46e5;--accent-s:rgba(99,102,241,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--red:#ef4444;--clr:#fb923c;--clr-s:rgba(251,146,60,0.1);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#4f46e5;--accent-h:#4338ca;--accent-s:rgba(79,70,229,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--red:#dc2626;--clr:#ea580c;--clr-s:rgba(234,88,12,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--accent-s);color:var(--text)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}.nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}.logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}.nav-links{display:flex;list-style:none;gap:.125rem}.nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}.nav-links a:hover{color:var(--text);background:var(--surface2)}@media(max-width:640px){.nav-links{display:none}}.nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}.icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,border-color .15s,background .15s}.icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.icon-btn .sun{display:none}.icon-btn .moon{display:block}[data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    main{max-width:760px;margin:0 auto;padding:0 1.5rem}
+    .tool-hero{padding:4rem 0 2.5rem;text-align:center;position:relative}.tool-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,var(--border-s) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);pointer-events:none}.tool-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;position:relative}.pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px var(--green-s)}.tool-h1{font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-.025em;color:var(--text);line-height:1.15;margin-bottom:1rem;position:relative}.tool-h1 mark{background:none;color:var(--clr)}.tool-sub{font-size:1rem;color:var(--text-2);line-height:1.7;max-width:500px;margin:0 auto 2rem;position:relative}
+    .gen-widget{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin-bottom:2rem}.gen-widget-head{padding:.875rem 1rem;border-bottom:1px solid var(--border-s);display:flex;align-items:center;gap:.65rem}.gen-icon{width:32px;height:32px;border-radius:var(--r-sm);background:var(--clr-s);color:var(--clr);display:flex;align-items:center;justify-content:center;flex-shrink:0}.gen-label{font-size:.8125rem;font-weight:600;color:var(--text);flex:1}.gen-badge{font-size:.7rem;font-weight:500;padding:.15rem .5rem;border-radius:4px;background:var(--clr-s);color:var(--clr)}
+    .controls-row{display:flex;align-items:center;gap:.625rem;flex-wrap:wrap;padding:.875rem 1rem;border-bottom:1px solid var(--border-s)}
+    .ctrl-label{font-size:.75rem;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+    .version-toggle{display:flex;background:var(--surface2);border:1px solid var(--border-s);border-radius:var(--r-sm);overflow:hidden}.ver-btn{font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--text-3);background:transparent;border:none;padding:.3rem .875rem;cursor:pointer;transition:color .15s,background .15s}.ver-btn.active{background:var(--clr);color:#fff}[data-theme="light"] .ver-btn.active{color:#fff}.ver-btn:hover:not(.active){color:var(--text)}
+    .count-select{background:var(--surface2);border:1px solid var(--border-s);border-radius:var(--r-sm);color:var(--text);font-family:var(--sans);font-size:.8125rem;padding:.3rem .625rem;cursor:pointer;appearance:auto}
+    .gen-body{padding:.625rem .75rem .75rem}.key-list{display:flex;flex-direction:column;gap:.3rem}.key-row{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;background:var(--bg);border:1px solid var(--border-s);border-radius:var(--r-sm);transition:border-color .15s}.key-row:hover{border-color:var(--border)}[data-theme="light"] .key-row{background:var(--surface2)}.key-val{font-family:var(--mono);font-size:.72rem;color:var(--clr);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:all;cursor:text}.key-row.flash .key-val{color:var(--green)}.copy-btn{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:5px;background:transparent;border:1px solid var(--border);color:var(--text-3);cursor:pointer;transition:all .15s}.copy-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.copy-btn.copied{color:var(--green);border-color:var(--green);background:var(--green-s)}.copy-btn svg.check{display:none}.copy-btn svg.clip{display:block}.copy-btn.copied svg.check{display:block}.copy-btn.copied svg.clip{display:none}
+    .gen-footer{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-top:1px solid var(--border-s);gap:.5rem;flex-wrap:wrap}.regen-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border:none;border-radius:var(--r-sm);cursor:pointer;transition:background .15s}.regen-btn:hover{background:var(--accent-h)}.regen-btn svg{transition:transform .4s ease}.regen-btn:hover svg{transform:rotate(180deg)}.copy-all-btn{display:inline-flex;align-items:center;gap:.4rem;background:transparent;border:1px solid var(--border);color:var(--text-2);font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border-radius:var(--r-sm);cursor:pointer;transition:all .15s}.copy-all-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}
+    .content-section{padding:2.5rem 0;border-top:1px solid var(--border-s)}.content-section h2{font-size:1.25rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin-bottom:.875rem}.content-section p{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:1.25rem}.content-section ul,.content-section ol{margin:.25rem 0 1.25rem 1.5rem}.content-section li{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:.4rem}.content-section strong{color:var(--text);font-weight:600}.content-section code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    .version-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin:1rem 0 1.25rem}.ver-card{background:var(--surface2);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1rem 1.1rem}.ver-card-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}.ver-tag{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .5rem;border-radius:4px;background:var(--clr-s);color:var(--clr)}.ver-card p{font-size:.8125rem;color:var(--text-2);line-height:1.65;margin:0}
+    .callout{display:flex;gap:1rem;background:var(--surface);border:1px solid var(--border-s);border-left:3px solid var(--amber);border-radius:var(--r-lg);padding:1rem 1.125rem;margin:1.25rem 0}.callout-icon{flex-shrink:0;margin-top:2px;color:var(--amber)}.callout p{margin:0;font-size:.875rem}
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}.faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;transition:border-color .15s}.faq-item:hover{border-color:var(--border)}.faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}.faq-q:hover{color:var(--text);background:var(--surface2)}.faq-item.open .faq-q{color:var(--text)}.faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease,color .15s}.faq-item.open .faq-chev{transform:rotate(180deg);color:var(--accent)}.faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}.faq-item.open .faq-body{max-height:500px}.faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}.related-card{display:block;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.125rem;text-decoration:none;transition:border-color .15s,background .15s}.related-card:hover{border-color:var(--border);background:var(--surface2)}.related-tag{font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}.related-title{font-size:.875rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.3rem}.related-date{font-size:.75rem;color:var(--text-3)}
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);display:flex;align-items:center;gap:.5rem;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}.footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem}@media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr}}.footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}.footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}.footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}.footer-col ul a:hover{color:var(--text)}.footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}.footer-bottom p{font-size:.75rem;color:var(--text-4)}
+  </style>
+  <style>
+    html[dir=rtl] .callout{border-left:1px solid var(--border-s);border-right:3px solid var(--amber)}
+    html[dir=rtl] .faq-q{text-align:right}html[dir=rtl] .content-section ul,html[dir=rtl] .content-section ol{margin:.25rem 1.5rem 1.25rem 0}
+    html[dir=rtl] .controls-row .ctrl-label[style]{margin-left:0!important;margin-right:.5rem}
+  </style>
+<!--body-->
+<header>
+  <nav class="nav-inner" aria-label="التنقل في الموقع">
+    <a href="/" class="logo"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a>
+    <ul class="nav-links" role="list">
+      <li><a href="/">كل الأدوات</a></li>
+      <li><a href="/password-generator">كلمة المرور</a></li>
+      <li><a href="/uuid-generator" aria-current="page">UUID</a></li>
+      <li><a href="/base64-encoder">Base64</a></li>
+      <li><a href="/hash-generator">التجزئة</a></li>
+      <li><a href="/blog/">المدونة</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="تبديل المظهر" onclick="toggleTheme()">
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+<main>
+  <div class="tool-hero">
+    <div class="tool-pills"><div class="pill"><span class="pill-dot"></span>داخل متصفحك فقط</div><div class="pill">v4 و v7</div><div class="pill">بالجملة حتى 100</div></div>
+    <h1 class="tool-h1"><mark>مولّد UUID</mark> مجاني أونلاين</h1>
+    <p class="tool-sub">أنشئ معرّفات UUID v4 آمنة تشفيريًا أو UUID v7 قابلة للترتيب زمنيًا، فرادى أو بالجملة حتى 100، مع نسخ الكل بنقرة واحدة.</p>
+  </div>
+
+  <div class="gen-widget">
+    <div class="gen-widget-head">
+      <div class="gen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/></svg></div>
+      <span class="gen-label">مولّد UUID / GUID</span>
+      <span class="gen-badge">RFC 9562</span>
+    </div>
+    <div class="controls-row">
+      <span class="ctrl-label">الإصدار</span>
+      <div class="version-toggle" role="group" aria-label="إصدار UUID">
+        <button class="ver-btn active" id="ver-v4" onclick="setVersion('v4')">v4</button>
+        <button class="ver-btn" id="ver-v7" onclick="setVersion('v7')">v7</button>
+      </div>
+      <span class="ctrl-label" style="margin-left:.5rem">العدد</span>
+      <select class="count-select" id="count-select" onchange="generate()">
+        <option value="1">1</option>
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <div class="gen-body"><div class="key-list" id="key-list" dir="ltr"></div></div>
+    <div class="gen-footer">
+      <button class="regen-btn" onclick="generate()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        إعادة التوليد
+      </button>
+      <button class="copy-all-btn" onclick="copyAll()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        نسخ الكل
+      </button>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>UUID v4 مقابل UUID v7: ما الفرق؟</h2>
+    <div class="version-cards">
+      <div class="ver-card">
+        <div class="ver-card-head"><span class="ver-tag">v4</span><strong style="font-size:.875rem;color:var(--text)">UUID عشوائي</strong></div>
+        <p>122 بت من العشوائية التشفيرية. فريد بضمان إحصائي دون أي تنسيق. الأنسب للرموز المميزة (tokens) ومعرّفات الجلسات والحالات التي لا يهم فيها الترتيب.</p>
+      </div>
+      <div class="ver-card">
+        <div class="ver-card-head"><span class="ver-tag">v7</span><strong style="font-size:.875rem;color:var(--text)">UUID قابل للترتيب زمنيًا</strong></div>
+        <p>طابع زمني Unix بالمللي ثانية بطول 48 بت + 74 بت من العشوائية. المعرّفات المولّدة تباعًا تُرتَّب حسب وقت إنشائها، ما يجعلها مثالية كمفاتيح أساسية في قواعد البيانات لتجنّب تجزّؤ الفهارس.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+      <p>يستخدم هذا المولّد <code>window.crypto.getRandomValues()</code>، وهو مولّد أرقام عشوائية آمن تشفيريًا. لا تستخدم أبدًا مولّدات UUID المبنية على <code>Math.random()</code> للأغراض الحساسة أمنيًا.</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>متى تستخدم معرّفات UUID؟</h2>
+    <ul>
+      <li><strong>المفاتيح الأساسية في قواعد البيانات</strong>: تتيح معرّفات UUID إنشاء السجلات عبر الأنظمة الموزّعة دون مولّد تسلسل مركزي. ويُفضَّل UUID v7 للأعمدة المفهرسة لأنه يبقى مرتّبًا زمنيًا.</li>
+      <li><strong>معرّفات API</strong>: معرّفات الموارد في واجهات REST API (مثل <code>/users/550e8400-e29b-41d4-a716-446655440000</code>) غير قابلة للتخمين وغير متسلسلة، ما يمنع هجمات التعداد.</li>
+      <li><strong>رموز الجلسات</strong>: يوفّر UUID v4 نحو 122 بت من العشوائية، ما يجعل اختطاف الجلسات بالقوة الغاشمة مستحيلًا حسابيًا.</li>
+      <li><strong>أسماء الملفات</strong>: تجنّب تعارض الأسماء عند رفع ملفات المستخدمين إلى حاوية تخزين مشتركة.</li>
+      <li><strong>مفاتيح عدم التكرار (Idempotency)</strong>: أرسل UUID مع طلبات API لإعادة محاولة العمليات بأمان دون تكرارها.</li>
+    </ul>
+  </div>
+
+  <div class="content-section">
+    <h2>الأسئلة الشائعة</h2>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">ما هو UUID؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>UUID (المعرّف الفريد العالمي) قيمة بطول 128 بت موحّدة في RFC 4122 (وحدّثها RFC 9562). يُكتب في صورة 32 حرفًا ست عشريًا مقسّمة إلى 5 مجموعات: <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>. صُمّمت معرّفات UUID لتكون فريدة عبر المكان والزمان دون جهة تسجيل مركزية.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">ما الفرق بين UUID وGUID؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>GUID (المعرّف الفريد الشامل) هو ببساطة الاسم الذي تستخدمه Microsoft للمفهوم نفسه. كلاهما يشير إلى صيغة المعرّف نفسها بطول 128 بت. ويُستخدم المصطلحان بالتبادل: GUID هو UUID، والعكس صحيح.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">هل يمكن أن يتطابق معرّفا UUID؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>نظريًا نعم، وعمليًا لا. يحتوي UUID v4 على 122 بت عشوائيًا. احتمال توليد معرّف مكرر بين تريليون معرّف UUID هو نحو 1 من مليار. وستحتاج إلى توليد نحو 2.7 × 10¹⁸ معرّف UUID قبل أن تصل فرصة حدوث أي تصادم إلى 50%، وهذا أبعد بكثير من أي نظام عملي.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">لماذا أستخدم UUID v7 بدل v4 كمفاتيح في قاعدة البيانات؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>مفاتيح UUID v4 العشوائية تسبب تجزّؤ الفهارس من نوع B-tree (مثل PostgreSQL وMySQL) لأن عمليات الإدراج تتوزع عشوائيًا على الفهرس. أما UUID v7 فيتضمن طابعًا زمنيًا بالمللي ثانية، فتُدرج السجلات الجديدة دائمًا قرب نهاية الفهرس، وهو سلوك العدد الصحيح المتزايد تلقائيًا نفسه، لكنه فريد عالميًا دون تسلسل مركزي.</p></div></div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>أدوات وقراءات ذات صلة</h2>
+    <div class="related-grid">
+      <a href="/api-key-generator" class="related-card"><div class="related-tag">أداة</div><div class="related-title">مولّد مفاتيح API (UUID v4)</div><div class="related-date">متوافق مع RFC 4122</div></a>
+      <a href="/hash-generator" class="related-card"><div class="related-tag">أداة</div><div class="related-title">مولّد التجزئة: MD5 وSHA-256 وSHA-512</div><div class="related-date">داخل متصفحك</div></a>
+      <a href="/blog/uuid-guid-explained" class="related-card"><div class="related-tag">دليل</div><div class="related-title">UUID أم GUID: ما الفرق ومتى تستخدم كلًّا منهما</div><div class="related-date">أبريل 2026</div></a>
+    </div>
+  </div>
+</main>
+
+<div id="toast" role="status" aria-live="polite"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> تم النسخ</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><a href="/" class="logo" style="display:inline-flex"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a><p>أدوات أمان مجانية تعمل داخل متصفحك. دون خادم، ودون تتبّع، ودون تسجيل.</p></div>
+    <div class="footer-col"><h4>أدوات أخرى</h4><ul><li><a href="/">كل الأدوات</a></li><li><a href="/password-generator">مولّد كلمات المرور</a></li><li><a href="/base64-encoder">أداة ترميز Base64</a></li><li><a href="/hash-generator">مولّد التجزئة</a></li><li><a href="/api-key-generator">مولّد مفاتيح API</a></li></ul></div>
+    <div class="footer-col"><h4>تعلّم</h4><ul><li><a href="/blog/">مدونة الأمان</a></li><li><a href="/blog/uuid-guid-explained">UUID مقابل GUID</a></li><li><a href="/blog/api-keys-vs-passwords">أمان مفاتيح API</a></li><li><a href="/privacy">سياسة الخصوصية</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 Zecure.net</p><p>تُنشأ كل معرّفات UUID محليًا &middot; لا نجمع أي بيانات</p></div>
+</footer>
+
+<script>
+function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('zecure-theme',n)}
+
+let currentVersion='v4';
+function setVersion(v){currentVersion=v;document.getElementById('ver-v4').classList.toggle('active',v==='v4');document.getElementById('ver-v7').classList.toggle('active',v==='v7');generate()}
+
+function genUUIDv4(){
+  const a=new Uint8Array(16);crypto.getRandomValues(a);
+  a[6]=(a[6]&0x0f)|0x40;a[8]=(a[8]&0x3f)|0x80;
+  const h=Array.from(a,b=>b.toString(16).padStart(2,'0')).join('');
+  return`${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`;
+}
+
+function genUUIDv7(){
+  const a=new Uint8Array(16);crypto.getRandomValues(a);
+  const now=BigInt(Date.now());
+  a[0]=Number((now>>40n)&0xffn);a[1]=Number((now>>32n)&0xffn);
+  a[2]=Number((now>>24n)&0xffn);a[3]=Number((now>>16n)&0xffn);
+  a[4]=Number((now>>8n)&0xffn);a[5]=Number(now&0xffn);
+  a[6]=(a[6]&0x0f)|0x70;a[8]=(a[8]&0x3f)|0x80;
+  const h=Array.from(a,b=>b.toString(16).padStart(2,'0')).join('');
+  return`${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`;
+}
+
+let currentUUIDs=[];
+let toastT;
+function showToast(msg='تم النسخ'){const t=document.getElementById('toast');t.querySelector('svg').nextSibling.textContent=' '+msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2000)}
+function copyVal(btn,val,i){
+  navigator.clipboard.writeText(val).then(()=>{
+    btn.classList.add('copied');
+    const row=document.getElementById('kr-'+i);if(row){row.classList.add('flash');setTimeout(()=>row.classList.remove('flash'),500)}
+    setTimeout(()=>btn.classList.remove('copied'),2000);showToast();
+  });
+}
+function copyAll(){
+  const text=currentUUIDs.join('\n');
+  navigator.clipboard.writeText(text).then(()=>showToast(`تم نسخ ${currentUUIDs.length} من معرّفات UUID`));
+}
+
+function generate(){
+  const count=parseInt(document.getElementById('count-select').value,10);
+  const fn=currentVersion==='v7'?genUUIDv7:genUUIDv4;
+  currentUUIDs=Array.from({length:count},fn);
+  document.getElementById('key-list').innerHTML=currentUUIDs.map((v,i)=>`<div class="key-row" id="kr-${i}"><span class="key-val" title="${v}">${v}</span><button class="copy-btn" onclick="copyVal(this,'${v}',${i})" aria-label="نسخ"><svg class="clip" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><svg class="check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button></div>`).join('');
+}
+generate();
+function toggleFaq(btn){const item=btn.parentElement;const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}
+</script>

@@ -1,0 +1,268 @@
+<!--meta
+{
+  "title": "bcrypt مقابل Argon2: أي دالة تجزئة لكلمات المرور تستخدم؟ | مدونة Zecure",
+  "description": "bcrypt وArgon2id هما أكثر خوارزميتين يُوصى بهما لتجزئة كلمات المرور. نقارن بينهما في استهلاك الذاكرة والضبط والأداء الفعلي، وأيهما تختار للمشاريع الجديدة.",
+  "keywords": "bcrypt مقابل argon2, خوارزمية تجزئة كلمات المرور, argon2id, تخزين كلمات المرور بأمان, pbkdf2, scrypt, تجزئة كلمات المرور",
+  "ogType": "article",
+  "ogTitle": "bcrypt مقابل Argon2: أي دالة تجزئة لكلمات المرور تستخدم؟",
+  "ogDescription": "bcrypt وArgon2id هما أبرز خوارزميتين لتجزئة كلمات المرور. نقارن بينهما في استهلاك الذاكرة والضبط، وأيهما تختار للمشاريع الجديدة والقائمة.",
+  "sitemap": true
+}
+-->
+<!--head-->
+<script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","inLanguage":"ar","headline":"bcrypt مقابل Argon2: أي دالة تجزئة لكلمات المرور تستخدم؟","author":{"@type":"Organization","name":"Zecure"},"publisher":{"@type":"Organization","name":"Zecure","url":"https://zecure.net"},"datePublished":"2025-04-15","dateModified":"2025-04-15","description":"مقارنة عملية بين خوارزميتي تجزئة كلمات المرور bcrypt وArgon2id، تشمل استهلاك الذاكرة، ومعاملات الضبط، ومقاومة هجمات GPU، وتوصيات للمشاريع الجديدة والقائمة."}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#6366f1;--accent-h:#4f46e5;--accent-s:rgba(99,102,241,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--amber-s:rgba(245,158,11,0.1);--red:#ef4444;--red-s:rgba(239,68,68,0.1);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#4f46e5;--accent-h:#4338ca;--accent-s:rgba(79,70,229,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--amber-s:rgba(217,119,6,0.08);--red:#dc2626;--red-s:rgba(220,38,38,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--accent-s);color:var(--text)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    body>header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}.nav-inner{max-width:800px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1rem}.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}.logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}.back-link{margin-left:auto;display:inline-flex;align-items:center;gap:.35rem;color:var(--text-2);font-size:.8125rem;font-weight:500;text-decoration:none;padding:.375rem .75rem;border-radius:var(--r-sm);border:1px solid var(--border);transition:all .15s;cursor:pointer}.back-link:hover{color:var(--text);background:var(--surface2);border-color:var(--text-4)}.icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,border-color .15s,background .15s}.icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.icon-btn .sun{display:none}.icon-btn .moon{display:block}[data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    .article-wrap{max-width:800px;margin:0 auto;padding:0 1.5rem}.article-hero{padding:3.5rem 0 2.5rem}.article-category{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent-s);color:var(--accent);font-size:.75rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.25rem .75rem;border-radius:100px;margin-bottom:1.25rem}.article-h1{font-size:clamp(1.75rem,4vw,2.625rem);font-weight:700;line-height:1.15;letter-spacing:-.025em;color:var(--text);margin-bottom:1rem}.article-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}.article-meta span{font-size:.8125rem;color:var(--text-3);display:flex;align-items:center;gap:.35rem}.article-meta .sep{width:3px;height:3px;border-radius:50%;background:var(--text-4)}.article-lead{font-size:1.0625rem;color:var(--text-2);line-height:1.75;border-left:3px solid var(--accent);padding-left:1.25rem;margin-bottom:2.5rem}.article-body{padding-bottom:4rem}.article-body h2{font-size:1.3125rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin:2.5rem 0 .875rem}.article-body h3{font-size:1.0625rem;font-weight:600;color:var(--text);margin:1.75rem 0 .625rem}.article-body p{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:1.25rem}.article-body a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}.article-body ul,.article-body ol{margin:.5rem 0 1.25rem 1.5rem}.article-body li{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:.35rem}.article-body strong{color:var(--text);font-weight:600}.article-body code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    .callout{display:flex;gap:1rem;background:var(--surface);border:1px solid var(--border-s);border-left:3px solid var(--accent);border-radius:var(--r-lg);padding:1.125rem 1.25rem;margin:1.5rem 0}.callout-icon{flex-shrink:0;margin-top:2px;color:var(--accent)}.callout p{margin:0;font-size:.875rem}.callout.warn{border-left-color:var(--amber)}.callout.warn .callout-icon{color:var(--amber)}.callout.good{border-left-color:var(--green)}.callout.good .callout-icon{color:var(--green)}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin:1rem 0 1.5rem}.compare-col{background:var(--surface)}.compare-header{padding:.875rem 1.125rem;font-size:.8125rem;font-weight:600;border-bottom:1px solid var(--border-s)}.compare-header.bcrypt{color:var(--amber);background:var(--amber-s)}.compare-header.argon2{color:var(--green);background:var(--green-s)}.compare-row{display:flex;align-items:flex-start;gap:.625rem;padding:.75rem 1.125rem;border-bottom:1px solid var(--border-s);font-size:.875rem;color:var(--text-2)}.compare-row:last-child{border-bottom:none}.compare-icon{flex-shrink:0;margin-top:2px}.compare-icon.yes{color:var(--green)}.compare-icon.no{color:var(--red)}.compare-icon.maybe{color:var(--amber)}
+    .spec-table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.875rem}.spec-table th{text-align:left;font-weight:600;color:var(--text-2);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;padding:.5rem .75rem;border-bottom:1px solid var(--border)}.spec-table td{padding:.6rem .75rem;border-bottom:1px solid var(--border-s);color:var(--text-2)}.spec-table td:first-child{font-weight:600;color:var(--text)}.spec-table td:last-child{font-family:var(--mono);font-size:.8rem;color:var(--accent)}.spec-table tr:last-child td{border-bottom:none}
+    hr.divider{border:none;border-top:1px solid var(--border-s);margin:2.5rem 0}
+    .related{padding:2.5rem 0 4rem;border-top:1px solid var(--border-s)}.related-title{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:1.25rem}.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}.related-card{display:block;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.25rem;text-decoration:none;transition:border-color .15s,background .15s;cursor:pointer}.related-card:hover{border-color:var(--border);background:var(--surface2)}.related-cat{font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}.related-card-title{font-size:.9rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.4rem}.related-card-date{font-size:.75rem;color:var(--text-3)}
+    .article-cta{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:2rem;text-align:center;margin:2.5rem 0}.article-cta h3{font-size:1.125rem;font-weight:600;margin-bottom:.5rem}.article-cta p{font-size:.875rem;color:var(--text-2);margin-bottom:1.25rem}.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.875rem;font-weight:500;padding:.6rem 1.375rem;border-radius:var(--r);cursor:pointer;transition:all .15s;text-decoration:none}.btn-primary{background:var(--accent);color:#fff;border:none}.btn-primary:hover{background:var(--accent-h)}
+  </style>
+  <style>
+    html[dir=rtl] .back-link{margin-left:0;margin-right:auto}
+    html[dir=rtl] .article-lead{border-left:none;padding-left:0;border-right:3px solid var(--accent);padding-right:1.25rem}
+    html[dir=rtl] .article-body ul,html[dir=rtl] .article-body ol{margin:.5rem 1.5rem 1.25rem 0}
+    html[dir=rtl] .callout{border-left:1px solid var(--border-s);border-right:3px solid var(--accent)}
+    html[dir=rtl] .callout.warn{border-right-color:var(--amber)}
+    html[dir=rtl] .callout.good{border-right-color:var(--green)}
+    html[dir=rtl] .spec-table th{text-align:right}
+  </style>
+<!--body-->
+<header>
+  <nav class="nav-inner" aria-label="التنقل في الموقع">
+    <a href="/" class="logo" aria-label="الصفحة الرئيسية لـ Zecure">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </span>
+      Zecure
+    </a>
+    <a href="/#blog" class="back-link">
+      <svg class="flip-rtl" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      كل المقالات
+    </a>
+    <button class="icon-btn" id="theme-btn" aria-label="تبديل المظهر" onclick="toggleTheme()">
+      <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="article-wrap">
+    <article>
+      <header class="article-hero">
+        <div class="article-category">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          للمطوّرين
+        </div>
+        <h1 class="article-h1">bcrypt مقابل Argon2: أي دالة تجزئة لكلمات المرور تستخدم؟</h1>
+        <div class="article-meta">
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            أبريل 2025
+          </span>
+          <span class="sep"></span>
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            قراءة 10 دقائق
+          </span>
+          <span class="sep"></span>
+          <span>بقلم فريق Zecure</span>
+        </div>
+        <p class="article-lead">bcrypt وArgon2id هما الخوارزميتان اللتان يصادفهما معظم المطوّرين عند بناء أنظمة المصادقة. كلتاهما مصممة لجعل هجمات القوة الغاشمة مكلفة، لكنهما تتبعان نهجين مختلفين جدًا، والاختيار بينهما يؤثر في أمان كلمات مرور مستخدميك.</p>
+      </header>
+
+      <div class="article-body">
+
+        <h2>لماذا تختلف تجزئة كلمات المرور عن التجزئة العادية</h2>
+        <p>عند تخزين كلمة مرور، لا ينبغي أبدًا تخزينها كنص صريح، ولا حتى كتجزئة تشفيرية عادية مثل SHA-256. فدوال التجزئة العادية مصممة لتكون سريعة الحساب، والمهاجم الذي يسرق قاعدة بيانات من تجزئات SHA-256 يستطيع تجربة مليارات التخمينات في الثانية باستخدام GPU.</p>
+        <p>أما تجزئة كلمات المرور فمختلفة: فهي بطيئة عمدًا وتستهلك موارد كثيرة، مما يجعل هجمات القوة الغاشمة غير عملية حسابيًا. وكلٌّ من bcrypt وArgon2 دالة لتجزئة كلمات المرور، لكنهما تختلفان في طريقة تحقيق ذلك.</p>
+
+        <h2>كيف يعمل bcrypt</h2>
+        <p>نُشر bcrypt عام 1999، وهو مبني على شيفرة Blowfish. وقد قدّم فكرة معامل التكلفة القابل للضبط (الذي سُمّي في الأصل "الجولات")، والذي يحدد مدى بطء حساب التجزئة. وكل زيادة بمقدار واحد في معامل التكلفة تضاعف زمن الحساب.</p>
+        <p>تبدو تجزئة bcrypt هكذا:</p>
+        <p><code>$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/X4.S0PKrHqhPWHfeG</code></p>
+        <p>يشير <code>$2b$</code> إلى الإصدار، و<code>$12$</code> هو معامل التكلفة، والباقي هو ناتج التجزئة بطول 184 بت.</p>
+        <p>لدى bcrypt قيد مهم واحد: فهو لا يستخدم داخليًا سوى نحو 4 KB من الذاكرة. وهذا يجعل مهاجمته رخيصة نسبيًا باستخدام دوائر ASIC أو FPGA، لأن متطلب الذاكرة منخفض بما يكفي ليتمكن المهاجم من التوازي على نطاق واسع، فيشغّل آلاف التخمينات في الوقت نفسه على عتاد متخصص.</p>
+
+        <h2>كيف يعمل Argon2</h2>
+        <p>فاز Argon2 بمسابقة Password Hashing Competition عام 2015، ويأتي في ثلاثة أشكال: Argon2d وArgon2i وArgon2id. لتخزين كلمات المرور تحتاج إلى <strong>Argon2id</strong>، الذي يجمع بين النهجين: Argon2d (يعتمد على البيانات، ويقاوم هجمات GPU/ASIC) وArgon2i (مستقل عن البيانات، ويقاوم هجمات القنوات الجانبية).</p>
+        <p>لدى Argon2id ثلاثة معاملات قابلة للضبط:</p>
+        <ul>
+          <li><strong>تكلفة الذاكرة (m)</strong>: مقدار ذاكرة RAM المستخدمة لكل تجزئة (مثلًا 64 MB)</li>
+          <li><strong>تكلفة الوقت (t)</strong>: عدد التكرارات المنفَّذة</li>
+          <li><strong>التوازي (p)</strong>: عدد الخيوط المتوازية</li>
+        </ul>
+        <p>الميزة الأساسية لـ Argon2 على bcrypt أنه يتطلب مقدارًا قابلًا للضبط من الذاكرة لكل تجزئة، مما يجعل التوازي مكلفًا على دوائر ASIC ووحدات GPU، التي يكون عرض نطاق الذاكرة فيها محدودًا لكل وحدة حوسبة.</p>
+
+        <div class="spec-table">
+          <thead><tr><th>المعامل</th><th>bcrypt</th><th>Argon2id (موصى به)</th></tr></thead>
+          <tbody>
+            <tr><td>حجم التجزئة</td><td>184 بت (23 بايت)</td><td>256 بت (32 بايت)</td></tr>
+            <tr><td>تكلفة الذاكرة</td><td>ثابتة، نحو 4 KB</td><td>قابلة للضبط (مثلًا 64 MB)</td></tr>
+            <tr><td>تكلفة الوقت</td><td>معامل التكلفة (2<sup>n</sup> تكرار)</td><td>عدد تكرارات قابل للضبط</td></tr>
+            <tr><td>مقاومة هجمات GPU</td><td>منخفضة، سهل التوازي</td><td>عالية، تصميم يعتمد على الذاكرة</td></tr>
+            <tr><td>خطر القنوات الجانبية</td><td>منخفض</td><td>ضئيل (Argon2id هجين)</td></tr>
+            <tr><td>مدى الاعتماد</td><td>واسع، في معظم أطر العمل</td><td>متزايد، في التقنيات الحديثة</td></tr>
+          </tbody>
+        </div>
+
+        <h2>مقارنة جنبًا إلى جنب</h2>
+
+        <div class="compare-grid" aria-label="مقارنة بين bcrypt وArgon2id">
+          <div class="compare-col">
+            <div class="compare-header bcrypt">bcrypt</div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              ناضج ومُختبَر عمليًا منذ 1999
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              مدعوم على نطاق واسع في كل لغة وإطار عمل
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              سهل التطبيق بشكل صحيح، بمعامل واحد فقط للضبط
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon no" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              تكلفة ذاكرة منخفضة (نحو 4 KB)، مما يجعله عرضة لهجمات GPU/ASIC
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon maybe" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              يبلغ الحد الأقصى للأمان مستوى ثابتًا عند معامل تكلفة 12–14 على العتاد الحديث
+            </div>
+          </div>
+          <div class="compare-col">
+            <div class="compare-header argon2">Argon2id</div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              يعتمد على الذاكرة (memory-hard)، ويقاوم هجمات GPU وFPGA وASIC
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              ثلاثة أبعاد للضبط (الذاكرة، والوقت، والتوازي)
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon yes" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              معيار حديث، فاز بمسابقة Password Hashing Competition (2015)
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon no" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              خيارات أقل من المكتبات الجاهزة للإنتاج مقارنة بـ bcrypt
+            </div>
+            <div class="compare-row">
+              <svg class="compare-icon maybe" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              يتطلب ضبطًا دقيقًا لثلاثة معاملات، ومن السهل الخطأ فيه
+            </div>
+          </div>
+        </div>
+
+        <h2>تكلفة الهجوم في الواقع</h2>
+        <p>إليك ما يعنيه هذا الفرق عمليًا. تستطيع وحدة GPU متقدمة (NVIDIA H100) حساب ما يقارب:</p>
+        <ul>
+          <li><strong>bcrypt</strong> (تكلفة 12): نحو 70,000 تخمين في الثانية</li>
+          <li><strong>Argon2id</strong> (64 MB، و3 تكرارات): نحو 500 تخمين في الثانية</li>
+        </ul>
+        <p>مع Argon2id يحصل المهاجم على تخمينات أقل بـ 140 مرة في الثانية لكل GPU، وذلك قبل احتساب أن عرض نطاق ذاكرة GPU يحدّ من عدد العمليات التي يمكن تشغيلها بالتوازي. ولكلمة مرور من 6 أحرف صغيرة (26<sup>6</sup> ≈ 309 ملايين احتمال)، يحتاج bcrypt بتكلفة 12 إلى نحو 74 دقيقة لاستنفاد كل الاحتمالات، بينما يحتاج Argon2id إلى نحو 7 أيام. ومع كلمات المرور الأطول تتسع الفجوة بشكل كبير.</p>
+
+        <div class="callout warn">
+          <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+          <p>لا يزال PBKDF2 (مثلًا الخيار الافتراضي في Django) مستخدمًا على نطاق واسع، لكن فيه نقطة الضعف الأساسية نفسها التي في bcrypt: فهو سريع الحساب وسهل التوازي على وحدات GPU. إذا كنت تختار خوارزمية جديدة، فكلٌّ من bcrypt وArgon2id أفضل منه بوضوح.</p>
+        </div>
+
+        <h2>أيهما تستخدم؟</h2>
+        <p>الإجابة تعتمد على وضعك:</p>
+
+        <h3>استخدم Argon2id إذا...</h3>
+        <ul>
+          <li>كنت تبني نظامًا جديدًا ويمكنك الاختيار من البداية</li>
+          <li>كانت التكلفة الأمنية الإضافية لـ Argon2id (استهلاك الذاكرة والمعالج) مقبولة لتطبيقك</li>
+          <li>كنت تستخدم إطار عمل حديثًا يدعم Argon2 مدمجًا (PHP 7.2+، وargon2-cffi في Python، وcryptoargon2 في Go)</li>
+          <li>كنت تريد أفضل حماية متاحة من هجمات القوة الغاشمة المسرَّعة بـ GPU</li>
+        </ul>
+
+        <h3>استخدم bcrypt إذا...</h3>
+        <ul>
+          <li>كنت تعمل على إطار عمل قديم يفتقر إلى دعم Argon2 أو دعمه غير ناضج</li>
+          <li>كنت تصون نظامًا قائمًا يستخدم bcrypt بالفعل؛ فتكاليف الانتقال غالبًا ما تفوق الفائدة الأمنية</li>
+          <li>كانت بيئة النشر لديك مقيدة بشدة في الذاكرة (فقد لا يناسب Argon2id بـ 64 MB لكل تجزئة بيئات serverless)</li>
+          <li>كنت تحتاج إلى أقصى توافق بين اللغات وبيئات التشغيل</li>
+        </ul>
+
+        <div class="callout good">
+          <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <p>إذا كنت تبدأ من الصفر وتدعم بيئتك ذلك، فاستخدم <strong>Argon2id</strong>. وإذا كنت تستخدم bcrypt فلا داعي للقلق، فهو لا يزال آمنًا عند ضبطه بمعامل تكلفة مرتفع بما يكفي (12 أو أكثر على العتاد الحديث). الأهم ألا تستخدم دالة تجزئة سريعة مثل SHA-256 أو MD5.</p>
+        </div>
+
+        <h2>معاملات الضبط</h2>
+        <p>تحتاج الخوارزميتان إلى ضبط يناسب احتياجاتك الأمنية وقيود العتاد لديك. والهدف أن تجعل التجزئة بطيئة بأقصى قدر يتحمله المستخدمون الشرعيون، مع جعل الهجمات باهظة التكلفة.</p>
+
+        <h3>ضبط bcrypt</h3>
+        <p>المعامل الوحيد القابل للضبط هو معامل التكلفة. وتعتمد القيمة المناسبة على عتاد الخادم لديك؛ استهدف زمن تجزئة بين 200 و500 ميلي ثانية. على خادم حديث تستغرق التكلفة 12 نحو 250 ميلي ثانية، والتكلفة 13 نحو 500 ميلي ثانية. وأعد المعايرة مع تحسّن العتاد.</p>
+
+        <h3>ضبط Argon2id</h3>
+        <p>توصي إرشادات OWASP لعام 2023 بما يلي:</p>
+        <ul>
+          <li><strong>الذاكرة:</strong> 64 MB كحد أدنى (19 MB كحد أدنى)</li>
+          <li><strong>التكرارات:</strong> 3 كحد أدنى</li>
+          <li><strong>التوازي:</strong> 1 أو أكثر</li>
+        </ul>
+        <p>للتطبيقات التي تتطلب أمانًا أعلى، استخدم 128 MB أو أكثر. وتوصي وثائق Argon2 بالمعايرة بحيث تستغرق التجزئة الواحدة نحو ثانية واحدة على العتاد المستهدف.</p>
+
+        <h2>وماذا عن الأنظمة القائمة؟</h2>
+        <p>إذا كنت تستخدم حاليًا bcrypt أو PBKDF2، فلست مضطرًا بالضرورة إلى الانتقال فورًا. السؤال الأساسي هو ما إذا كانت معاملات التكلفة والضبط لديك كافية للعتاد الحديث. أجرِ اختبار أداء: إذا استغرقت التجزئة الواحدة أقل من 100 ميلي ثانية، فمعاملاتك منخفضة جدًا.</p>
+        <p>وعندما تنتقل، فالنهج المعتاد هو إعادة التجزئة عند تسجيل الدخول: عندما يسجّل المستخدم دخوله بنجاح في المرة التالية، تحقق من كلمة مروره مقابل التجزئة القديمة، ثم أنشئ تجزئة جديدة بالخوارزمية المحدَّثة وخزّنها. وبهذا تتجنب فرض إعادة تعيين كلمات المرور.</p>
+
+        <hr class="divider">
+
+        <h2>الخلاصة</h2>
+        <p>Argon2id هو الخوارزمية الأقوى، فتصميمه المعتمد على الذاكرة يجعل هجمات GPU وASIC أكثر تكلفة بكثير. أما bcrypt فلا يزال آمنًا مع الضبط الصحيح، لكن انخفاض تكلفة الذاكرة فيه يعني أن مهاجمًا مصممًا بعتاد عادي متاح تجاريًا لا يزال قادرًا على تجربة عدد كبير من التخمينات في الثانية.</p>
+        <p>للمشاريع الجديدة، Argon2id هو الخيار الواضح. وللمشاريع القائمة، يُعدّ رفع معاملات التكلفة في bcrypt خطوة وسيطة عملية تحقق تحسنًا أمنيًا ملموسًا دون انتقال كامل. وأيًّا كانت الخوارزمية التي تستخدمها، فتأكد من معايرة معاملاتها للعتاد الحديث؛ فالتجزئة التي تكتمل في أجزاء من الثانية لا توفر حماية كافية.</p>
+
+        <div class="article-cta">
+          <h3>ولّد كلمة مرور عشوائية قوية لاستخدامها</h3>
+          <p>كلمات المرور الآمنة هي أساس المصادقة الجيدة. ولّد كلمات مرور عشوائية فريدة لكل حساب، واحفظها في مدير كلمات المرور.</p>
+          <a href="/" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            افتح مولّد Zecure
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <section class="related" aria-label="مقالات ذات صلة">
+      <p class="related-title">المزيد من المدونة</p>
+      <div class="related-grid">
+        <a href="/blog/env-secrets-management" class="related-card">
+          <div class="related-cat">للمطوّرين</div>
+          <div class="related-card-title">كيف تخزّن متغيرات البيئة والأسرار بأمان</div>
+          <div class="related-card-date">أغسطس 2025</div>
+        </a>
+        <a href="/blog/jwt-secrets-explained" class="related-card">
+          <div class="related-cat">للمطوّرين</div>
+          <div class="related-card-title">ما هو سرّ JWT وكيف يعمل؟</div>
+          <div class="related-card-date">أبريل 2025</div>
+        </a>
+        <a href="/blog/password-entropy-explained" class="related-card">
+          <div class="related-cat">شرح</div>
+          <div class="related-card-title">شرح إنتروبيا كلمة المرور: لماذا العشوائية هي كل ما يهم</div>
+          <div class="related-card-date">يوليو 2025</div>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('zecure-theme',n)}
+</script>

@@ -1,0 +1,288 @@
+<!--meta
+{
+  "title": "أداة ترميز وفك ترميز Base64 مجانية أونلاين | Zecure",
+  "description": "رمّز النصوص إلى Base64 وفك ترميزها فورًا داخل متصفحك. تدعم Base64 القياسي وBase64 الآمن للروابط (URL-safe). تعمل داخل متصفحك بالكامل؛ لا تُرسَل أي بيانات إلى خادم إطلاقًا.",
+  "keywords": "ترميز base64, فك ترميز base64, تحويل نص إلى base64, تحويل base64 إلى نص, base64 أونلاين, فك تشفير base64, base64 encoder, base64 decoder, base64 آمن للروابط",
+  "robots": "index, follow",
+  "ogType": "website",
+  "ogTitle": "أداة ترميز وفك ترميز Base64 مجانية أونلاين | Zecure",
+  "ogDescription": "رمّز Base64 وفك ترميزه فورًا. وضعان: القياسي والآمن للروابط. يعمل داخل متصفحك بالكامل، دون تسجيل.",
+  "sitemap": true
+}
+-->
+<!--head-->
+<meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"أداة ترميز وفك ترميز Base64","url":"https://zecure.net/base64-encoder","inLanguage":"ar","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"أداة مجانية أونلاين لترميز Base64 وفك ترميزه. تدعم Base64 القياسي والآمن للروابط. تعمل داخل المتصفح بالكامل."},
+    {"@type":"FAQPage","inLanguage":"ar","mainEntity":[
+      {"@type":"Question","name":"ما ترميز Base64؟","acceptedAnswer":{"@type":"Answer","text":"يحوّل ترميز Base64 البيانات الثنائية إلى نص ASCII باستخدام 64 حرفًا قابلًا للطباعة. فهو يرمّز كل 3 بايتات من المدخل في 4 أحرف، فيصبح المخرج أكبر بنحو 33%. ويُستخدم على نطاق واسع لتمرير البيانات الثنائية بأمان عبر قنوات لا تقبل إلا النص، مثل البريد الإلكتروني وJSON وترويسات HTTP."}},
+      {"@type":"Question","name":"هل Base64 هو نفسه التشفير؟","acceptedAnswer":{"@type":"Answer","text":"لا. Base64 ترميز وليس تشفيرًا، ويمكن عكسه دون أي مفتاح. أي شخص يرى سلسلة Base64 يستطيع فك ترميزها فورًا. إذا كنت تحتاج إلى حماية البيانات، فاستخدم تشفيرًا حقيقيًا مثل AES-256. فـ Base64 يغيّر طريقة تمثيل البيانات فقط، ولا يخفيها."}},
+      {"@type":"Question","name":"ما Base64 الآمن للروابط؟","acceptedAnswer":{"@type":"Answer","text":"يستبدل Base64 الآمن للروابط (Base64url) الحرف + بالحرف - والحرف / بالحرف _، فيزيل الأحرف التي لها معنى خاص في الروابط. وغالبًا ما يُحذف حشو (=) أيضًا. ويُستخدم هذا النوع في JWT ورموز OAuth ومعظم أنظمة المصادقة الحديثة على الويب."}},
+      {"@type":"Question","name":"لماذا تنتهي سلسلة Base64 لديّ بـ ==؟","acceptedAnswer":{"@type":"Answer","text":"يرمّز Base64 كل 3 بايتات معًا وينتج 4 أحرف. إذا لم يكن طول المدخل من مضاعفات 3، تُضاف أحرف حشو (=): علامة = واحدة لبايت واحد متبقٍّ، وعلامتا = لبايتين متبقيين. ويضمن هذا الحشو أن يعرف مفكّك الترميز أين تنتهي البيانات."}}
+    ]}
+  ]}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#6366f1;--accent-h:#4f46e5;--accent-s:rgba(99,102,241,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--red:#ef4444;--clr:#34d399;--clr-s:rgba(52,211,153,0.1);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#4f46e5;--accent-h:#4338ca;--accent-s:rgba(79,70,229,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--red:#dc2626;--clr:#059669;--clr-s:rgba(5,150,105,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--accent-s);color:var(--text)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}.nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}.logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}.nav-links{display:flex;list-style:none;gap:.125rem}.nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}.nav-links a:hover{color:var(--text);background:var(--surface2)}@media(max-width:640px){.nav-links{display:none}}.nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}.icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,border-color .15s,background .15s}.icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.icon-btn .sun{display:none}.icon-btn .moon{display:block}[data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    main{max-width:760px;margin:0 auto;padding:0 1.5rem}
+    .tool-hero{padding:4rem 0 2.5rem;text-align:center;position:relative}.tool-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,var(--border-s) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);pointer-events:none}.tool-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;position:relative}.pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px var(--green-s)}.tool-h1{font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-.025em;color:var(--text);line-height:1.15;margin-bottom:1rem;position:relative}.tool-h1 mark{background:none;color:var(--clr)}.tool-sub{font-size:1rem;color:var(--text-2);line-height:1.7;max-width:500px;margin:0 auto 2rem;position:relative}
+    .gen-widget{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin-bottom:2rem}.gen-widget-head{padding:.875rem 1rem;border-bottom:1px solid var(--border-s);display:flex;align-items:center;gap:.65rem}.gen-icon{width:32px;height:32px;border-radius:var(--r-sm);background:var(--clr-s);color:var(--clr);display:flex;align-items:center;justify-content:center;flex-shrink:0}.gen-label{font-size:.8125rem;font-weight:600;color:var(--text);flex:1}.gen-badge{font-size:.7rem;font-weight:500;padding:.15rem .5rem;border-radius:4px;background:var(--clr-s);color:var(--clr)}
+    .b64-body{padding:.75rem;display:flex;flex-direction:column;gap:.625rem}
+    .b64-row{display:flex;flex-direction:column;gap:.3rem}
+    .b64-label{font-size:.75rem;font-weight:600;color:var(--text-3);letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
+    .b64-textarea{width:100%;min-height:80px;background:var(--bg);border:1px solid var(--border-s);border-radius:var(--r-sm);color:var(--text);font-family:var(--mono);font-size:.8rem;line-height:1.6;padding:.625rem .75rem;resize:vertical;transition:border-color .15s;word-break:break-all}[data-theme="light"] .b64-textarea{background:var(--surface2)}.b64-textarea:focus{outline:none;border-color:var(--clr)}.b64-textarea::placeholder{color:var(--text-4)}
+    .b64-arrows{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.25rem 0}
+    .action-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .mode-toggle{display:flex;background:var(--surface2);border:1px solid var(--border-s);border-radius:var(--r-sm);overflow:hidden}.mode-btn{font-family:var(--sans);font-size:.75rem;font-weight:500;color:var(--text-3);background:transparent;border:none;padding:.3rem .75rem;cursor:pointer;transition:color .15s,background .15s}.mode-btn.active{background:var(--accent);color:#fff}.mode-btn:hover:not(.active){color:var(--text)}
+    .act-btn{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border-radius:var(--r-sm);cursor:pointer;transition:all .15s;border:1px solid var(--border)}.act-btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}.act-btn-primary:hover{background:var(--accent-h);border-color:var(--accent-h)}.act-btn-secondary{background:transparent;color:var(--text-2)}.act-btn-secondary:hover{color:var(--text);background:var(--surface2)}.act-btn-copy{background:transparent;color:var(--text-2)}.act-btn-copy:hover{color:var(--text);background:var(--surface2)}.act-btn-copy.copied{color:var(--green);border-color:var(--green);background:var(--green-s)}
+    .error-msg{font-size:.8rem;color:var(--red);background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:var(--r-sm);padding:.4rem .75rem;display:none}.error-msg.show{display:block}
+    .gen-footer{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-top:1px solid var(--border-s);flex-wrap:wrap;gap:.5rem}.stat-text{font-size:.75rem;color:var(--text-3)}
+    .content-section{padding:2.5rem 0;border-top:1px solid var(--border-s)}.content-section h2{font-size:1.25rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin-bottom:.875rem}.content-section p{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:1.25rem}.content-section ul,.content-section ol{margin:.25rem 0 1.25rem 1.5rem}.content-section li{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:.4rem}.content-section strong{color:var(--text);font-weight:600}.content-section code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    pre.code-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.125rem 1.25rem;overflow-x:auto;margin:.5rem 0 1.25rem}pre.code-block code{background:none;color:var(--text-2);font-size:.8125rem;padding:0;line-height:1.7}.tk-cm{color:var(--text-4)}.tk-kw{color:#818cf8}.tk-st{color:#4ade80}[data-theme="light"] .tk-kw{color:#4f46e5}[data-theme="light"] .tk-st{color:#16a34a}
+    .callout{display:flex;gap:1rem;background:var(--surface);border:1px solid var(--border-s);border-left:3px solid var(--amber);border-radius:var(--r-lg);padding:1rem 1.125rem;margin:1.25rem 0}.callout-icon{flex-shrink:0;margin-top:2px;color:var(--amber)}.callout p{margin:0;font-size:.875rem}
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}.faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;transition:border-color .15s}.faq-item:hover{border-color:var(--border)}.faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}.faq-q:hover{color:var(--text);background:var(--surface2)}.faq-item.open .faq-q{color:var(--text)}.faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease,color .15s}.faq-item.open .faq-chev{transform:rotate(180deg);color:var(--accent)}.faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}.faq-item.open .faq-body{max-height:500px}.faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}.related-card{display:block;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.125rem;text-decoration:none;transition:border-color .15s,background .15s}.related-card:hover{border-color:var(--border);background:var(--surface2)}.related-tag{font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}.related-title{font-size:.875rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.3rem}.related-date{font-size:.75rem;color:var(--text-3)}
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);display:flex;align-items:center;gap:.5rem;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}.footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem}@media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr}}.footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}.footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}.footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}.footer-col ul a:hover{color:var(--text)}.footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}.footer-bottom p{font-size:.75rem;color:var(--text-4)}
+  </style>
+  <style>
+    html[dir=rtl] .callout{border-left:1px solid var(--border-s);border-right:3px solid var(--amber)}
+    html[dir=rtl] .faq-q{text-align:right}html[dir=rtl] .content-section ul,html[dir=rtl] .content-section ol{margin:.25rem 1.5rem 1.25rem 0}
+  </style>
+<!--body-->
+<header>
+  <nav class="nav-inner" aria-label="التنقل في الموقع">
+    <a href="/" class="logo"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a>
+    <ul class="nav-links" role="list">
+      <li><a href="/">كل الأدوات</a></li>
+      <li><a href="/password-generator">كلمة المرور</a></li>
+      <li><a href="/uuid-generator">UUID</a></li>
+      <li><a href="/base64-encoder" aria-current="page">Base64</a></li>
+      <li><a href="/hash-generator">التجزئة</a></li>
+      <li><a href="/blog/">المدونة</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="تبديل المظهر" onclick="toggleTheme()">
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+<main>
+  <div class="tool-hero">
+    <div class="tool-pills"><div class="pill"><span class="pill-dot"></span>داخل متصفحك فقط</div><div class="pill">قياسي وآمن للروابط</div><div class="pill">ترميز وفك ترميز</div></div>
+    <h1 class="tool-h1"><mark>أداة ترميز Base64</mark> وفك ترميزه مجانًا</h1>
+    <p class="tool-sub">رمّز أي نص أو بيانات إلى Base64، أو فك ترميز Base64 وأعده نصًا، بالوضعين القياسي والآمن للروابط، ودون أي اتصال بخادم.</p>
+  </div>
+
+  <div class="gen-widget">
+    <div class="gen-widget-head">
+      <div class="gen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div>
+      <span class="gen-label">ترميز / فك ترميز Base64</span>
+      <span class="gen-badge">UTF-8</span>
+    </div>
+    <div class="b64-body">
+      <div class="b64-row">
+        <label class="b64-label" for="b64-input">
+          <span>المدخل</span>
+          <span id="input-stat" style="font-size:.72rem;color:var(--text-4)">0 حرفًا</span>
+        </label>
+        <textarea class="b64-textarea" id="b64-input" dir="auto" placeholder="الصق النص أو Base64 هنا…" oninput="onInputChange()" spellcheck="false"></textarea>
+      </div>
+      <div class="action-row">
+        <div class="mode-toggle" role="group" aria-label="وضع Base64">
+          <button class="mode-btn active" id="mode-std" onclick="setMode('std')">قياسي</button>
+          <button class="mode-btn" id="mode-url" onclick="setMode('url')">آمن للروابط</button>
+        </div>
+        <button class="act-btn act-btn-primary" onclick="doEncode()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/></svg>
+          ترميز
+        </button>
+        <button class="act-btn act-btn-secondary" onclick="doDecode()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+          فك الترميز
+        </button>
+        <button class="act-btn act-btn-secondary" onclick="swapInputOutput()">تبديل</button>
+        <button class="act-btn act-btn-secondary" onclick="clearAll()">مسح</button>
+      </div>
+      <div class="error-msg" id="err-msg"></div>
+      <div class="b64-row">
+        <label class="b64-label" for="b64-output">
+          <span>المخرج</span>
+          <button class="act-btn act-btn-copy" id="copy-btn" onclick="copyOutput()" style="padding:.1rem .5rem;font-size:.72rem">نسخ</button>
+        </label>
+        <textarea class="b64-textarea" id="b64-output" dir="auto" placeholder="ستظهر النتيجة هنا…" readonly spellcheck="false"></textarea>
+      </div>
+    </div>
+    <div class="gen-footer">
+      <span class="stat-text" id="ratio-stat"></span>
+      <span class="stat-text">كل الترميز يجري محليًا &middot; لا تغادر أي بيانات متصفحك</span>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>ما Base64؟</h2>
+    <p>Base64 نظام ترميز يحوّل البيانات الثنائية إلى نص، فيمثّلها في صورة سلسلة من أحرف ASCII القابلة للطباعة. يحوّل كل 3 بايتات من المدخل إلى 4 أحرف من أبجدية من 64 حرفًا: <code>A–Z</code> و<code>a–z</code> و<code>0–9</code> و<code>+</code> و<code>/</code>. وتُضاف أحرف حشو (<code>=</code>) في النهاية إذا لم يكن المدخل من مضاعفات 3 بايتات.</p>
+    <p>تكون النتيجة أكبر من المدخل بنحو 33%، لكن يمكن نقلها بأمان عبر أي قناة تتعامل مع نص ASCII، بما في ذلك نصوص رسائل البريد الإلكتروني وحمولات JSON وترويسات HTTP وسمات HTML.</p>
+
+    <h2>متى يستخدم المطوّرون Base64؟</h2>
+    <ul>
+      <li><strong>HTTP Basic Auth</strong>: تُرمَّز بيانات الدخول بـ Base64 بالصيغة <code>username:password</code> قبل وضعها في الترويسة <code>Authorization: Basic</code>.</li>
+      <li><strong>JSON Web Tokens (JWT)</strong>: تُرمَّز ترويسات JWT وحمولاتها بـ Base64 الآمن للروابط (Base64url)، ما يجعلها آمنة في سلاسل الاستعلام في الروابط دون ترميز النسبة المئوية (percent-encoding).</li>
+      <li><strong>تضمين الصور أو الخطوط في CSS/HTML</strong>: تستخدم روابط Data URI ترميز Base64 لتضمين الملفات الثنائية مباشرة: <code>src="data:image/png;base64,..."</code></li>
+      <li><strong>مرفقات البريد الإلكتروني (MIME)</strong>: تُرمَّز المرفقات الثنائية مثل الصور أو ملفات PDF بـ Base64 قبل تضمينها في نص الرسالة.</li>
+      <li><strong>تخزين البيانات الثنائية في JSON</strong>: لا يحتوي JSON على نوع بيانات ثنائي، لذا تُرمَّز الكتل الثنائية (المفاتيح، التواقيع، الشهادات) بـ Base64 أولًا.</li>
+    </ul>
+
+    <div class="callout">
+      <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+      <p><strong>Base64 ليس تشفيرًا.</strong> يستطيع أي شخص فك ترميز سلسلة Base64 فورًا، فلا يوجد مفتاح ولا سرّ. لا تعتمد أبدًا على Base64 لحماية البيانات الحساسة، واستخدم تشفيرًا حقيقيًا (AES-256-GCM) للمعلومات السرية.</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Base64 القياسي مقابل الآمن للروابط</h2>
+    <p>يستخدم Base64 القياسي <code>+</code> و<code>/</code> حرفين رقم 62 و63. وهذان حرفان خاصان في الروابط، فـ <code>+</code> يعني مسافة، و<code>/</code> فاصل مسارات، ما يسبب مشكلات عندما تظهر سلاسل Base64 في الروابط.</p>
+    <p>يحل <strong>Base64 الآمن للروابط</strong> (ويُسمى أيضًا Base64url) هذه المشكلة باستبدال <code>+</code> بـ <code>-</code> و<code>/</code> بـ <code>_</code>. وغالبًا ما يُحذف حشو <code>=</code> أيضًا. ويُستخدم هذا النوع في JWT وواجهات Google API ومعظم بروتوكولات المصادقة الحديثة على الويب.</p>
+    <pre class="code-block"><code><span class="tk-cm">// JavaScript: encode to URL-safe Base64</span>
+<span class="tk-kw">function</span> toBase64Url(str) {
+  <span class="tk-kw">return</span> btoa(str)
+    .replace(<span class="tk-st">/\+/g</span>, <span class="tk-st">'-'</span>)
+    .replace(<span class="tk-st">/\//g</span>, <span class="tk-st">'_'</span>)
+    .replace(<span class="tk-st">/=+$/</span>, <span class="tk-st">''</span>);
+}</code></pre>
+  </div>
+
+  <div class="content-section">
+    <h2>الأسئلة الشائعة</h2>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">ما ترميز Base64؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>يحوّل ترميز Base64 البيانات الثنائية إلى نص ASCII باستخدام 64 حرفًا قابلًا للطباعة. فهو يرمّز كل 3 بايتات من المدخل في 4 أحرف، فيصبح المخرج أكبر بنحو 33%. ويُستخدم على نطاق واسع لتمرير البيانات الثنائية بأمان عبر قنوات لا تقبل إلا النص، مثل البريد الإلكتروني وJSON وترويسات HTTP.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">هل Base64 هو نفسه التشفير؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>لا. Base64 ترميز وليس تشفيرًا، ويمكن عكسه دون أي مفتاح. أي شخص يرى سلسلة Base64 يستطيع فك ترميزها فورًا. إذا كنت تحتاج إلى حماية البيانات، فاستخدم تشفيرًا حقيقيًا مثل AES-256. فـ Base64 يغيّر طريقة تمثيل البيانات فقط، ولا يخفيها.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">ما Base64 الآمن للروابط؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>يستبدل Base64 الآمن للروابط (Base64url) الحرف <code>+</code> بالحرف <code>-</code> والحرف <code>/</code> بالحرف <code>_</code>، فيزيل الأحرف التي لها معنى خاص في الروابط. وغالبًا ما يُحذف حشو (<code>=</code>) أيضًا. ويُستخدم هذا النوع في JWT ورموز OAuth ومعظم أنظمة المصادقة الحديثة على الويب.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">لماذا تنتهي سلسلة Base64 لديّ بـ ==؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>يرمّز Base64 كل 3 بايتات معًا وينتج 4 أحرف. إذا لم يكن طول المدخل من مضاعفات 3، تُضاف أحرف حشو (<code>=</code>): علامة <code>=</code> واحدة لبايت واحد متبقٍّ، وعلامتا <code>=</code> لبايتين متبقيين. ويضمن هذا الحشو أن يعرف مفكّك الترميز أين تنتهي البيانات.</p></div></div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>أدوات وقراءات ذات صلة</h2>
+    <div class="related-grid">
+      <a href="/hash-generator" class="related-card"><div class="related-tag">أداة</div><div class="related-title">مولّد التجزئة: MD5 وSHA-256 وSHA-512</div><div class="related-date">داخل متصفحك</div></a>
+      <a href="/jwt-secret-generator" class="related-card"><div class="related-tag">أداة</div><div class="related-title">مولّد المفتاح السري لـ JWT</div><div class="related-date">آمن تشفيريًا</div></a>
+      <a href="/blog/base64-encoding-explained" class="related-card"><div class="related-tag">دليل</div><div class="related-title">شرح ترميز Base64: ما هو ومتى تستخدمه</div><div class="related-date">أبريل 2026</div></a>
+    </div>
+  </div>
+</main>
+
+<div id="toast" role="status" aria-live="polite"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> تم النسخ</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><a href="/" class="logo" style="display:inline-flex"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a><p>أدوات أمان مجانية تعمل داخل متصفحك. دون خادم، ودون تتبّع، ودون تسجيل.</p></div>
+    <div class="footer-col"><h4>أدوات أخرى</h4><ul><li><a href="/">كل الأدوات</a></li><li><a href="/password-generator">مولّد كلمات المرور</a></li><li><a href="/uuid-generator">مولّد UUID</a></li><li><a href="/hash-generator">مولّد التجزئة</a></li><li><a href="/jwt-secret-generator">المفتاح السري لـ JWT</a></li></ul></div>
+    <div class="footer-col"><h4>تعلّم</h4><ul><li><a href="/blog/">مدونة الأمان</a></li><li><a href="/blog/base64-encoding-explained">شرح Base64</a></li><li><a href="/blog/jwt-secrets-explained">أسرار JWT</a></li><li><a href="/privacy">سياسة الخصوصية</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 Zecure.net</p><p>تجري كل عمليات الترميز محليًا &middot; لا نجمع أي بيانات</p></div>
+</footer>
+
+<script>
+function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('zecure-theme',n)}
+
+let currentMode='std';
+function setMode(m){
+  currentMode=m;
+  document.getElementById('mode-std').classList.toggle('active',m==='std');
+  document.getElementById('mode-url').classList.toggle('active',m==='url');
+}
+
+function encodeB64(str,urlSafe){
+  // Proper UTF-8 → Base64
+  const bytes=new TextEncoder().encode(str);
+  let binary='';
+  bytes.forEach(b=>binary+=String.fromCharCode(b));
+  let b64=btoa(binary);
+  if(urlSafe)b64=b64.replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  return b64;
+}
+
+function decodeB64(str){
+  // Normalise URL-safe chars
+  let s=str.replace(/-/g,'+').replace(/_/g,'/');
+  while(s.length%4)s+='=';
+  const binary=atob(s);
+  const bytes=new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+function showError(msg){const el=document.getElementById('err-msg');el.textContent=msg;el.classList.add('show')}
+function clearError(){document.getElementById('err-msg').classList.remove('show')}
+
+function doEncode(){
+  const inp=document.getElementById('b64-input').value;
+  if(!inp)return;
+  clearError();
+  try{
+    const out=encodeB64(inp,currentMode==='url');
+    document.getElementById('b64-output').value=out;
+    updateStats(inp,out);
+  }catch(e){showError('فشل الترميز: '+e.message)}
+}
+
+function doDecode(){
+  const inp=document.getElementById('b64-input').value.trim();
+  if(!inp)return;
+  clearError();
+  try{
+    const out=decodeB64(inp);
+    document.getElementById('b64-output').value=out;
+    updateStats(inp,out);
+  }catch(e){showError('قيمة Base64 غير صالحة. تحقّق من المدخل وحاول مرة أخرى.')}
+}
+
+function updateStats(inp,out){
+  const ratio=inp.length>0?((out.length/inp.length)*100).toFixed(0):0;
+  document.getElementById('ratio-stat').textContent=`المدخل: ${inp.length} حرفًا ← المخرج: ${out.length} حرفًا (${ratio}%)`;
+}
+
+function swapInputOutput(){
+  const inp=document.getElementById('b64-input');
+  const out=document.getElementById('b64-output');
+  const tmp=inp.value;
+  inp.value=out.value;
+  out.value=tmp;
+  onInputChange();
+}
+
+function clearAll(){
+  document.getElementById('b64-input').value='';
+  document.getElementById('b64-output').value='';
+  document.getElementById('input-stat').textContent='0 حرفًا';
+  document.getElementById('ratio-stat').textContent='';
+  clearError();
+}
+
+function onInputChange(){
+  const len=document.getElementById('b64-input').value.length;
+  document.getElementById('input-stat').textContent=len+' حرف'+(len===1?'':'ًا');
+}
+
+let toastT;
+function showToast(){const t=document.getElementById('toast');t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2000)}
+function copyOutput(){
+  const val=document.getElementById('b64-output').value;
+  if(!val)return;
+  navigator.clipboard.writeText(val).then(()=>{
+    const btn=document.getElementById('copy-btn');
+    btn.textContent='تم النسخ!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='نسخ';btn.classList.remove('copied')},2000);
+    showToast();
+  });
+}
+function toggleFaq(btn){const item=btn.parentElement;const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}
+</script>

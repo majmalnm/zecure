@@ -1,0 +1,360 @@
+<!--meta
+{
+  "title": "شرح المصادقة الثنائية: TOTP وSMS ومفاتيح الأمان | مدونة Zecure",
+  "description": "ليست كل أساليب المصادقة الثنائية (2FA) متساوية. رموز SMS يمكن اعتراضها، وتطبيقات TOTP أفضل، ومفاتيح الأمان المادية هي الأفضل. إليك كيف تعمل كل طريقة ومتى تستخدمها.",
+  "keywords": "المصادقة الثنائية, التحقق بخطوتين, ما هي 2fa, تطبيق مصادقة totp, مخاطر رموز sms, مفتاح أمان مادي, yubikey, google authenticator, fido2, webauthn",
+  "ogType": "article",
+  "ogTitle": "شرح المصادقة الثنائية: TOTP وSMS ومفاتيح الأمان",
+  "ogDescription": "يمكن تجاوز المصادقة الثنائية عبر SMS بتبديل شريحة SIM، وTOTP أفضل، ومفاتيح الأمان المادية محصّنة ضد التصيّد. إليك كيف تعمل جميعها.",
+  "sitemap": true
+}
+-->
+<!--head-->
+<script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","inLanguage":"ar","headline":"شرح المصادقة الثنائية: TOTP وSMS ومفاتيح الأمان","author":{"@type":"Organization","name":"Zecure"},"publisher":{"@type":"Organization","name":"Zecure","url":"https://zecure.net"},"datePublished":"2025-09-01","description":"شرح واضح لأساليب المصادقة الثنائية (2FA): رموز SMS وTOTP ومفاتيح الأمان المادية، وكيف تعمل، وأيها يجب أن تستخدم فعلًا."}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b; --surface: #18181b; --surface2: #27272a;
+      --border: #3f3f46; --border-s: #27272a;
+      --accent: #6366f1; --accent-h: #4f46e5; --accent-s: rgba(99,102,241,0.12);
+      --green: #22c55e; --green-s: rgba(34,197,94,0.1);
+      --amber: #f59e0b; --red: #ef4444;
+      --text: #fafafa; --text-2: #a1a1aa; --text-3: #71717a; --text-4: #52525b;
+      --sans: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --r: 8px; --r-sm: 6px; --r-lg: 12px;
+      color-scheme: dark;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --surface: #fafafa; --surface2: #f4f4f5;
+      --border: #e4e4e7; --border-s: #f4f4f5;
+      --accent: #4f46e5; --accent-h: #4338ca; --accent-s: rgba(79,70,229,0.08);
+      --green: #16a34a; --green-s: rgba(22,163,74,0.08);
+      --amber: #d97706; --red: #dc2626;
+      --text: #09090b; --text-2: #52525b; --text-3: #71717a; --text-4: #a1a1aa;
+      color-scheme: light;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.6; min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--accent-s); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+    body > header { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-s); }
+    .nav-inner { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; height: 56px; display: flex; align-items: center; gap: 1rem; }
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.9375rem; letter-spacing: -0.01em; }
+    .logo-mark { width: 28px; height: 28px; border-radius: var(--r-sm); background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; }
+    .back-link { margin-left: auto; display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-2); font-size: 0.8125rem; font-weight: 500; text-decoration: none; padding: 0.375rem 0.75rem; border-radius: var(--r-sm); border: 1px solid var(--border); transition: all 0.15s; cursor: pointer; }
+    .back-link:hover { color: var(--text); background: var(--surface2); border-color: var(--text-4); }
+    .icon-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: transparent; border: 1px solid var(--border); border-radius: var(--r-sm); color: var(--text-2); cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+    .icon-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface2); }
+    .icon-btn .sun { display: none; } .icon-btn .moon { display: block; }
+    [data-theme="light"] .icon-btn .sun { display: block; } [data-theme="light"] .icon-btn .moon { display: none; }
+    .article-wrap { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .article-hero { padding: 3.5rem 0 2.5rem; }
+    .article-category { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--green-s); color: var(--green); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .article-h1 { font-size: clamp(1.75rem, 4vw, 2.625rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; color: var(--text); margin-bottom: 1rem; }
+    .article-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .article-meta span { font-size: 0.8125rem; color: var(--text-3); display: flex; align-items: center; gap: 0.35rem; }
+    .article-meta .sep { width: 3px; height: 3px; border-radius: 50%; background: var(--text-4); }
+    .article-lead { font-size: 1.0625rem; color: var(--text-2); line-height: 1.75; border-left: 3px solid var(--green); padding-left: 1.25rem; margin-bottom: 2.5rem; }
+    .article-body { padding-bottom: 4rem; }
+    .article-body h2 { font-size: 1.3125rem; font-weight: 600; letter-spacing: -0.015em; color: var(--text); margin: 2.5rem 0 0.875rem; }
+    .article-body h3 { font-size: 1.0625rem; font-weight: 600; color: var(--text); margin: 1.75rem 0 0.625rem; }
+    .article-body p { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; margin-bottom: 1.25rem; }
+    .article-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .article-body ul, .article-body ol { margin: 0.5rem 0 1.25rem 1.5rem; }
+    .article-body li { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; margin-bottom: 0.35rem; }
+    .article-body strong { color: var(--text); font-weight: 600; }
+    .article-body code { font-family: var(--mono); font-size: 0.8125rem; background: var(--surface2); color: var(--accent); padding: 0.15rem 0.45rem; border-radius: 4px; }
+    pre.code-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 1.25rem 1.5rem; overflow-x: auto; margin: 0.5rem 0 1.5rem; }
+    pre.code-block code { background: none; color: var(--text-2); font-size: 0.8125rem; padding: 0; line-height: 1.7; }
+    .tk-kw { color: #818cf8; } .tk-fn { color: #67e8f9; } .tk-st { color: #4ade80; } .tk-cm { color: var(--text-4); }
+    [data-theme="light"] .tk-kw { color: #4f46e5; } [data-theme="light"] .tk-fn { color: #0284c7; } [data-theme="light"] .tk-st { color: #16a34a; }
+    .callout { display: flex; gap: 1rem; background: var(--surface); border: 1px solid var(--border-s); border-left: 3px solid var(--accent); border-radius: var(--r-lg); padding: 1.125rem 1.25rem; margin: 1.5rem 0; }
+    .callout-icon { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout p { margin: 0; font-size: 0.875rem; }
+    .callout.warn { border-left-color: var(--amber); } .callout.warn .callout-icon { color: var(--amber); }
+    .callout.good { border-left-color: var(--green); } .callout.good .callout-icon { color: var(--green); }
+    .method-compare { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 1.25rem 0 1.75rem; }
+    @media (max-width: 600px) { .method-compare { grid-template-columns: 1fr; } }
+    .mc-col { background: var(--surface); }
+    .mc-head { background: var(--surface2); padding: 0.875rem 1rem; }
+    .mc-type { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .mc-name { font-size: 0.9375rem; font-weight: 600; color: var(--text); }
+    .mc-body { padding: 1rem; }
+    .mc-row { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid var(--border-s); font-size: 0.8125rem; gap: 0.5rem; }
+    .mc-row:last-child { border-bottom: none; }
+    .mc-row-label { color: var(--text-3); }
+    .mc-row-val { font-weight: 500; text-align: right; }
+    .bad-val { color: var(--red); }
+    .ok-val { color: var(--amber); }
+    .good-val { color: var(--green); }
+    .mc-col.sms .mc-type { color: var(--red); }
+    .mc-col.totp .mc-type { color: var(--amber); }
+    .mc-col.hw .mc-type { color: var(--green); }
+    .totp-flow { background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 1.5rem; margin: 1.5rem 0; }
+    .totp-step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1rem; }
+    .totp-step:last-child { margin-bottom: 0; }
+    .totp-num { flex-shrink: 0; width: 24px; height: 24px; background: var(--accent-s); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; margin-top: 1px; }
+    .totp-text { font-size: 0.875rem; color: var(--text-2); line-height: 1.6; }
+    .totp-text strong { color: var(--text); }
+    .stat-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 1.5rem 0 2rem; }
+    .stat-cell { background: var(--surface); padding: 1.25rem; text-align: center; }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-size: 0.75rem; color: var(--text-3); }
+    hr.divider { border: none; border-top: 1px solid var(--border-s); margin: 2.5rem 0; }
+    .related { padding: 2.5rem 0 4rem; border-top: 1px solid var(--border-s); }
+    .related-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 1.25rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .related-card { display: block; background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 1.25rem; text-decoration: none; transition: border-color 0.15s, background 0.15s; }
+    .related-card:hover { border-color: var(--border); background: var(--surface2); }
+    .related-cat { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .related-card-title { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 0.4rem; }
+    .related-card-date { font-size: 0.75rem; color: var(--text-3); }
+    .article-cta { background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .article-cta h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .article-cta p { font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--sans); font-size: 0.875rem; font-weight: 500; padding: 0.6rem 1.375rem; border-radius: var(--r); cursor: pointer; transition: all 0.15s; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; border: none; }
+    .btn-primary:hover { background: var(--accent-h); }
+  </style>
+  <style>
+    html[dir=rtl] .back-link{margin-left:0;margin-right:auto}
+    html[dir=rtl] .article-lead{border-left:none;padding-left:0;border-right:3px solid var(--accent);padding-right:1.25rem}
+    html[dir=rtl] .article-body ul,html[dir=rtl] .article-body ol{margin:.5rem 1.5rem 1.25rem 0}
+    html[dir=rtl] .callout{border-left:1px solid var(--border-s);border-right:3px solid var(--accent)}
+    html[dir=rtl] .callout.warn{border-right-color:var(--amber)}
+    html[dir=rtl] .callout.good{border-right-color:var(--green)}
+    html[dir=rtl] .article-lead{border-right-color:var(--green)}
+    html[dir=rtl] .mc-row-val{text-align:left}
+  </style>
+<!--body-->
+<header>
+  <nav class="nav-inner" aria-label="التنقل في الموقع">
+    <a href="/" class="logo" aria-label="الصفحة الرئيسية لـ Zecure">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </span>
+      Zecure
+    </a>
+    <a href="/#blog" class="back-link">
+      <svg class="flip-rtl" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      كل المقالات
+    </a>
+    <button class="icon-btn" id="theme-btn" aria-label="تبديل المظهر" onclick="toggleTheme()">
+      <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="article-wrap">
+    <article>
+      <header class="article-hero">
+        <div class="article-category">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          دليل أمني
+        </div>
+        <h1 class="article-h1">شرح المصادقة الثنائية: TOTP وSMS ومفاتيح الأمان</h1>
+        <div class="article-meta">
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            سبتمبر 2025
+          </span>
+          <span class="sep"></span>
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            قراءة 7 دقائق
+          </span>
+          <span class="sep"></span>
+          <span>بقلم فريق Zecure</span>
+        </div>
+        <p class="article-lead">تحميك كلمة المرور القوية من التخمين والكسر. لكن إذا اختُرق الموقع وتسرّبت قيمة التجزئة (hash) لكلمة مرورك، فأنت بحاجة إلى خط دفاع ثانٍ. وليست كل أساليب المصادقة الثنائية متساوية؛ إليك ما يميّز بعضها عن بعض.</p>
+      </header>
+
+      <div class="article-body">
+
+        <h2>لماذا لا تكفي كلمة المرور وحدها</h2>
+        <p>تكشف تسريبات البيانات بيانات الدخول باستمرار، ويُدرج موقع Have I Been Pwned حاليًا أكثر من 13 مليار حساب مُسرَّب. وعندما يُخترق موقع ما، يمكن كسر كلمة المرور حتى لو كانت مُجزّأة إذا كانت ضعيفة بما يكفي، بل إن كلمة المرور القوية نفسها تصبح بلا فائدة إذا أعدت استخدامها في عدة مواقع.</p>
+        <p>تضيف المصادقة الثنائية (2FA) فحصًا ثانيًا: شيء <em>تعرفه</em> (كلمة مرورك) إضافة إلى شيء <em>تملكه</em> (جهاز أو مفتاح). فحتى لو حصل المهاجم على كلمة مرورك، لا يستطيع تسجيل الدخول دون العامل الثاني.</p>
+
+        <div class="stat-strip">
+          <div class="stat-cell">
+            <div class="stat-num">99.9%</div>
+            <div class="stat-label">من الهجمات الآلية على الحسابات يصدّها أي شكل من أشكال المصادقة الثنائية (Microsoft)</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">13B+</div>
+            <div class="stat-label">حساب مُسرَّب مُفهرس على Have I Been Pwned</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">0%</div>
+            <div class="stat-label">نسبة نجاح التصيّد ضد مستخدمي مفاتيح الأمان المادية في دراسة Google الداخلية</div>
+          </div>
+        </div>
+
+        <h2>مقارنة سريعة بين الأساليب</h2>
+
+        <div class="method-compare">
+          <div class="mc-col sms">
+            <div class="mc-head">
+              <div class="mc-type">الأضعف</div>
+              <div class="mc-name">رموز SMS</div>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="mc-row-label">محصّن ضد التصيّد</span><span class="mc-row-val bad-val">لا</span></div>
+              <div class="mc-row"><span class="mc-row-label">خطر تبديل الشريحة</span><span class="mc-row-val bad-val">مرتفع</span></div>
+              <div class="mc-row"><span class="mc-row-label">يعمل دون اتصال</span><span class="mc-row-val bad-val">لا</span></div>
+              <div class="mc-row"><span class="mc-row-label">جهد الإعداد</span><span class="mc-row-val good-val">لا يوجد</span></div>
+            </div>
+          </div>
+          <div class="mc-col totp">
+            <div class="mc-head">
+              <div class="mc-type">أفضل</div>
+              <div class="mc-name">تطبيق TOTP</div>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="mc-row-label">محصّن ضد التصيّد</span><span class="mc-row-val ok-val">جزئيًا</span></div>
+              <div class="mc-row"><span class="mc-row-label">خطر تبديل الشريحة</span><span class="mc-row-val good-val">لا يوجد</span></div>
+              <div class="mc-row"><span class="mc-row-label">يعمل دون اتصال</span><span class="mc-row-val good-val">نعم</span></div>
+              <div class="mc-row"><span class="mc-row-label">جهد الإعداد</span><span class="mc-row-val ok-val">منخفض</span></div>
+            </div>
+          </div>
+          <div class="mc-col hw">
+            <div class="mc-head">
+              <div class="mc-type">الأفضل</div>
+              <div class="mc-name">مفتاح أمان مادي</div>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><span class="mc-row-label">محصّن ضد التصيّد</span><span class="mc-row-val good-val">نعم</span></div>
+              <div class="mc-row"><span class="mc-row-label">خطر تبديل الشريحة</span><span class="mc-row-val good-val">لا يوجد</span></div>
+              <div class="mc-row"><span class="mc-row-label">يعمل دون اتصال</span><span class="mc-row-val good-val">نعم</span></div>
+              <div class="mc-row"><span class="mc-row-label">جهد الإعداد</span><span class="mc-row-val ok-val">متوسط</span></div>
+            </div>
+          </div>
+        </div>
+
+        <h2>المصادقة الثنائية عبر SMS: أفضل من لا شيء، لكن ليس بكثير</h2>
+        <p>ترسل المصادقة الثنائية عبر SMS رمزًا لمرة واحدة إلى رقم هاتفك. وهي أكثر أشكال المصادقة الثنائية انتشارًا، وأضعفها عمليًا.</p>
+
+        <h3>تبديل شريحة SIM</h3>
+        <p>يتصل المهاجم بشركة الاتصالات التي تتعامل معها، وينتحل شخصيتك، ويقنعهم بنقل رقم هاتفك إلى شريحة SIM جديدة. فيصبح رقمك موجّهًا إلى جهازه، ويستقبل هو رموز SMS الخاصة بك. وقد استُخدم هذا الهجوم لإفراغ محافظ العملات المشفرة، والاستيلاء على حسابات التواصل الاجتماعي، والوصول إلى البريد الإلكتروني. <strong>لا يتطلب أي اختراق تقني، بل مجرد هندسة اجتماعية لموظف خدمة العملاء لدى شركة الاتصالات.</strong></p>
+
+        <h3>اعتراض SS7</h3>
+        <p>يحتوي بروتوكول Signaling System 7 الذي تقوم عليه البنية التحتية العالمية للهواتف على ثغرات معروفة تسمح لأي شخص لديه وصول إلى شبكة SS7 باعتراض رسائل SMS، بما في ذلك جهات على مستوى الدول، وفي بعض المناطق، عصابات إجرامية.</p>
+
+        <div class="callout warn">
+          <span class="callout-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </span>
+          <p>أوقفت NIST (في SP 800-63B) التوصية بالمصادقة الثنائية عبر SMS للأنظمة الحكومية في عام 2017 بسبب هذه الثغرات. استخدم المصادقة الثنائية عبر SMS كملاذ أخير فقط؛ فهي أفضل من عدم وجود مصادقة ثنائية، لكن انتقل إلى TOTP أو مفاتيح الأمان المادية متى أمكن.</p>
+        </div>
+
+        <h2>TOTP: الخيار الافتراضي الصحيح لمعظم الناس</h2>
+        <p><strong>كلمات المرور لمرة واحدة المعتمدة على الوقت</strong> (TOTP، المعرّفة في RFC 6238) هي ما تولّده تطبيقات مثل Google Authenticator وAuthy و1Password. ويتغيّر الرمز المكوّن من ستة أرقام كل 30 ثانية.</p>
+
+        <h3>كيف يعمل TOTP</h3>
+        <div class="totp-flow">
+          <div class="totp-step">
+            <span class="totp-num">1</span>
+            <div class="totp-text">عند تفعيل المصادقة الثنائية، يولّد الموقع <strong>سرًّا مشتركًا</strong> (مفتاحًا عشوائيًا من 20 بايت) ويعرضه على شكل رمز QR.</div>
+          </div>
+          <div class="totp-step">
+            <span class="totp-num">2</span>
+            <div class="totp-text">يمسح تطبيق المصادقة رمز QR ويخزّن السر محليًا على جهازك.</div>
+          </div>
+          <div class="totp-step">
+            <span class="totp-num">3</span>
+            <div class="totp-text">كل 30 ثانية، يحسب كلٌّ من تطبيقك والخادم <strong dir="ltr">HMAC-SHA1(secret, floor(time / 30))</strong> ويستخرجان من النتيجة رمزًا من 6 أرقام.</div>
+          </div>
+          <div class="totp-step">
+            <span class="totp-num">4</span>
+            <div class="totp-text">عند تسجيل الدخول، تُدخل الرمز، فيحسب الخادم القيمة نفسها ويتحقق من تطابقهما. <strong>لا حاجة إلى أي اتصال بالشبكة لتوليد الرمز.</strong></div>
+          </div>
+        </div>
+
+        <p>لا يعتمد TOTP على رقم هاتفك، لذا فهو محصّن ضد تبديل شريحة SIM. لكنه ليس محصّنًا تمامًا ضد التصيّد: فإذا خُدعت وكتبت الرمز في صفحة تسجيل دخول مزيّفة، يستطيع المهاجم تمريره إلى الموقع الحقيقي في اللحظة نفسها (هجوم "التصيّد في الوقت الفعلي").</p>
+
+        <h3>اختيار تطبيق TOTP</h3>
+        <ul>
+          <li><strong>Ente Auth</strong>: مفتوح المصدر، مع نسخ احتياطي سحابي مشفّر، ويعمل على كل المنصات. الأفضل إجمالًا.</li>
+          <li><strong>Aegis (Android)</strong>: مفتوح المصدر، مع نسخ احتياطي محلي مشفّر، ودون اعتماد على السحابة.</li>
+          <li><strong>1Password / Bitwarden</strong>: يدمجان TOTP في مدير كلمات المرور. مريحان، لكنهما يجمعان "الشيء الذي تعرفه" مع المصادقة الثنائية في مكان واحد.</li>
+          <li><strong>Google Authenticator</strong>: لا نسخ احتياطي افتراضيًا (أصبح يدعم المزامنة مع حساب Google الآن). وكان فقدان هاتفك يعني فقدان كل الرموز.</li>
+          <li><strong>Authy</strong>: يوفّر نسخًا احتياطيًا سحابيًا، لكنه مغلق المصدر وتعرّض لحوادث أمنية.</li>
+        </ul>
+
+        <div class="callout good">
+          <span class="callout-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <p><strong>احفظ دائمًا رموزك الاحتياطية</strong> عند إعداد TOTP. خزّنها في مدير كلمات المرور أو اطبعها واحفظها في مكان آمن. فبدونها، يؤدي فقدان هاتفك إلى حرمانك من الدخول نهائيًا إذا لم يكن الموقع يوفّر طريقة لاستعادة الحساب.</p>
+        </div>
+
+        <h2>مفاتيح الأمان المادية: المعيار المحصّن ضد التصيّد</h2>
+        <p>تطبّق مفاتيح الأمان المادية (YubiKey وGoogle Titan وNitrokey) معيار FIDO2/WebAuthn. وهي أجهزة USB أو NFC تلمسها فعليًا لإتمام المصادقة.</p>
+
+        <h3>لماذا لا يمكن تصيّد مفاتيح الأمان المادية</h3>
+        <p>يستخدم FIDO2 <strong>التشفير بالمفتاح العام</strong> ويربط المصادقة بأصل الموقع (origin). فعندما تسجّل مفتاحًا لدى <code>example.com</code>، ينشئ المفتاح زوج مفاتيح خاصًا بهذا النطاق تحديدًا. وعند المصادقة، يوقّع على تحدٍّ (challenge) يتضمن النطاق.</p>
+        <p>إذا حاول موقع تصيّد على <code>examp1e.com</code> سرقة بيانات دخولك، يرفض مفتاحك، لأن النطاق غير مطابق، فلا يحصل المهاجم على أي شيء قابل للاستخدام. وهذا يختلف جذريًا عن TOTP، حيث لا يرتبط الرمز بنطاق معيّن ويمكن تمريره.</p>
+
+        <h3>مفاتيح المرور (Passkeys): منطق مفاتيح الأمان دون الجهاز</h3>
+        <p>تجلب مفاتيح المرور (Passkeys)، وهي تطبيق أحدث لمعيار FIDO2 موجّه للمستخدمين، التشفير نفسه المقاوم للتصيّد إلى هاتفك أو حاسوبك المحمول. يولّد جهازك زوج مفاتيح لكل موقع، ولا يغادر المفتاح الخاص جهازك أبدًا. وتدعم iCloud Keychain وGoogle Password Manager و1Password جميعها مفاتيح المرور.</p>
+        <p>إذا كان الموقع يوفّر مفاتيح المرور، فاستخدمها؛ فهي تجمع بين أمان مفاتيح الأمان المادية وسهولة القياسات الحيوية (Face ID وبصمة الإصبع) والمزامنة السحابية.</p>
+
+        <hr class="divider">
+
+        <h2>أيها يجب أن تستخدم؟</h2>
+        <ul>
+          <li><strong>لأهم حساباتك</strong> (البريد الإلكتروني، والحسابات المصرفية، ومدير كلمات المرور): مفتاح أمان مادي أو مفتاح مرور (passkey). فهذه هي الفئة التي يكون فيها الاختراق أعلى كلفة.</li>
+          <li><strong>لكل ما عدا ذلك</strong>: تطبيق TOTP. فعّله على كل حساب يوفّره. فالتحسّن مقارنة بـ SMS وحده كبير.</li>
+          <li><strong>المصادقة الثنائية عبر SMS</strong>: أفضل من لا شيء. فعّلها إن كانت الخيار الوحيد، لكن انتقل إلى غيرها حين تتوفر خيارات أفضل.</li>
+          <li><strong>رموز الاستعادة</strong>: احفظها لكل حساب، أيًّا كانت الطريقة. ففقدان جهازك لا ينبغي أن يعني حرمانك من الدخول نهائيًا.</li>
+        </ul>
+
+        <div class="article-cta">
+          <h3>ابدأ بكلمة مرور قوية</h3>
+          <p>المصادقة الثنائية هي شبكة الأمان لديك، لكن كلمة المرور القوية والفريدة تظل خط الدفاع الأول. أنشئ واحدة فورًا.</p>
+          <a href="/" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            افتح مولّد Zecure
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <section class="related" aria-label="مقالات ذات صلة">
+      <p class="related-title">المزيد من المدونة</p>
+      <div class="related-grid">
+        <a href="/blog/password-manager-vs-browser" class="related-card">
+          <div class="related-cat">دليل أمني</div>
+          <div class="related-card-title">مدير كلمات المرور أم المتصفح: أيهما أكثر أمانًا؟</div>
+          <div class="related-card-date">يونيو 2025</div>
+        </a>
+        <a href="/blog/unbreakable-password-2025" class="related-card">
+          <div class="related-cat">دليل أمني</div>
+          <div class="related-card-title">كيف تنشئ كلمة مرور لا تُكسر في 2025</div>
+          <div class="related-card-date">أبريل 2025</div>
+        </a>
+        <a href="/blog/password-entropy-explained" class="related-card">
+          <div class="related-cat">شرح</div>
+          <div class="related-card-title">شرح إنتروبيا كلمة المرور: لماذا العشوائية هي كل ما يهم</div>
+          <div class="related-card-date">يوليو 2025</div>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+</script>

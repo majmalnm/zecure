@@ -1,0 +1,145 @@
+<!--meta
+{
+  "title": "مولّد مفاتيح AES-256 — مفتاح Hex بطول 256 بت | Zecure",
+  "description": "أنشئ مفتاح تشفير AES-256 عشوائيًا فورًا: 64 حرفًا ست عشريًا (256 بت) عبر Web Crypto API. آمن للاستخدام في بيئة الإنتاج. مجاني ويعمل داخل متصفحك فقط.",
+  "keywords": "مولد مفتاح AES-256, إنشاء مفتاح AES اون لاين, مولد مفتاح 256 بت, مولد مفتاح تشفير AES, مفتاح تشفير عشوائي, مفتاح AES مجاني",
+  "robots": "index, follow",
+  "ogType": "website",
+  "ogTitle": "مولّد مفاتيح AES-256 — مفتاح Hex بطول 256 بت | Zecure",
+  "ogDescription": "أنشئ مفتاح تشفير AES-256 عشوائيًا بطول 256 بت (64 حرفًا ست عشريًا). مجاني ويعمل داخل المتصفح فقط ودون تسجيل.",
+  "sitemap": true
+}
+-->
+<!--head-->
+<script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebPage","inLanguage":"ar","name":"مولّد مفاتيح AES-256","url":"https://zecure.net/aes-256-key-generator","description":"أنشئ مفتاح تشفير AES عشوائيًا تشفيريًا بطول 256 بت (64 حرفًا ست عشريًا) باستخدام Web Crypto API في المتصفح."},
+    {"@type":"FAQPage","inLanguage":"ar","mainEntity":[
+      {"@type":"Question","name":"ما هو مفتاح AES-256؟","acceptedAnswer":{"@type":"Answer","text":"مفتاح AES-256 هو 32 بايت (256 بت) من البيانات العشوائية، يُستخدم لتشفير البيانات وفك تشفيرها بخوارزمية AES. ويُكتب على شكل 64 حرفًا ست عشريًا (hex). ويُستخدم المفتاح نفسه للتشفير ولفك التشفير معًا (تشفير متماثل)."}},
+      {"@type":"Question","name":"ما نمط AES الذي يجب أن أستخدمه؟","acceptedAnswer":{"@type":"Answer","text":"استخدم AES-GCM في التطبيقات الجديدة — فهو نمط تشفير مُصادَق (authenticated encryption) يوفّر السرية والتحقق من السلامة معًا. وتجنّب نمط ECB (لأن الأنماط الموجودة في النص الأصلي تتسرّب إلى النص المشفّر). أما AES-CBC فمقبول إذا اقترن بـ HMAC-SHA256، لكن استخدام GCM بشكل صحيح أسهل."}},
+      {"@type":"Question","name":"هل يُخزَّن هذا المفتاح في أي مكان؟","acceptedAnswer":{"@type":"Answer","text":"لا. تُولَّد المفاتيح باستخدام crypto.getRandomValues(new Uint8Array(32)) بالكامل داخل متصفحك، ولا تُرسل أي بيانات إلى أي مكان. افتح أدوات المطوّر (DevTools) ثم تبويب Network أثناء التوليد، ولن ترى أي طلب صادر."}},
+      {"@type":"Question","name":"أين يجب أن أخزّن مفتاح AES-256؟","acceptedAnswer":{"@type":"Answer","text":"في بيئة الإنتاج استخدم خدمة مخصّصة لإدارة المفاتيح: AWS KMS أو GCP Cloud KMS أو HashiCorp Vault. تتولّى هذه الخدمات تخزين المفاتيح وتدويرها وتسجيل عمليات التدقيق. وفي بيئة التطوير خزّن المفتاح كمتغيّر بيئة في ملف .env مستثنى من git (عبر gitignore). ولا تكتبه مباشرة في الشيفرة المصدرية أبدًا."}}
+    ]}
+  ]}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#6366f1;--accent-h:#4f46e5;--accent-s:rgba(99,102,241,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--red:#ef4444;--clr:#fbbf24;--clr-s:rgba(245,158,11,0.1);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#4f46e5;--accent-h:#4338ca;--accent-s:rgba(79,70,229,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--red:#dc2626;--clr:#d97706;--clr-s:rgba(217,119,6,0.08);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--accent-s);color:var(--text)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}.nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}.logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}.nav-links{display:flex;list-style:none;gap:.125rem}.nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}.nav-links a:hover{color:var(--text);background:var(--surface2)}@media(max-width:640px){.nav-links{display:none}}.nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}.icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,border-color .15s,background .15s}.icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.icon-btn .sun{display:none}.icon-btn .moon{display:block}[data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    main{max-width:760px;margin:0 auto;padding:0 1.5rem}.tool-hero{padding:4rem 0 2.5rem;text-align:center;position:relative}.tool-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,var(--border-s) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);pointer-events:none}.tool-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;position:relative}.pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px var(--green-s)}.tool-h1{font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-.025em;color:var(--text);line-height:1.15;margin-bottom:1rem;position:relative}.tool-h1 mark{background:none;color:var(--clr)}.tool-sub{font-size:1rem;color:var(--text-2);line-height:1.7;max-width:500px;margin:0 auto 2rem;position:relative}
+    .gen-widget{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;margin-bottom:2rem}.gen-widget-head{padding:.875rem 1rem;border-bottom:1px solid var(--border-s);display:flex;align-items:center;gap:.65rem}.gen-icon{width:32px;height:32px;border-radius:var(--r-sm);background:var(--clr-s);color:var(--clr);display:flex;align-items:center;justify-content:center;flex-shrink:0}.gen-label{font-size:.8125rem;font-weight:600;color:var(--text);flex:1}.gen-badge{font-size:.7rem;font-weight:500;padding:.15rem .5rem;border-radius:4px;background:var(--clr-s);color:var(--clr)}.gen-body{padding:.625rem .75rem .75rem}.key-list{display:flex;flex-direction:column;gap:.3rem}.key-row{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;background:var(--bg);border:1px solid var(--border-s);border-radius:var(--r-sm);transition:border-color .15s}.key-row:hover{border-color:var(--border)}[data-theme="light"] .key-row{background:var(--surface2)}.key-val{font-family:var(--mono);font-size:.72rem;color:var(--clr);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:all;cursor:text}.key-row.flash .key-val{color:var(--green)}.copy-btn{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:5px;background:transparent;border:1px solid var(--border);color:var(--text-3);cursor:pointer;transition:all .15s}.copy-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.copy-btn.copied{color:var(--green);border-color:var(--green);background:var(--green-s)}.copy-btn svg.check{display:none}.copy-btn svg.clip{display:block}.copy-btn.copied svg.check{display:block}.copy-btn.copied svg.clip{display:none}.gen-footer{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-top:1px solid var(--border-s)}.regen-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border:none;border-radius:var(--r-sm);cursor:pointer;transition:background .15s}.regen-btn:hover{background:var(--accent-h)}.regen-btn svg{transition:transform .4s ease}.regen-btn:hover svg{transform:rotate(180deg)}.all-tools-link{font-size:.8125rem;color:var(--text-3);text-decoration:none;display:flex;align-items:center;gap:.3rem;transition:color .15s}.all-tools-link:hover{color:var(--accent)}
+    .content-section{padding:2.5rem 0;border-top:1px solid var(--border-s)}.content-section h2{font-size:1.25rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin-bottom:.875rem}.content-section p{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:1.25rem}.content-section ul{margin:.25rem 0 1.25rem 1.5rem}.content-section li{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:.4rem}.content-section strong{color:var(--text);font-weight:600}.content-section code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--accent);padding:.15rem .45rem;border-radius:4px}
+    pre.code-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.125rem 1.25rem;overflow-x:auto;margin:.5rem 0 1.25rem}pre.code-block code{background:none;color:var(--text-2);font-size:.8125rem;padding:0;line-height:1.7}.tk-cm{color:var(--text-4)}.tk-kw{color:#818cf8}.tk-st{color:#4ade80}.tk-fn{color:#67e8f9}[data-theme="light"] .tk-kw{color:#4f46e5}[data-theme="light"] .tk-st{color:#16a34a}[data-theme="light"] .tk-fn{color:#0284c7}
+    .callout{display:flex;gap:1rem;background:var(--surface);border:1px solid var(--border-s);border-left:3px solid var(--accent);border-radius:var(--r-lg);padding:1rem 1.125rem;margin:1.25rem 0}.callout-icon{flex-shrink:0;margin-top:2px;color:var(--accent)}.callout p{margin:0;font-size:.875rem}.callout.good{border-left-color:var(--green)}.callout.good .callout-icon{color:var(--green)}
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}.faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;transition:border-color .15s}.faq-item:hover{border-color:var(--border)}.faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}.faq-q:hover{color:var(--text);background:var(--surface2)}.faq-item.open .faq-q{color:var(--text)}.faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease,color .15s}.faq-item.open .faq-chev{transform:rotate(180deg);color:var(--accent)}.faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}.faq-item.open .faq-body{max-height:400px}.faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}.related-card{display:block;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.125rem;text-decoration:none;transition:border-color .15s,background .15s}.related-card:hover{border-color:var(--border);background:var(--surface2)}.related-tag{font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}.related-title{font-size:.875rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.3rem}.related-date{font-size:.75rem;color:var(--text-3)}
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);display:flex;align-items:center;gap:.5rem;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}.footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem}@media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr}}.footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}.footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}.footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}.footer-col ul a:hover{color:var(--text)}.footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}.footer-bottom p{font-size:.75rem;color:var(--text-4)}
+  </style>
+  <style>html[dir=rtl] .callout{border-left:1px solid var(--border-s);border-right:3px solid var(--accent)}html[dir=rtl] .callout.good{border-right-color:var(--green)}html[dir=rtl] .content-section ul,html[dir=rtl] .content-section ol{margin:.25rem 1.5rem 1.25rem 0}html[dir=rtl] .faq-q{text-align:right}html[dir=rtl] :is(.tool-h1,.content-section h2,.related-tag,.footer-col h4,.gen-label){letter-spacing:0}</style>
+<!--body-->
+<header>
+  <nav class="nav-inner">
+    <a href="/" class="logo"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a>
+    <ul class="nav-links" role="list">
+      <li><a href="/">كل المولّدات</a></li>
+      <li><a href="/password-generator">كلمة المرور</a></li>
+      <li><a href="/passphrase-generator">عبارة المرور</a></li>
+      <li><a href="/api-key-generator">مفتاح API</a></li>
+      <li><a href="/jwt-secret-generator">سرّ JWT</a></li>
+      <li><a href="/wifi-password-generator">الواي فاي</a></li>
+      <li><a href="/blog/">المدونة</a></li>
+    </ul>
+    <div class="nav-right"><button class="icon-btn" aria-label="تبديل المظهر" onclick="toggleTheme()"><svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div>
+  </nav>
+</header>
+<main>
+  <div class="tool-hero">
+    <div class="tool-pills"><div class="pill"><span class="pill-dot"></span>داخل متصفحك فقط</div><div class="pill">256 بت / 64 حرف hex</div><div class="pill">دون تسجيل</div></div>
+    <h1 class="tool-h1">مولّد <mark>مفاتيح AES-256</mark> المجاني</h1>
+    <p class="tool-sub">أنشئ فورًا مفتاح تشفير AES عشوائيًا تشفيريًا بطول 256 بت (64 حرفًا ست عشريًا) — آمنًا للاستخدام في بيئة الإنتاج مع AES-GCM.</p>
+  </div>
+
+  <div class="gen-widget">
+    <div class="gen-widget-head">
+      <div class="gen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <span class="gen-label">مفتاح AES-256</span>
+      <span class="gen-badge">64 حرف hex</span>
+    </div>
+    <div class="gen-body"><div class="key-list" id="key-list"></div></div>
+    <div class="gen-footer">
+      <button class="regen-btn" onclick="generate()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>إعادة التوليد</button>
+      <a href="/" class="all-tools-link">كل أنواع المفاتيح <svg class="flip-rtl" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>ما هو مفتاح AES-256؟</h2>
+    <p>مفتاح AES-256 هو <strong>32 بايت (256 بت) من البيانات العشوائية تشفيريًا</strong>، يُستخدم مع خوارزمية التشفير المتماثل AES. وعند تمثيله بالنظام الست عشري يصبح 64 حرفًا (كل رقمين ست عشريين = 1 بايت). وهذا هو طول المفتاح الذي اعتمدته وكالة الأمن القومي الأمريكية (NSA) للمعلومات المصنّفة «سري للغاية»، وتستخدمه AWS وApple وSignal وكل اتصال HTTPS.</p>
+    <p>يجب أن يُولَّد المفتاح بواسطة CSPRNG (مولّد أرقام عشوائية آمن تشفيريًا) — وتستخدم هذه الأداة <code>crypto.getRandomValues(new Uint8Array(32))</code> داخل متصفحك. أما المفتاح المشتق من كلمة مرور أو طابع زمني أو أي مصدر يمكن التنبؤ به فهو ضعيف تشفيريًا مهما كان عدد بتاته.</p>
+    <div class="callout good">
+      <span class="callout-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+      <p>لم يُكسر AES-256 عمليًا قط. فالثغرات الوحيدة تكمن في <em>المفتاح</em> — توليد ضعيف، أو قيم مكتوبة مباشرة في الشيفرة، أو تخزين غير كافٍ. أما الخوارزمية نفسها فسليمة.</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>كيف تستخدم هذا المفتاح في Node.js</h2>
+    <pre class="code-block"><code><span class="tk-cm">// Store key as hex in AES_KEY env variable, then:</span>
+<span class="tk-kw">import</span> crypto from <span class="tk-st">'crypto'</span>;
+
+<span class="tk-kw">function</span> <span class="tk-fn">encrypt</span>(plaintext) {
+  <span class="tk-kw">const</span> key = Buffer.<span class="tk-fn">from</span>(process.env.AES_KEY, <span class="tk-st">'hex'</span>); <span class="tk-cm">// 32 bytes</span>
+  <span class="tk-kw">const</span> iv  = crypto.<span class="tk-fn">randomBytes</span>(12);              <span class="tk-cm">// 96-bit IV for GCM</span>
+  <span class="tk-kw">const</span> cipher = crypto.<span class="tk-fn">createCipheriv</span>(<span class="tk-st">'aes-256-gcm'</span>, key, iv);
+  <span class="tk-kw">const</span> enc = Buffer.<span class="tk-fn">concat</span>([cipher.<span class="tk-fn">update</span>(plaintext), cipher.<span class="tk-fn">final</span>()]);
+  <span class="tk-kw">return</span> { iv: iv.<span class="tk-fn">toString</span>(<span class="tk-st">'hex'</span>), data: enc.<span class="tk-fn">toString</span>(<span class="tk-st">'hex'</span>), tag: cipher.<span class="tk-fn">getAuthTag</span>().<span class="tk-fn">toString</span>(<span class="tk-st">'hex'</span>) };
+}</code></pre>
+    <ul>
+      <li>استخدم دائمًا <strong>نمط AES-GCM</strong> — فهو يوفّر التشفير والمصادقة معًا</li>
+      <li>أنشئ <strong>متجه تهيئة (IV) عشوائيًا جديدًا</strong> لكل عملية تشفير (لا تُعِد استخدام IV أبدًا)</li>
+      <li>خزّن الـ IV ووسم المصادقة (auth tag) مع النص المشفّر — فهما ليسا سرّيين</li>
+      <li>أما المفتاح نفسه فيجب أن يبقى سرّيًا وأن يُستبدل عند اختراقه</li>
+    </ul>
+  </div>
+
+  <div class="content-section">
+    <h2>الأسئلة الشائعة</h2>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">ما هو مفتاح AES-256؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>مفتاح AES-256 هو 32 بايت (256 بت) من البيانات العشوائية، يُستخدم لتشفير البيانات وفك تشفيرها بخوارزمية AES. ويُكتب على شكل 64 حرفًا ست عشريًا (hex). ويُستخدم المفتاح نفسه للتشفير ولفك التشفير معًا (تشفير متماثل).</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">ما نمط AES الذي يجب أن أستخدمه؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>استخدم <strong>AES-GCM</strong> في التطبيقات الجديدة — فهو نمط تشفير مُصادَق (authenticated encryption) يوفّر السرية والتحقق من السلامة معًا. وتجنّب نمط ECB (لأن الأنماط الموجودة في النص الأصلي تتسرّب إلى النص المشفّر). أما AES-CBC فمقبول إذا اقترن بـ HMAC-SHA256، لكن استخدام GCM بشكل صحيح أسهل.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">هل يُخزَّن هذا المفتاح في أي مكان؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>لا. تُولَّد المفاتيح باستخدام <code>crypto.getRandomValues(new Uint8Array(32))</code> بالكامل داخل متصفحك، ولا تُرسل أي بيانات إلى أي مكان. افتح أدوات المطوّر (DevTools) ثم تبويب Network أثناء التوليد، ولن ترى أي طلب صادر.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">أين يجب أن أخزّن مفتاح AES-256؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-body"><p>في بيئة الإنتاج استخدم خدمة مخصّصة لإدارة المفاتيح: AWS KMS أو GCP Cloud KMS أو HashiCorp Vault. تتولّى هذه الخدمات تخزين المفاتيح وتدويرها وتسجيل عمليات التدقيق. وفي بيئة التطوير خزّن المفتاح كمتغيّر بيئة في ملف <code>.env</code> مستثنى من git (عبر gitignore). ولا تكتبه مباشرة في الشيفرة المصدرية أبدًا.</p></div></div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>قراءات ذات صلة</h2>
+    <div class="related-grid">
+      <a href="/blog/aes-256-explained" class="related-card"><div class="related-tag">شرح</div><div class="related-title">شرح تشفير AES-256 بلغة بسيطة</div><div class="related-date">مارس 2025</div></a>
+      <a href="/blog/env-secrets-management" class="related-card"><div class="related-tag">للمطوّرين</div><div class="related-title">كيف تخزّن متغيرات البيئة والأسرار بأمان</div><div class="related-date">أغسطس 2025</div></a>
+      <a href="/blog/password-entropy-explained" class="related-card"><div class="related-tag">شرح</div><div class="related-title">شرح إنتروبيا كلمة المرور: لماذا العشوائية هي كل ما يهم</div><div class="related-date">يوليو 2025</div></a>
+    </div>
+  </div>
+</main>
+<div id="toast" role="status" aria-live="polite"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> تم النسخ</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><a href="/" class="logo" style="display:inline-flex"><span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Zecure</a><p>مولّد مجاني لكلمات المرور والمفاتيح يعمل داخل متصفحك. بلا خادم وبلا تتبّع.</p></div>
+    <div class="footer-col"><h4>أدوات أخرى</h4><ul><li><a href="/">كل المولّدات</a></li><li><a href="/password-generator">كلمة المرور</a></li><li><a href="/passphrase-generator">عبارة المرور</a></li><li><a href="/jwt-secret-generator">سرّ JWT</a></li><li><a href="/wifi-password-generator">كلمة مرور الواي فاي</a></li></ul></div>
+    <div class="footer-col"><h4>تعلّم</h4><ul><li><a href="/blog/">مدونة الأمان</a></li><li><a href="/blog/aes-256-explained">دليل AES-256</a></li><li><a href="/blog/env-secrets-management">إدارة الأسرار</a></li><li><a href="/blog/how-to-create-strong-random-password">دليل كلمات المرور القوية</a></li><li><a href="/privacy">سياسة الخصوصية</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2025 Zecure.net</p><p>كل المفاتيح تُولَّد محليًا · لا نجمع أي بيانات</p></div>
+</footer>
+<script>
+function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('zecure-theme',n)}
+function genHex(bytes){const a=new Uint8Array(bytes);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('')}
+let toastT;
+function showToast(){const t=document.getElementById('toast');t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2000)}
+function copyVal(btn,val,id){navigator.clipboard.writeText(val).then(()=>{btn.classList.add('copied');const row=document.getElementById('kr-'+id);if(row){row.classList.add('flash');setTimeout(()=>row.classList.remove('flash'),500)}setTimeout(()=>btn.classList.remove('copied'),2000);showToast()}).catch(()=>{const t=document.createElement('textarea');t.value=val;t.style.cssText='position:fixed;top:-9999px';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);showToast()})}
+function generate(){const vals=Array.from({length:5},()=>genHex(32));document.getElementById('key-list').innerHTML=vals.map((v,i)=>`<div class="key-row" id="kr-${i}"><span class="key-val" dir="ltr" title="${v}">${v}</span><button class="copy-btn" onclick="copyVal(this,'${v}',${i})" aria-label="نسخ"><svg class="clip" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg><svg class="check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button></div>`).join('')}
+generate();
+function toggleFaq(btn){const item=btn.parentElement;const open=item.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}
+</script>

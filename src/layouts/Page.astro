@@ -13,7 +13,8 @@ const switchLabel = other?.lang === 'ar' ? 'العربية' : 'English';
 let body = localizeLinks(lang, page.body);
 if (other) {
   // Language switcher sits next to the theme toggle, which every page header has.
-  const sw = `<a class="lang-switch" href="${new URL(other.href).pathname}" hreflang="${other.lang}" lang="${other.lang}">${switchLabel}</a>`;
+  const short = other.lang === 'ar' ? 'ع' : 'EN';
+  const sw = `<a class="lang-switch" href="${new URL(other.href).pathname}" hreflang="${other.lang}" lang="${other.lang}" aria-label="${switchLabel}"><span class="ls-long">${switchLabel}</span><span class="ls-short" aria-hidden="true">${short}</span></a>`;
   body = body.replace(/<button class="icon-btn"/, `${sw}<button class="icon-btn"`);
 }
 const head = localizeLinks(lang, page.head);
@@ -45,11 +46,23 @@ const icon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewB
   <style is:inline>
     .lang-switch{display:inline-flex;align-items:center;height:30px;padding:0 .625rem;margin-inline-end:.375rem;border-radius:8px;border:1px solid var(--border,rgba(127,127,127,.25));color:var(--text-2,inherit);font-size:.8125rem;font-weight:500;text-decoration:none;white-space:nowrap}
     .lang-switch:hover{color:var(--text-1,inherit);border-color:var(--text-3,currentColor)}
+    .lang-switch .ls-short{display:none}
+    @media (max-width:640px){
+      .lang-switch{padding:0 .5rem}.lang-switch .ls-long{display:none}.lang-switch .ls-short{display:inline}
+      /* phone safety net: wide tables, code and tab rows scroll inside their own box instead of widening the page */
+      main pre{max-width:100%;overflow-x:auto}
+      main :is(table,.spec-table){display:block;max-width:100%;overflow-x:auto}
+      main :not(pre)>code{overflow-wrap:anywhere}
+      .ftabs{max-width:100%;flex-wrap:wrap}
+      .nav-right .try-btn{display:none} /* repeats the nav's Generator link */
+    }
     html[dir=rtl]{--sans:'IBM Plex Sans Arabic','Inter',system-ui,-apple-system,sans-serif}
     html[dir=rtl] body{line-height:1.8}
     html[dir=rtl] :is(pre,code,kbd,samp,[dir=ltr]){direction:ltr;unicode-bidi:isolate}
     html[dir=rtl] pre{text-align:left}
     html[dir=rtl] .flip-rtl{transform:scaleX(-1)}
+    /* letter-spacing breaks the joins between Arabic letters */
+    html[dir=rtl] :not(pre,code,kbd,samp,[dir=ltr],[dir=ltr] *){letter-spacing:0!important}
   </style>
 </head>
 <body>

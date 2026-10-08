@@ -1,0 +1,490 @@
+<!--meta
+{
+  "title": "أوامر لينكس: مرجع سريع لأكثر من 90 أمرًا مفيدًا في الطرفية | Zecure",
+  "description": "مرجع سريع قابل للبحث لأكثر من 90 أمرًا أساسيًا في طرفية لينكس. الفئات: نظام الملفات، والشبكات، ومعالجة النصوص، وإدارة العمليات، والأمان، وغيرها. انسخ أي أمر فورًا.",
+  "keywords": "اوامر لينكس, أوامر لينكس المهمة, أوامر الطرفية في لينكس, قائمة أوامر لينكس, أوامر لينكس للمبتدئين, أمر grep في لينكس, أمثلة أمر find, أوامر الشبكات في لينكس, أوامر الأمان في لينكس, أمر curl في لينكس, sed و awk",
+  "robots": "index, follow",
+  "ogType": "website",
+  "ogTitle": "أوامر لينكس: مرجع سريع لأكثر من 90 أمرًا مفيدًا في الطرفية | Zecure",
+  "ogDescription": "مرجع قابل للبحث لأكثر من 90 أمرًا أساسيًا في طرفية لينكس: نظام الملفات والشبكات ومعالجة النصوص والأمان وغيرها. انسخ أي أمر فورًا.",
+  "sitemap": true
+}
+-->
+<!--head-->
+<meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","inLanguage":"ar","name":"مرجع أوامر لينكس السريع","url":"https://zecure.net/linux-commands","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"مرجع قابل للبحث لأكثر من 90 أمرًا أساسيًا في طرفية لينكس موزّعة على 7 فئات. انسخ أي أمر فورًا."},
+    {"@type":"FAQPage","inLanguage":"ar","mainEntity":[
+      {"@type":"Question","name":"ما أكثر أوامر لينكس فائدة؟","acceptedAnswer":{"@type":"Answer","text":"لا توجد إجابة واحدة، لكن grep وfind وcurl وps من أكثر الأوامر فائدة على نطاق واسع. يتيح لك grep البحث في الملفات والمخرجات، ويحدّد find مواقع الملفات حسب الاسم أو الخصائص، وينفّذ curl طلبات HTTP من الطرفية، ويعرض ps aux كل العمليات الجارية. وإتقان هذه الأربعة يغطي الغالبية العظمى من العمل اليومي في الطرفية."}},
+      {"@type":"Question","name":"كيف أبحث عن ملف في لينكس؟","acceptedAnswer":{"@type":"Answer","text":"استخدم find . -name \"filename\" للبحث التكراري بدءًا من المجلد الحالي، و-iname لمطابقة لا تميّز حالة الأحرف. أضف -type f لمطابقة الملفات فقط أو -type d للمجلدات. وتعمل أحرف البدل (wildcards): find /var -name \"*.log\" يعثر على كل ملفات .log تحت /var. وللبحث السريع المفهرس، ثبّت locate filename واستخدمه (يتطلب تشغيل updatedb أولًا)."}},
+      {"@type":"Question","name":"كيف أعرف ما الذي يستخدم منفذًا في لينكس؟","acceptedAnswer":{"@type":"Answer","text":"شغّل ss -tulpn | grep :PORT أو lsof -i :PORT. كلاهما يعرض اسم العملية ومعرّفها (PID) التي تشغل منفذًا محدّدًا. على سبيل المثال، يعرض ss -tulpn | grep :80 ما يستمع على المنفذ 80. وقد تحتاج إلى sudo لرؤية العمليات المملوكة لمستخدمين آخرين."}},
+      {"@type":"Question","name":"كيف أُنهي عملية في لينكس؟","acceptedAnswer":{"@type":"Answer","text":"ابحث أولًا عن معرّف العملية (PID) باستخدام pgrep -l processname أو ps aux | grep processname. ثم شغّل kill PID (يرسل SIGTERM — إيقاف لطيف) أو kill -9 PID (يرسل SIGKILL — إيقاف قسري). ولإنهاء العملية باسمها مباشرة: pkill processname. وفضّل دائمًا SIGTERM أولًا، وامنح العملية بضع ثوانٍ للتنظيف قبل اللجوء إلى SIGKILL."}},
+      {"@type":"Question","name":"ماذا يفعل grep -r؟","acceptedAnswer":{"@type":"Answer","text":"grep -r pattern dir يبحث بشكل تكراري في كل الملفات داخل مجلد ومجلداته الفرعية عن الأسطر المطابقة للنمط. أضف -l لعرض أسماء الملفات المطابقة فقط، و-n لعرض أرقام الأسطر، و-i لمطابقة لا تميّز حالة الأحرف، و-v لعرض الأسطر غير المطابقة، أو --include=\"*.py\" لقصر البحث على أنواع ملفات محدّدة."}},
+      {"@type":"Question","name":"ما الفرق بين ss وnetstat؟","acceptedAnswer":{"@type":"Answer","text":"ss (إحصاءات المقابس، socket statistics) هو البديل الحديث لـ netstat — فهو أسرع، ولا يزال قيد الصيانة، ومتاح في كل توزيعات لينكس الحالية. أما netstat فمهمَل (deprecated) في كثير من الأنظمة. استخدم ss -tulpn بدلًا من netstat -tuln للحصول على المعلومات نفسها. والخيارات t (TCP) وu (UDP) وl (المنافذ المستمعة) وp (العملية) وn (أرقام) متطابقة تقريبًا."}}
+    ]}
+  ]}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09090b;--surface:#18181b;--surface2:#27272a;--border:#3f3f46;--border-s:#27272a;--accent:#6366f1;--accent-h:#4f46e5;--accent-s:rgba(99,102,241,0.12);--green:#22c55e;--green-s:rgba(34,197,94,0.1);--amber:#f59e0b;--red:#ef4444;--clr:#06b6d4;--clr-h:#0891b2;--clr-s:rgba(6,182,212,0.12);--clr-t:rgba(6,182,212,0.06);--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;--text-4:#52525b;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','Fira Code',monospace;--r:8px;--r-sm:6px;--r-lg:12px;color-scheme:dark}
+    [data-theme="light"]{--bg:#ffffff;--surface:#fafafa;--surface2:#f4f4f5;--border:#e4e4e7;--border-s:#f4f4f5;--accent:#4f46e5;--accent-h:#4338ca;--accent-s:rgba(79,70,229,0.08);--green:#16a34a;--green-s:rgba(22,163,74,0.08);--amber:#d97706;--red:#dc2626;--clr:#0891b2;--clr-h:#0e7490;--clr-s:rgba(8,145,178,0.1);--clr-t:rgba(8,145,178,0.05);--text:#09090b;--text-2:#52525b;--text-3:#71717a;--text-4:#a1a1aa;color-scheme:light}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:var(--clr-s);color:var(--text)}:focus-visible{outline:2px solid var(--clr);outline-offset:2px;border-radius:4px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}.nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}.logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}.nav-links{display:flex;list-style:none;gap:.125rem}.nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}.nav-links a:hover{color:var(--text);background:var(--surface2)}@media(max-width:640px){.nav-links{display:none}}.nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}.icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,border-color .15s,background .15s}.icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.icon-btn .sun{display:none}.icon-btn .moon{display:block}[data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    main{max-width:960px;margin:0 auto;padding:0 1.5rem}
+    .tool-hero{padding:3.5rem 0 2rem;text-align:center;position:relative}.tool-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,var(--border-s) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);pointer-events:none}.tool-pills{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem;position:relative}.pill{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.75rem;font-weight:500;padding:.25rem .75rem;border-radius:100px}.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--clr);box-shadow:0 0 0 2px var(--clr-s)}.tool-h1{font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-.025em;color:var(--text);line-height:1.15;margin-bottom:.875rem;position:relative}.tool-h1 mark{background:none;color:var(--clr)}.tool-sub{font-size:1rem;color:var(--text-2);line-height:1.7;max-width:560px;margin:0 auto 1.75rem;position:relative}
+    .search-wrap{position:relative;max-width:560px;margin:0 auto 1.5rem}.search-icon{position:absolute;left:.875rem;top:50%;transform:translateY(-50%);color:var(--text-3);pointer-events:none}.search-input{width:100%;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);color:var(--text);font-family:var(--sans);font-size:.9375rem;padding:.75rem 3rem .75rem 2.75rem;transition:border-color .15s}.search-input:focus{outline:none;border-color:var(--clr)}.search-input::placeholder{color:var(--text-4)}[data-theme="light"] .search-input{background:var(--surface2)}.search-clear{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-3);cursor:pointer;padding:.25rem;border-radius:4px;display:none;transition:color .15s}.search-clear:hover{color:var(--text)}.search-clear.visible{display:flex;align-items:center}
+    .cats{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;margin-bottom:1.5rem}.cat-btn{display:inline-flex;align-items:center;gap:.35rem;background:var(--surface);border:1px solid var(--border-s);color:var(--text-2);font-family:var(--sans);font-size:.8rem;font-weight:500;padding:.35rem .8rem;border-radius:100px;cursor:pointer;transition:all .15s}.cat-btn:hover{color:var(--text);border-color:var(--border)}.cat-btn.active{background:var(--clr-s);border-color:var(--clr);color:var(--clr)}.cat-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+    .results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding:0 .25rem}.results-count{font-size:.8125rem;color:var(--text-3)}.results-count span{color:var(--text);font-weight:600}
+    .cmd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:.875rem;margin-bottom:2.5rem}@media(max-width:680px){.cmd-grid{grid-template-columns:1fr}}
+    .cmd-card{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;transition:border-color .15s}.cmd-card:hover{border-color:var(--border)}.cmd-head{display:flex;align-items:center;gap:.6rem;padding:.625rem .75rem;border-bottom:1px solid var(--border-s)}.cat-badge{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .5rem;border-radius:4px;white-space:nowrap;flex-shrink:0;background:var(--clr-s);color:var(--clr)}.cat-badge.file{background:rgba(249,115,22,.1);color:#f97316}.cat-badge.text{background:rgba(168,85,247,.1);color:#a855f7}.cat-badge.net{background:var(--clr-s);color:var(--clr)}.cat-badge.proc{background:rgba(34,197,94,.1);color:#22c55e}.cat-badge.sec{background:rgba(239,68,68,.1);color:#ef4444}.cat-badge.arch{background:rgba(245,158,11,.1);color:#f59e0b}.cat-badge.sys{background:rgba(99,102,241,.1);color:#6366f1}
+    .cmd-name{font-family:var(--mono);font-size:.8125rem;font-weight:500;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.copy-btn{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:5px;background:transparent;border:1px solid var(--border);color:var(--text-3);cursor:pointer;transition:all .15s}.copy-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}.copy-btn.copied{color:var(--green);border-color:var(--green);background:var(--green-s)}.copy-btn svg.check{display:none}.copy-btn svg.clip{display:block}.copy-btn.copied svg.check{display:block}.copy-btn.copied svg.clip{display:none}
+    .cmd-body{padding:.625rem .75rem}.cmd-desc{font-size:.8125rem;color:var(--text-2);margin-bottom:.5rem;line-height:1.5}.cmd-ex-label{font-size:.65rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-4);margin-bottom:.25rem}.cmd-ex{display:flex;align-items:flex-start;gap:.5rem;background:var(--bg);border:1px solid var(--border-s);border-radius:var(--r-sm);padding:.5rem .625rem}.cmd-ex code{font-family:var(--mono);font-size:.75rem;color:var(--clr);line-height:1.5;flex:1;word-break:break-all}[data-theme="light"] .cmd-ex{background:var(--surface2)}.copy-ex{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:4px;background:transparent;border:none;color:var(--text-3);cursor:pointer;transition:color .15s}.copy-ex:hover{color:var(--text)}.copy-ex.copied{color:var(--green)}.copy-ex svg.check{display:none}.copy-ex svg.clip{display:block}.copy-ex.copied svg.check{display:block}.copy-ex.copied svg.clip{display:none}
+    .no-results{text-align:center;padding:3rem 0;display:none}.no-results.show{display:block}.no-results-icon{font-size:2.5rem;margin-bottom:1rem}.no-results h3{font-size:1rem;color:var(--text-2);margin-bottom:.5rem}.no-results p{font-size:.875rem;color:var(--text-3)}
+    .content-section{padding:2.5rem 0;border-top:1px solid var(--border-s)}.content-section h2{font-size:1.25rem;font-weight:600;letter-spacing:-.015em;color:var(--text);margin-bottom:.875rem}.content-section h3{font-size:1rem;font-weight:600;color:var(--text);margin:1.5rem 0 .5rem}.content-section p{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:1.25rem}.content-section ul,.content-section ol{margin:.25rem 0 1.25rem 1.5rem}.content-section li{font-size:.9375rem;color:var(--text-2);line-height:1.8;margin-bottom:.4rem}.content-section strong{color:var(--text);font-weight:600}.content-section code{font-family:var(--mono);font-size:.8125rem;background:var(--surface2);color:var(--clr);padding:.15rem .45rem;border-radius:4px}
+    .tip-box{display:flex;gap:1rem;background:var(--surface);border:1px solid var(--border-s);border-left:3px solid var(--clr);border-radius:var(--r-lg);padding:1rem 1.125rem;margin:1.25rem 0}.tip-icon{flex-shrink:0;margin-top:2px;color:var(--clr)}.tip-box p{margin:0;font-size:.875rem;color:var(--text-2)}
+    .faq-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}.faq-item{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;transition:border-color .15s}.faq-item:hover{border-color:var(--border)}.faq-q{width:100%;background:none;border:none;color:var(--text-2);font-family:var(--sans);font-size:.875rem;font-weight:500;text-align:left;padding:1rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .15s,background .15s}.faq-q:hover{color:var(--text);background:var(--surface2)}.faq-item.open .faq-q{color:var(--text)}.faq-chev{flex-shrink:0;color:var(--text-4);transition:transform .25s ease,color .15s}.faq-item.open .faq-chev{transform:rotate(180deg);color:var(--clr)}.faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}.faq-item.open .faq-body{max-height:600px}.faq-body p{padding:.875rem 1.1rem 1rem;border-top:1px solid var(--border-s);font-size:.875rem;color:var(--text-2);line-height:1.75}.faq-body p code{font-family:var(--mono);font-size:.8rem;background:var(--surface2);color:var(--clr);padding:.1rem .35rem;border-radius:4px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}.related-card{display:block;background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:1.125rem;text-decoration:none;transition:border-color .15s,background .15s}.related-card:hover{border-color:var(--border);background:var(--surface2)}.related-tag{font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--clr);margin-bottom:.4rem}.related-title{font-size:.875rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.3rem}.related-desc{font-size:.75rem;color:var(--text-3)}
+    #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.5rem 1rem;font-size:.8125rem;color:var(--text-2);display:flex;align-items:center;gap:.5rem;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;white-space:nowrap}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    footer{border-top:1px solid var(--border-s);padding:3rem 0;margin-top:2rem}.footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}@media(max-width:768px){.footer-inner{grid-template-columns:1fr 1fr}}@media(max-width:480px){.footer-inner{grid-template-columns:1fr}}.footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}.footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}.footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}.footer-col ul a:hover{color:var(--text)}.footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}.footer-bottom p{font-size:.75rem;color:var(--text-4)}
+  </style>
+  <style>html[dir=rtl] .search-icon{left:auto;right:.875rem}html[dir=rtl] .search-clear{right:auto;left:.75rem}html[dir=rtl] .search-input{padding:.75rem 2.75rem .75rem 3rem}html[dir=rtl] .search-input:placeholder-shown{direction:rtl}html[dir=rtl] .tip-box{border-left:1px solid var(--border-s);border-right:3px solid var(--clr)}html[dir=rtl] :is(.cat-badge,.cmd-ex-label){letter-spacing:0}html[dir=rtl] .content-section ul,html[dir=rtl] .content-section ol{margin:.25rem 1.5rem 1.25rem 0}html[dir=rtl] .faq-q{text-align:right}html[dir=rtl] :is(.tool-h1,.content-section h2,.related-tag,.footer-col h4,.gen-label){letter-spacing:0}</style>
+<!--body-->
+<header>
+  <nav class="nav-inner" aria-label="تنقّل الموقع">
+    <a href="/" class="logo">
+      <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      Zecure
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="/">كل الأدوات</a></li>
+      <li><a href="/password-generator">كلمة المرور</a></li>
+      <li><a href="/hash-generator">التجزئة</a></li>
+      <li><a href="/linux-commands" aria-current="page">أوامر لينكس</a></li>
+      <li><a href="/blog/">المدونة</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" id="theme-toggle" aria-label="تبديل الوضع الفاتح/الداكن">
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="tool-hero">
+    <div class="tool-pills">
+      <span class="pill"><span class="pill-dot"></span>أكثر من 90 أمرًا</span>
+      <span class="pill">7 فئات</span>
+      <span class="pill">نسخ فوري</span>
+    </div>
+    <h1 class="tool-h1"><mark>مرجع سريع</mark> لأوامر لينكس</h1>
+    <p class="tool-sub">ابحث في أكثر من 90 أمرًا أساسيًا من أوامر طرفية لينكس بالاسم أو الوصف. صفِّ النتائج حسب الفئة، وانسخ أي أمر فورًا.</p>
+  </section>
+
+  <!-- Search -->
+  <div class="search-wrap">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="search" class="search-input" id="search" placeholder="ابحث في الأوامر، مثل grep أو find أو curl أو chmod…" dir="auto" autocomplete="off" spellcheck="false">
+    <button class="search-clear" id="search-clear" aria-label="مسح البحث">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- Category Filters -->
+  <div class="cats" id="cats">
+    <button class="cat-btn active" data-cat="all"><span class="cat-dot"></span>الكل</button>
+    <button class="cat-btn" data-cat="file"><span class="cat-dot" style="background:#f97316"></span>نظام الملفات</button>
+    <button class="cat-btn" data-cat="text"><span class="cat-dot" style="background:#a855f7"></span>معالجة النصوص</button>
+    <button class="cat-btn" data-cat="net"><span class="cat-dot" style="background:var(--clr)"></span>الشبكات</button>
+    <button class="cat-btn" data-cat="proc"><span class="cat-dot" style="background:#22c55e"></span>العمليات</button>
+    <button class="cat-btn" data-cat="sec"><span class="cat-dot" style="background:#ef4444"></span>الأمان</button>
+    <button class="cat-btn" data-cat="arch"><span class="cat-dot" style="background:#f59e0b"></span>الأرشفة</button>
+    <button class="cat-btn" data-cat="sys"><span class="cat-dot" style="background:#6366f1"></span>النظام</button>
+  </div>
+
+  <!-- Results bar -->
+  <div class="results-bar">
+    <p class="results-count">عدد الأوامر المعروضة: <span id="count">90</span></p>
+  </div>
+
+  <!-- Command Grid -->
+  <div class="cmd-grid" id="grid"></div>
+
+  <!-- No results -->
+  <div class="no-results" id="no-results">
+    <div class="no-results-icon">🔍</div>
+    <h3>لم يُعثر على أوامر</h3>
+    <p>جرّب كلمة بحث مختلفة أو أزل التصفية.</p>
+  </div>
+
+  <!-- Content sections -->
+  <section class="content-section">
+    <h2>لماذا تتعلّم أوامر لينكس؟</h2>
+    <p>يشغّل لينكس أكثر من 96% من أكبر مليون خادم ويب في العالم، وكل منصات الحوسبة السحابية الكبرى، وتقريبًا كل بيئات تشغيل الحاويات. وسواء كنت مطوّرًا أو مدير أنظمة أو مهندس أمن، فإن إتقان الطرفية من أعلى المهارات مردودًا التي يمكنك اكتسابها.</p>
+    <p>اختيرت الأوامر في هذا المرجع لفائدتها العملية — لا لاكتمالها الأكاديمي. وكل أمر منها يستحق مكانه لأنه يحلّ مشكلات شائعة أسرع من أي بديل بواجهة رسومية.</p>
+
+    <h3>أوامر نظام الملفات</h3>
+    <p>أوامر نظام الملفات هي الأساس. يكشف <code>ls -la</code> الملفات المخفية والصلاحيات بنظرة واحدة. و<code>find</code> هو الأداة القوية لتحديد مواقع الملفات حسب الاسم أو النوع أو الحجم أو وقت التعديل أو الصلاحيات — بما في ذلك ملفات SUID التنفيذية. ويتفوّق <code>rsync</code> على <code>cp</code> في عمليات النقل الكبيرة لأنه يقبل الاستئناف، وينقل الفروق فقط، ويعمل عبر SSH.</p>
+    <div class="tip-box">
+      <svg class="tip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <p><strong>نصيحة:</strong> اجمع <code>find</code> مع <code>-exec</code> أو مرّر نتائجه إلى <code>xargs</code> لتنفيذ إجراء عليها. مثال: <code>find . -name "*.log" -mtime +30 | xargs rm -f</code> يحذف السجلات الأقدم من 30 يومًا.</p>
+    </div>
+
+    <h3>معالجة النصوص: grep وsed وawk</h3>
+    <p>تتولّى هذه الأوامر الثلاثة معظم احتياجات تحليل السجلات وتحويل البيانات من سطر الأوامر.</p>
+    <ul>
+      <li><strong>grep</strong> — يصفّي الأسطر المطابقة لنمط. أضف <code>-r</code> للبحث التكراري، و<code>-n</code> لأرقام الأسطر، و<code>-i</code> لتجاهل حالة الأحرف، و<code>-v</code> لعكس المطابقة (استبعاد الأسطر المطابقة).</li>
+      <li><strong>sed</strong> — محرّر تدفّقي (stream editor) للاستبدال داخل الملفات. الأمر <code>sed -i 's/old/new/g' file</code> يستبدل كل المواضع، والخيار <code>-i</code> يعدّل الملف في مكانه.</li>
+      <li><strong>awk</strong> — لغة برمجة مصغّرة للنصوص المنظّمة. الأمر <code>awk '{print $2}'</code> يستخرج الحقل الثاني من كل سطر. واجمعه مع كتلتي <code>BEGIN</code> و<code>END</code> لإجراء عمليات التجميع.</li>
+    </ul>
+    <p>اربطها معًا: <code>grep "ERROR" app.log | awk '{print $4}' | sort | uniq -c | sort -rn</code> يعطيك خلال ثوانٍ عددًا مرتّبًا لمصادر الأخطاء.</p>
+
+    <h3>أوامر الشبكات</h3>
+    <p><code>ss -tulpn</code> هو البديل الحديث لـ <code>netstat</code>، ويعرض كل المنافذ المستمعة مع أسماء العمليات المرتبطة بها دفعة واحدة. استخدم <code>curl -I</code> لفحص ترويسات HTTP دون تنزيل المحتوى، و<code>nc -zv host port</code> لاختبار الاتصال بأي منفذ TCP بسرعة.</p>
+    <p>لاستكشاف أخطاء DNS، يعطيك <code>dig +short</code> مخرجات نظيفة. أضف نوع السجل: <code>dig MX domain.com +short</code> لسجلات البريد، و<code>dig TXT domain.com +short</code> لسجلات SPF/DKIM.</p>
+
+    <h3>أوامر مرتبطة بالأمان</h3>
+    <p>عدة أوامر هنا لا غنى عنها لتحصين أنظمة لينكس وتدقيقها:</p>
+    <ul>
+      <li><code>find / -perm -4000 2&gt;/dev/null</code> — يعرض كل ملفات SUID التنفيذية، وهي خطوة أساسية في تدقيق ثغرات تصعيد الصلاحيات.</li>
+      <li><code>last</code> و<code>lastb</code> — يعرضان عمليات تسجيل الدخول الناجحة والفاشلة على التوالي. وهما أساسيان في الاستجابة للحوادث.</li>
+      <li><code>openssl rand -hex 32</code> — يولّد سلاسل عشوائية آمنة تشفيريًا للأسرار ومفاتيح API.</li>
+      <li><code>ssh-keygen -t ed25519</code> — ينشئ زوج مفاتيح Ed25519 حديثًا ومضغوطًا (فضّله على RSA-2048 الأقدم).</li>
+    </ul>
+
+    <h3>إدارة العمليات</h3>
+    <p>اعرف الفرق بين <code>kill -15</code> (SIGTERM — طلب مهذّب للتوقف) و<code>kill -9</code> (SIGKILL — إيقاف فوري دون تنظيف). جرّب SIGTERM أولًا دائمًا. واستخدم <code>lsof -i :PORT</code> لمعرفة ما يشغل منفذًا قبل إنهائه دون تحقق. ويُبقي <code>nohup command &amp;</code> العملية قيد التشغيل بعد تسجيل خروجك — وأعِد توجيه المخرجات بـ <code>&gt; output.log 2&gt;&amp;1</code> لالتقاط stdout وstderr.</p>
+  </section>
+
+  <section class="content-section">
+    <h2>الأسئلة الشائعة</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">ما أكثر أوامر لينكس فائدة؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-body"><p>لا توجد إجابة واحدة، لكن <code>grep</code> و<code>find</code> و<code>curl</code> و<code>ps</code> من أكثر الأوامر فائدة على نطاق واسع. يتيح لك <code>grep</code> البحث في الملفات والمخرجات، ويحدّد <code>find</code> مواقع الملفات حسب الاسم أو الخصائص، وينفّذ <code>curl</code> طلبات HTTP من الطرفية، ويعرض <code>ps aux</code> كل العمليات الجارية. وإتقان هذه الأربعة يغطي الغالبية العظمى من العمل اليومي في الطرفية.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">كيف أبحث عن ملف في لينكس؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-body"><p>استخدم <code>find . -name "filename"</code> للبحث التكراري بدءًا من المجلد الحالي، و<code>-iname</code> لمطابقة لا تميّز حالة الأحرف. أضف <code>-type f</code> لمطابقة الملفات فقط أو <code>-type d</code> للمجلدات. وتعمل أحرف البدل (wildcards): <code>find /var -name "*.log"</code> يعثر على كل ملفات <code>.log</code> تحت <code>/var</code>. وللبحث السريع المفهرس، ثبّت <code>locate filename</code> واستخدمه (يتطلب تشغيل <code>updatedb</code> أولًا).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">كيف أعرف ما الذي يستخدم منفذًا في لينكس؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-body"><p>شغّل <code>ss -tulpn | grep :PORT</code> أو <code>lsof -i :PORT</code>. كلاهما يعرض اسم العملية ومعرّفها (PID) التي تشغل منفذًا محدّدًا. على سبيل المثال، يعرض <code>ss -tulpn | grep :80</code> ما يستمع على المنفذ 80. وقد تحتاج إلى <code>sudo</code> لرؤية العمليات المملوكة لمستخدمين آخرين.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">كيف أُنهي عملية في لينكس؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-body"><p>ابحث أولًا عن معرّف العملية (PID) باستخدام <code>pgrep -l processname</code> أو <code>ps aux | grep processname</code>. ثم شغّل <code>kill PID</code> (يرسل SIGTERM — إيقاف لطيف) أو <code>kill -9 PID</code> (يرسل SIGKILL — إيقاف قسري). ولإنهاء العملية باسمها مباشرة: <code>pkill processname</code>. وفضّل دائمًا SIGTERM أولًا، وامنح العملية بضع ثوانٍ للتنظيف قبل اللجوء إلى SIGKILL.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">ماذا يفعل grep -r؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-body"><p><code>grep -r pattern dir</code> يبحث بشكل تكراري في كل الملفات داخل مجلد ومجلداته الفرعية عن الأسطر المطابقة للنمط. أضف <code>-l</code> لعرض أسماء الملفات المطابقة فقط، و<code>-n</code> لعرض أرقام الأسطر، و<code>-i</code> لمطابقة لا تميّز حالة الأحرف، و<code>-v</code> لعرض الأسطر غير المطابقة، أو <code>--include="*.py"</code> لقصر البحث على أنواع ملفات محدّدة.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">ما الفرق بين ss وnetstat؟ <svg class="faq-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-body"><p><code>ss</code> (إحصاءات المقابس، socket statistics) هو البديل الحديث لـ <code>netstat</code> — فهو أسرع، ولا يزال قيد الصيانة، ومتاح في كل توزيعات لينكس الحالية. أما <code>netstat</code> فمهمَل (deprecated) في كثير من الأنظمة. استخدم <code>ss -tulpn</code> بدلًا من <code>netstat -tuln</code> للحصول على المعلومات نفسها. والخيارات <code>t</code> (TCP) و<code>u</code> (UDP) و<code>l</code> (المنافذ المستمعة) و<code>p</code> (العملية) و<code>n</code> (أرقام) متطابقة تقريبًا.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>أدوات ذات صلة</h2>
+    <div class="related-grid">
+      <a href="/hash-generator" class="related-card">
+        <div class="related-tag">أداة</div>
+        <div class="related-title">مولّد التجزئة (Hash) — MD5 وSHA-256 وSHA-512</div>
+        <div class="related-desc">أنشئ قيم تجزئة تشفيرية فورًا داخل متصفحك</div>
+      </a>
+      <a href="/uuid-generator" class="related-card">
+        <div class="related-tag">أداة</div>
+        <div class="related-title">مولّد UUID — الإصداران v4 وv7</div>
+        <div class="related-desc">أنشئ معرّفات UUID بالجملة للتطوير والاختبار</div>
+      </a>
+      <a href="/password-generator" class="related-card">
+        <div class="related-tag">أداة</div>
+        <div class="related-title">مولّد كلمات مرور آمنة</div>
+        <div class="related-desc">كلمات مرور عشوائية تشفيريًا — يعمل داخل المتصفح</div>
+      </a>
+      <a href="/blog/sha256-hashing-explained" class="related-card">
+        <div class="related-tag">دليل</div>
+        <div class="related-title">شرح SHA-256</div>
+        <div class="related-desc">كيف تعمل دوال التجزئة التشفيرية من الداخل</div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="logo" style="display:inline-flex">
+        <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        Zecure
+      </a>
+      <p>أدوات أمان مجانية تعمل داخل متصفحك. بلا خادم، وبلا تتبّع، ودون تسجيل.</p>
+    </div>
+    <div class="footer-col">
+      <h4>أدوات الأمان</h4>
+      <ul>
+        <li><a href="/password-generator">مولّد كلمات المرور</a></li>
+        <li><a href="/hash-generator">مولّد التجزئة (Hash)</a></li>
+        <li><a href="/uuid-generator">مولّد UUID</a></li>
+        <li><a href="/base64-encoder">ترميز Base64</a></li>
+        <li><a href="/linux-commands">أوامر لينكس</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>مولّدات للمرح</h4>
+      <ul>
+        <li><a href="/funny-password-generator">كلمات مرور مضحكة</a></li>
+        <li><a href="/no-as-a-service">الرفض كخدمة</a></li>
+        <li><a href="/password-roaster">تحميص كلمات المرور</a></li>
+        <li><a href="/dev-excuse-generator">مولّد أعذار المطوّرين</a></li>
+        <li><a href="/tech-horoscope">الأبراج التقنية</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>تعلّم</h4>
+      <ul>
+        <li><a href="/blog/">مدونة الأمان</a></li>
+        <li><a href="/blog/sha256-hashing-explained">شرح SHA-256</a></li>
+        <li><a href="/blog/base64-encoding-explained">شرح Base64</a></li>
+        <li><a href="/privacy">سياسة الخصوصية</a></li>
+        <li><a href="/terms">الشروط والأحكام</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Zecure.net</p>
+    <p>أكثر من 90 أمرًا للينكس · لا نجمع أي بيانات</p>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  تم النسخ!
+</div>
+
+<script>
+const COMMANDS = [
+  // File System
+  {cat:'file',cmd:'ls -la',desc:'عرض كل الملفات بما فيها المخفية، مع الصلاحيات والأحجام',ex:'ls -la /var/log'},
+  {cat:'file',cmd:'find . -name "*.log"',desc:'البحث عن الملفات بنمط الاسم بشكل تكراري (recursive)',ex:'find /var -name "*.log" -mtime -7'},
+  {cat:'file',cmd:'find / -perm -4000 2>/dev/null',desc:'العثور على كل ملفات SUID التنفيذية في النظام (تدقيق أمني)',ex:'find / -perm -4000 -type f 2>/dev/null'},
+  {cat:'file',cmd:'du -sh *',desc:'عرض المساحة التي يشغلها كل عنصر في المجلد الحالي',ex:'du -sh /home/* | sort -rh'},
+  {cat:'file',cmd:'df -h',desc:'عرض استخدام مساحة القرص لكل أنظمة الملفات المركّبة (mounted)',ex:'df -h'},
+  {cat:'file',cmd:'chmod 755 file',desc:'منح المالك صلاحيات القراءة/الكتابة/التنفيذ، والآخرين القراءة/التنفيذ',ex:'chmod +x script.sh'},
+  {cat:'file',cmd:'chown user:group file',desc:'تغيير مالك الملف ومجموعته',ex:'chown www-data:www-data /var/www/html'},
+  {cat:'file',cmd:'ln -s target link',desc:'إنشاء رابط رمزي (soft link) إلى ملف أو مجلد',ex:'ln -s /usr/local/bin/python3 /usr/bin/python'},
+  {cat:'file',cmd:'rsync -avz src/ dest/',desc:'مزامنة الملفات والمجلدات مع عرض التقدّم والحفاظ على خصائصها',ex:'rsync -avz --delete /src/ user@server:/dest/'},
+  {cat:'file',cmd:'stat file',desc:'عرض بيانات وصفية مفصّلة للملف: الصلاحيات والطوابع الزمنية وinode',ex:'stat /etc/passwd'},
+  {cat:'file',cmd:'lsof -p PID',desc:'عرض كل الملفات المفتوحة لعملية محدّدة',ex:'lsof -p 1234'},
+  {cat:'file',cmd:'lsof -i :PORT',desc:'معرفة العملية التي تستخدم منفذًا (port) محدّدًا',ex:'lsof -i :3000'},
+  {cat:'file',cmd:'watch -n 2 "df -h"',desc:'إعادة تشغيل أمر كل N ثانية وعرض مخرجاته',ex:'watch -n 5 "ls -la /tmp/"'},
+  {cat:'file',cmd:'touch -t 202401010000 file',desc:'إنشاء ملف أو تحديث طابعه الزمني إلى وقت محدّد',ex:'touch newfile.txt'},
+  // Text Processing
+  {cat:'text',cmd:'grep -r "pattern" .',desc:'البحث بشكل تكراري عن نمط في كل الملفات',ex:'grep -r "ERROR" /var/log/'},
+  {cat:'text',cmd:'grep -v "pattern" file',desc:'عرض الأسطر التي لا تطابق النمط فقط',ex:'grep -v "debug" app.log'},
+  {cat:'text',cmd:'grep -rn "pattern" .',desc:'بحث تكراري مع أرقام الأسطر',ex:'grep -rn "TODO" . --include="*.py"'},
+  {cat:'text',cmd:'grep -c "pattern" file',desc:'عدّ الأسطر المطابقة للنمط',ex:'grep -c "ERROR" server.log'},
+  {cat:'text',cmd:'sed "s/old/new/g" file',desc:'استبدال كل مواضع سلسلة نصية في ملف',ex:'sed -i "s/localhost/prod.server.com/g" config.conf'},
+  {cat:'text',cmd:"awk '{print $1}' file",desc:'طباعة الحقل الأول من كل سطر (الفاصل الافتراضي: المسافة)',ex:"awk '{sum+=$1} END {print sum}' numbers.txt"},
+  {cat:'text',cmd:'cut -d: -f1 /etc/passwd',desc:'استخراج حقل محدّد من ملف مفصول بمحدِّد (delimiter)',ex:'cut -d, -f2,4 data.csv'},
+  {cat:'text',cmd:'sort -rn file',desc:'ترتيب الملف رقميًا بترتيب عكسي',ex:'sort -rn access.log | head -20'},
+  {cat:'text',cmd:'sort | uniq -c | sort -rn',desc:'عدّ الأسطر الفريدة وترتيبها (سلسلة أوامر كلاسيكية)',ex:'cat access.log | awk \'{print $1}\' | sort | uniq -c | sort -rn'},
+  {cat:'text',cmd:'wc -l file',desc:'عدّ الأسطر في ملف (أضف -w للكلمات و-c للبايتات)',ex:'wc -l /var/log/syslog'},
+  {cat:'text',cmd:'diff -u file1 file2',desc:'عرض الفروق بين ملفين بالصيغة الموحّدة (unified diff)',ex:'diff -u old.conf new.conf'},
+  {cat:'text',cmd:'tr "a-z" "A-Z"',desc:'تحويل الأحرف أو حذفها من الإدخال القياسي (stdin)',ex:'echo "hello world" | tr "a-z" "A-Z"'},
+  {cat:'text',cmd:'jq ".field" file.json',desc:'تحليل بيانات JSON والاستعلام عنها من ملف أو أنبوب (pipe)',ex:'curl -s https://api.example.com | jq ".data[]"'},
+  {cat:'text',cmd:'xargs rm -f',desc:'بناء أمر وتنفيذه من وسائط الإدخال القياسي (stdin)',ex:'find . -name "*.tmp" | xargs rm -f'},
+  {cat:'text',cmd:'tee -a logfile.txt',desc:'كتابة الإدخال القياسي إلى المخرج القياسي (stdout) وإلى ملف في الوقت نفسه',ex:'command | tee -a output.log'},
+  {cat:'text',cmd:'head -n 20 file',desc:'عرض أول 20 سطرًا من الملف',ex:'head -n 50 /var/log/syslog'},
+  {cat:'text',cmd:'tail -f file',desc:'متابعة ملف سجل لحظيًا (Ctrl+C للإيقاف)',ex:'tail -f /var/log/nginx/access.log'},
+  {cat:'text',cmd:'tail -n 100 file',desc:'عرض آخر 100 سطر من الملف',ex:'tail -n 200 /var/log/auth.log'},
+  // Networking
+  {cat:'net',cmd:'curl -I https://site.com',desc:'جلب ترويسات استجابة HTTP فقط (دون المحتوى)',ex:'curl -I -L https://example.com'},
+  {cat:'net',cmd:'curl -s -o /dev/null -w "%{http_code}" URL',desc:'الحصول على رمز حالة HTTP فقط لعنوان URL',ex:'curl -s -o /dev/null -w "%{http_code}" https://example.com'},
+  {cat:'net',cmd:'curl -u user:pass -X POST URL',desc:'طلب HTTP POST مع مصادقة أساسية (basic auth)',ex:'curl -H "Content-Type: application/json" -d \'{"key":"val"}\' https://api.example.com'},
+  {cat:'net',cmd:'wget -c URL',desc:'تنزيل ملف مع دعم الاستئناف',ex:'wget -c https://example.com/large-file.tar.gz'},
+  {cat:'net',cmd:'ss -tulpn',desc:'عرض كل منافذ TCP/UDP المستمعة مع أسماء العمليات',ex:'ss -tulpn | grep :80'},
+  {cat:'net',cmd:'netstat -tuln',desc:'عرض اتصالات الشبكة النشطة والمنافذ المستمعة',ex:'netstat -an | grep ESTABLISHED | wc -l'},
+  {cat:'net',cmd:'ping -c 4 host',desc:'إرسال 4 طلبات ICMP echo إلى مضيف',ex:'ping -c 4 8.8.8.8'},
+  {cat:'net',cmd:'traceroute host',desc:'تتبّع مسار الشبكة (القفزات) إلى مضيف',ex:'traceroute -n google.com'},
+  {cat:'net',cmd:'dig +short host',desc:'استعلام DNS — يُعيد عنوان (عناوين) IP فقط',ex:'dig MX gmail.com +short'},
+  {cat:'net',cmd:'nslookup host',desc:'استعلام DNS عن اسم مضيف أو عنوان IP',ex:'nslookup -type=MX example.com'},
+  {cat:'net',cmd:'ip addr show',desc:'عرض كل واجهات الشبكة وعناوين IP الخاصة بها',ex:'ip addr show eth0'},
+  {cat:'net',cmd:'ip route show',desc:'عرض جدول التوجيه في النواة (kernel)',ex:'ip route show'},
+  {cat:'net',cmd:'nc -zv host port',desc:'اختبار اتصال TCP بـ host:port (فحص منافذ)',ex:'nc -zv google.com 443'},
+  {cat:'net',cmd:'nmap -sV host',desc:'فحص المنافذ المفتوحة واكتشاف إصدارات الخدمات',ex:'nmap -sV -p 1-1000 192.168.1.1'},
+  {cat:'net',cmd:'tcpdump -i eth0 port 80',desc:'التقاط الحزم على واجهة شبكة مع تصفيتها حسب المنفذ',ex:'tcpdump -i any -w capture.pcap host 10.0.0.1'},
+  {cat:'net',cmd:'scp file user@host:/path/',desc:'نسخ ملف بأمان إلى مضيف بعيد عبر SSH',ex:'scp -r ./dist/ user@server.com:/var/www/'},
+  // Processes
+  {cat:'proc',cmd:'ps aux',desc:'عرض كل العمليات الجارية مع المستخدم والمعالج والذاكرة والأمر',ex:'ps aux | grep nginx'},
+  {cat:'proc',cmd:'ps aux --sort=-%cpu',desc:'عرض العمليات مرتّبة حسب استخدام المعالج (تنازليًا)',ex:'ps aux --sort=-%mem | head -10'},
+  {cat:'proc',cmd:'top',desc:'مراقب تفاعلي للعمليات في الوقت الفعلي (اضغط q للخروج)',ex:'top -u www-data'},
+  {cat:'proc',cmd:'htop',desc:'عارض عمليات تفاعلي سهل الاستخدام مع عرض شجري',ex:'htop -p PID1,PID2'},
+  {cat:'proc',cmd:'kill -15 PID',desc:'إرسال SIGTERM (إيقاف لطيف) إلى عملية',ex:'kill -15 $(pgrep nginx)'},
+  {cat:'proc',cmd:'kill -9 PID',desc:'إرسال SIGKILL (إنهاء قسري) إلى عملية — دون تنظيف',ex:'kill -9 1234'},
+  {cat:'proc',cmd:'pkill -f "pattern"',desc:'إنهاء كل العمليات التي يطابق سطر أوامرها نمطًا معيّنًا',ex:'pkill -f "python script.py"'},
+  {cat:'proc',cmd:'pgrep -la nginx',desc:'العثور على معرّفات العمليات (PID) المطابقة لاسم عملية مع أوامرها',ex:'pgrep -la python'},
+  {cat:'proc',cmd:'nohup command > out.log 2>&1 &',desc:'تشغيل أمر يستمر بعد إغلاق الطرفية مع حفظ مخرجاته',ex:'nohup ./long_script.sh > output.log 2>&1 &'},
+  {cat:'proc',cmd:'jobs -l',desc:'عرض كل المهام الخلفية والمتوقفة في الصدفة (shell) الحالية',ex:'jobs -l'},
+  {cat:'proc',cmd:'strace -p PID',desc:'تتبّع استدعاءات النظام التي تجريها عملية قيد التشغيل',ex:'strace -e trace=network -p 1234'},
+  {cat:'proc',cmd:'nice -n 10 command',desc:'تشغيل أمر بأولوية جدولة أقل',ex:'nice -n 19 tar -czf backup.tar.gz /data/'},
+  // Security
+  {cat:'sec',cmd:'ssh-keygen -t ed25519',desc:'إنشاء زوج مفاتيح SSH حديث من نوع Ed25519',ex:'ssh-keygen -t ed25519 -C "email@example.com"'},
+  {cat:'sec',cmd:'ssh-copy-id user@host',desc:'تثبيت مفتاح SSH العام الخاص بك على خادم بعيد',ex:'ssh-copy-id -i ~/.ssh/id_ed25519.pub user@192.168.1.100'},
+  {cat:'sec',cmd:'openssl rand -hex 32',desc:'توليد سلسلة hex آمنة تشفيريًا بطول 32 بايت',ex:'openssl rand -base64 48'},
+  {cat:'sec',cmd:'openssl s_client -connect host:443',desc:'فحص تفاصيل شهادة TLS لخادم بعيد',ex:'echo | openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -dates'},
+  {cat:'sec',cmd:'openssl x509 -in cert.pem -text',desc:'قراءة تفاصيل شهادة X.509 وعرضها',ex:'openssl x509 -in /etc/ssl/certs/cert.pem -noout -subject -issuer -dates'},
+  {cat:'sec',cmd:'gpg --symmetric --armor file',desc:'تشفير ملف تشفيرًا متماثلًا بعبارة مرور',ex:'gpg --decrypt secret.txt.asc'},
+  {cat:'sec',cmd:'ufw allow 22/tcp',desc:'السماح بحركة SSH عبر جدار الحماية UFW',ex:'ufw status verbose'},
+  {cat:'sec',cmd:'iptables -L -n -v',desc:'عرض كل قواعد جدار الحماية مع عدد الحزم والبايتات',ex:'iptables -A INPUT -p tcp --dport 443 -j ACCEPT'},
+  {cat:'sec',cmd:'last -n 20 -F',desc:'عرض آخر 20 جلسة تسجيل دخول مع الطوابع الزمنية الكاملة',ex:'last -n 20 -F'},
+  {cat:'sec',cmd:'lastb -n 20',desc:'عرض آخر 20 محاولة تسجيل دخول فاشلة',ex:'lastb -n 10 -F'},
+  {cat:'sec',cmd:'fail2ban-client status sshd',desc:'التحقق من حالة fail2ban وعناوين IP المحظورة في سجن (jail) خدمة SSH',ex:'fail2ban-client status'},
+  {cat:'sec',cmd:'auditctl -w /etc/shadow -p rwa',desc:'تدقيق كل عمليات القراءة والكتابة وتغيير الخصائص على ملف',ex:'auditctl -w /etc/passwd -p wa -k passwd-change'},
+  // Archive
+  {cat:'arch',cmd:'tar -czf archive.tar.gz dir/',desc:'إنشاء أرشيف tar مضغوط بـ gzip لمجلد',ex:'tar -czf backup-$(date +%F).tar.gz /var/www/'},
+  {cat:'arch',cmd:'tar -xzf archive.tar.gz',desc:'فك أرشيف tar مضغوط بـ gzip',ex:'tar -xzf archive.tar.gz -C /target/dir/'},
+  {cat:'arch',cmd:'tar -tvf archive.tar.gz',desc:'عرض محتويات الأرشيف دون فكّه',ex:'tar -tvf backup.tar.gz | grep ".conf"'},
+  {cat:'arch',cmd:'zip -r archive.zip dir/',desc:'إنشاء أرشيف zip لمجلد',ex:'zip -r -9 backup.zip /home/user/'},
+  {cat:'arch',cmd:'unzip -o archive.zip -d dest/',desc:'فك أرشيف zip إلى مجلد وجهة',ex:'unzip archive.zip -d /tmp/extracted/'},
+  {cat:'arch',cmd:'gzip -k9 file',desc:'ضغط ملف بأقصى ضغط gzip (مع الاحتفاظ بالأصل)',ex:'gzip -9 -k largefile.log'},
+  {cat:'arch',cmd:'tar -cjf archive.tar.bz2 dir/',desc:'إنشاء أرشيف tar مضغوط بـ bzip2 (نسبة ضغط أفضل من gzip)',ex:'tar -xjf archive.tar.bz2'},
+  // System
+  {cat:'sys',cmd:'uname -a',desc:'عرض كل معلومات النظام: إصدار النواة واسم المضيف والمعمارية',ex:'uname -r'},
+  {cat:'sys',cmd:'uptime -p',desc:'عرض مدة تشغيل النظام بصيغة سهلة القراءة',ex:'uptime'},
+  {cat:'sys',cmd:'free -h',desc:'عرض استخدام الذاكرة (RAM) ومساحة التبديل (swap) بصيغة سهلة القراءة',ex:'free -h'},
+  {cat:'sys',cmd:'hostnamectl',desc:'عرض اسم مضيف النظام ومعلومات نظام التشغيل أو تغييرها',ex:'hostnamectl set-hostname new-hostname'},
+  {cat:'sys',cmd:'timedatectl',desc:'عرض وقت النظام والمنطقة الزمنية وحالة NTP أو تغييرها',ex:'timedatectl set-timezone America/New_York'},
+  {cat:'sys',cmd:'systemctl status service',desc:'التحقق من حالة خدمة systemd',ex:'systemctl restart nginx'},
+  {cat:'sys',cmd:'journalctl -u service -f',desc:'متابعة السجلات الحية لخدمة systemd',ex:'journalctl -u nginx --since "1 hour ago"'},
+  {cat:'sys',cmd:'dmesg -T | grep -i error',desc:'عرض رسائل النواة مع الطوابع الزمنية، مُصفّاة على الأخطاء',ex:'dmesg -T | tail -50'},
+  {cat:'sys',cmd:'env | sort',desc:'عرض كل متغيرات البيئة مرتّبة أبجديًا',ex:'env | grep PATH'},
+  {cat:'sys',cmd:'history | grep "git push"',desc:'البحث في سجل الأوامر عن نمط محدّد',ex:'history | tail -20'},
+  {cat:'sys',cmd:'which command',desc:'عرض المسار الكامل لأمر ضمن PATH الحالي',ex:'which python3 node npm'},
+  {cat:'sys',cmd:'crontab -e',desc:'تعديل جدول مهام cron للمستخدم الحالي',ex:'crontab -l'},
+  {cat:'sys',cmd:'alias ll="ls -la"',desc:'إنشاء اسم مستعار (alias) لأمر (أضفه إلى ~/.bashrc ليبقى دائمًا)',ex:'alias gs="git status"'},
+];
+
+const CAT_LABELS = {file:'نظام الملفات',text:'نصوص',net:'الشبكات',proc:'العمليات',sec:'الأمان',arch:'الأرشفة',sys:'النظام'};
+
+const CLIP_SVG = `<svg class="clip" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+const CHECK_SVG = `<svg class="check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    setTimeout(() => btn.classList.remove('copied'), 1800);
+    showToast();
+  });
+}
+
+let toastTimer;
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+function buildCard(c) {
+  const div = document.createElement('div');
+  div.className = 'cmd-card';
+  div.dataset.cat = c.cat;
+  div.dataset.search = (c.cmd + ' ' + c.desc + ' ' + c.ex).toLowerCase();
+  div.innerHTML = `
+    <div class="cmd-head">
+      <span class="cat-badge ${c.cat}">${CAT_LABELS[c.cat]}</span>
+      <code class="cmd-name">${escHtml(c.cmd)}</code>
+      <button class="copy-btn" title="نسخ الأمر" onclick="copyText(${JSON.stringify(c.cmd)}, this)">${CLIP_SVG}${CHECK_SVG}</button>
+    </div>
+    <div class="cmd-body">
+      <p class="cmd-desc">${escHtml(c.desc)}</p>
+      <div class="cmd-ex-label">مثال</div>
+      <div class="cmd-ex">
+        <code>${escHtml(c.ex)}</code>
+        <button class="copy-ex" title="نسخ المثال" onclick="copyText(${JSON.stringify(c.ex)}, this)">${CLIP_SVG}${CHECK_SVG}</button>
+      </div>
+    </div>`;
+  return div;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+let activeCat = 'all';
+let searchQ = '';
+
+function render() {
+  const grid = document.getElementById('grid');
+  const noRes = document.getElementById('no-results');
+  const count = document.getElementById('count');
+  grid.innerHTML = '';
+  let n = 0;
+  COMMANDS.forEach(c => {
+    if (activeCat !== 'all' && c.cat !== activeCat) return;
+    if (searchQ && !c.search.includes(searchQ)) return;
+    grid.appendChild(buildCard(c));
+    n++;
+  });
+  count.textContent = n;
+  noRes.classList.toggle('show', n === 0);
+}
+
+// Precompute search field
+COMMANDS.forEach(c => c.search = (c.cmd + ' ' + c.desc + ' ' + c.ex).toLowerCase());
+
+// Category buttons
+document.getElementById('cats').addEventListener('click', e => {
+  const btn = e.target.closest('.cat-btn');
+  if (!btn) return;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  render();
+});
+
+// Search
+const searchEl = document.getElementById('search');
+const clearBtn = document.getElementById('search-clear');
+searchEl.addEventListener('input', () => {
+  searchQ = searchEl.value.trim().toLowerCase();
+  clearBtn.classList.toggle('visible', !!searchQ);
+  render();
+});
+clearBtn.addEventListener('click', () => {
+  searchEl.value = '';
+  searchQ = '';
+  clearBtn.classList.remove('visible');
+  searchEl.focus();
+  render();
+});
+
+// Theme toggle
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+});
+
+// FAQ accordion
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+
+render();
+</script>

@@ -1,0 +1,492 @@
+<!--meta
+{
+  "title": "مدونة الأمان: أدلة كلمات المرور والتشفير | Zecure",
+  "description": "أدلة بلغة بسيطة عن كلمات المرور والتشفير ومفاتيح API وأسرار JWT والمصادقة الثنائية (2FA)، مكتوبة للمطوّرين والمستخدمين المهتمين بالأمان. مع أدوات مجانية.",
+  "keywords": "دليل أمان كلمات المرور, شرح التشفير, مدونة أمان للمطورين, نصائح الأمن السيبراني, دليل المصادقة الثنائية, أمان مفاتيح API",
+  "robots": "index, follow",
+  "ogType": "website",
+  "ogTitle": "مدونة الأمان: أدلة كلمات المرور والتشفير | Zecure",
+  "ogDescription": "أدلة بلغة بسيطة عن كلمات المرور والتشفير ومفاتيح API وأسرار JWT والمصادقة الثنائية (2FA) للمطوّرين والمستخدمين المهتمين بالأمان.",
+  "sitemap": true
+}
+-->
+<!--head-->
+<script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CollectionPage",
+    "inLanguage":"ar",
+    "name":"مدونة الأمان — Zecure",
+    "url":"https://zecure.net/blog/",
+    "description":"أدلة كلمات المرور والتشفير للمطوّرين والمستخدمين المهتمين بالأمان.",
+    "mainEntity":{
+      "@type":"ItemList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"url":"https://zecure.net/blog/how-to-create-strong-random-password"},
+        {"@type":"ListItem","position":2,"url":"https://zecure.net/blog/random-password-vs-passphrase"},
+        {"@type":"ListItem","position":3,"url":"https://zecure.net/blog/bcrypt-vs-argon2"},
+        {"@type":"ListItem","position":4,"url":"https://zecure.net/blog/two-factor-authentication-explained"},
+        {"@type":"ListItem","position":2,"url":"https://zecure.net/blog/env-secrets-management"},
+        {"@type":"ListItem","position":3,"url":"https://zecure.net/blog/password-entropy-explained"},
+        {"@type":"ListItem","position":4,"url":"https://zecure.net/blog/password-manager-vs-browser"},
+        {"@type":"ListItem","position":5,"url":"https://zecure.net/blog/wifi-password-security"},
+        {"@type":"ListItem","position":6,"url":"https://zecure.net/blog/jwt-secrets-explained"},
+        {"@type":"ListItem","position":7,"url":"https://zecure.net/blog/api-keys-vs-passwords"},
+        {"@type":"ListItem","position":8,"url":"https://zecure.net/blog/aes-256-explained"},
+        {"@type":"ListItem","position":9,"url":"https://zecure.net/blog/unbreakable-password-2025"}
+      ]
+    }
+  }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#09090b; --surface:#18181b; --surface2:#27272a;
+      --border:#3f3f46; --border-s:#27272a;
+      --accent:#6366f1; --accent-h:#4f46e5; --accent-s:rgba(99,102,241,0.12);
+      --green:#22c55e; --green-s:rgba(34,197,94,0.1);
+      --amber:#f59e0b; --red:#ef4444;
+      --text:#fafafa; --text-2:#a1a1aa; --text-3:#71717a; --text-4:#52525b;
+      --sans:'Inter',system-ui,sans-serif;
+      --mono:'JetBrains Mono','Fira Code',monospace;
+      --r:8px; --r-sm:6px; --r-lg:12px;
+      color-scheme:dark;
+    }
+    [data-theme="light"] {
+      --bg:#ffffff; --surface:#fafafa; --surface2:#f4f4f5;
+      --border:#e4e4e7; --border-s:#f4f4f5;
+      --accent:#4f46e5; --accent-h:#4338ca; --accent-s:rgba(79,70,229,0.08);
+      --green:#16a34a; --green-s:rgba(22,163,74,0.08);
+      --amber:#d97706; --red:#dc2626;
+      --text:#09090b; --text-2:#52525b; --text-3:#71717a; --text-4:#a1a1aa;
+      color-scheme:light;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--accent-s);color:var(--text)}
+    :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    /* Nav */
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-s)}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;gap:1.5rem}
+    .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-weight:600;font-size:.9375rem;letter-spacing:-.01em}
+    .logo-mark{width:28px;height:28px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}
+    .nav-links{display:flex;list-style:none;gap:.125rem}
+    .nav-links a{display:block;color:var(--text-2);text-decoration:none;font-size:.875rem;font-weight:500;padding:.375rem .75rem;border-radius:var(--r-sm);transition:color .15s,background .15s}
+    .nav-links a:hover,.nav-links a.active{color:var(--text);background:var(--surface2)}
+    .nav-links a.active{color:var(--accent)}
+    .nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}
+    .icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text-2);cursor:pointer;transition:color .15s,border-color .15s,background .15s}
+    .icon-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--surface2)}
+    .icon-btn .sun{display:none}.icon-btn .moon{display:block}
+    [data-theme="light"] .icon-btn .sun{display:block}[data-theme="light"] .icon-btn .moon{display:none}
+    .try-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;font-family:var(--sans);font-size:.8125rem;font-weight:500;padding:.375rem .875rem;border:none;border-radius:var(--r-sm);cursor:pointer;text-decoration:none;transition:background .15s}
+    .try-btn:hover{background:var(--accent-h)}
+    /* Layout */
+    main{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+    /* Hero */
+    .archive-hero{padding:4rem 0 3rem;text-align:center;position:relative}
+    .archive-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,var(--border-s) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%);pointer-events:none}
+    .archive-label{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent-s);color:var(--accent);font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .875rem;border-radius:100px;margin-bottom:1.25rem;position:relative}
+    .archive-h1{font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-.025em;color:var(--text);line-height:1.15;margin-bottom:1rem;position:relative}
+    .archive-h1 em{font-style:normal;color:var(--accent)}
+    .archive-sub{font-size:1rem;color:var(--text-2);line-height:1.7;max-width:520px;margin:0 auto 2rem;position:relative}
+    .post-count{display:inline-block;background:var(--surface2);border:1px solid var(--border);color:var(--text-3);font-size:.75rem;font-weight:500;padding:.2rem .6rem;border-radius:100px}
+    /* Filter */
+    .filter-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:2rem;padding-top:.5rem;border-top:1px solid var(--border-s)}
+    .ftabs{display:flex;gap:.25rem;background:var(--surface);border:1px solid var(--border);padding:.25rem;border-radius:var(--r)}
+    .ftab{display:flex;align-items:center;gap:.35rem;font-size:.8125rem;font-weight:500;color:var(--text-3);background:transparent;border:none;padding:.375rem .75rem;border-radius:var(--r-sm);cursor:pointer;transition:color .15s,background .15s;white-space:nowrap}
+    .ftab:hover{color:var(--text-2);background:var(--surface2)}
+    .ftab.active{background:var(--bg);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+    [data-theme="light"] .ftab.active{box-shadow:0 1px 3px rgba(0,0,0,.08)}
+    .filter-count{font-size:.75rem;color:var(--text-3);margin-left:auto}
+    /* Grid */
+    .posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:4rem}
+    @media(max-width:900px){.posts-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.posts-grid{grid-template-columns:1fr}}
+    .post-card{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;transition:border-color .2s,transform .2s,box-shadow .2s}
+    .post-card:hover{border-color:var(--border);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.15)}
+    [data-theme="light"] .post-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.06)}
+    .post-card[hidden]{display:none}
+    .post-cover{height:110px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .post-cover::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:20px 20px}
+    [data-theme="light"] .post-cover::before{background-image:radial-gradient(circle,rgba(0,0,0,.04) 1px,transparent 1px)}
+    .post-cover-icon{position:relative;z-index:1;width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.1)}
+    .post-body{padding:1rem 1.1rem 1.1rem;display:flex;flex-direction:column;flex:1}
+    .post-meta{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+    .post-tag{font-size:.68rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.18rem .5rem;border-radius:4px}
+    .post-date{font-size:.72rem;color:var(--text-3)}
+    .post-title{font-size:.9375rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.5rem}
+    .post-excerpt{font-size:.8125rem;color:var(--text-2);line-height:1.65;flex:1;margin-bottom:.875rem}
+    .post-read{font-size:.8rem;font-weight:500;color:var(--accent);display:flex;align-items:center;gap:.3rem;transition:gap .15s}
+    .post-read:hover{gap:.5rem}
+    /* CTA banner */
+    .cta-banner{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r-lg);padding:2.5rem 2rem;text-align:center;margin:1rem 0 4rem}
+    .cta-banner h2{font-size:1.25rem;font-weight:600;letter-spacing:-.015em;margin-bottom:.5rem}
+    .cta-banner p{font-size:.875rem;color:var(--text-2);margin-bottom:1.5rem}
+    .cta-tools{display:flex;align-items:center;justify-content:center;gap:.75rem;flex-wrap:wrap}
+    .cta-tool-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--surface2);border:1px solid var(--border);color:var(--text-2);font-size:.8125rem;font-weight:500;padding:.4rem .875rem;border-radius:var(--r-sm);text-decoration:none;transition:color .15s,border-color .15s,background .15s}
+    .cta-tool-btn:hover{color:var(--text);border-color:var(--text-4);background:var(--bg)}
+    .cta-tool-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .cta-tool-btn.primary:hover{background:var(--accent-h);border-color:var(--accent-h)}
+    /* Footer */
+    footer{border-top:1px solid var(--border-s);padding:3rem 0}
+    .footer-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+    @media(max-width:768px){.footer-inner{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.footer-inner{grid-template-columns:1fr}}
+    .footer-brand p{font-size:.8125rem;color:var(--text-3);line-height:1.6;margin-top:.5rem}
+    .footer-col h4{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-col ul a{color:var(--text-3);text-decoration:none;font-size:.8125rem;transition:color .15s}
+    .footer-col ul a:hover{color:var(--text)}
+    .footer-bottom{max-width:1100px;margin:1.5rem auto 0;padding:.75rem 1.5rem 0;border-top:1px solid var(--border-s);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+    .footer-bottom p{font-size:.75rem;color:var(--text-4)}
+  </style>
+  <style>
+    html[dir=rtl] .nav-right{margin-left:0;margin-right:auto}
+    html[dir=rtl] .filter-count{margin-left:0;margin-right:auto}
+  </style>
+<!--body-->
+<header>
+  <nav class="nav-inner" aria-label="التنقل في الموقع">
+    <a href="/" class="logo" aria-label="الصفحة الرئيسية لـ Zecure">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </span>
+      Zecure
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="/">المولّد</a></li>
+      <li><a href="/blog/" class="active" aria-current="page">المدونة</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="تبديل المظهر" onclick="toggleTheme()">
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="/" class="try-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        المولّد
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="archive-hero">
+    <div class="archive-label">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      المعرفة الأمنية
+    </div>
+    <h1 class="archive-h1"><em>أدلة</em> كلمات المرور والأمان</h1>
+    <p class="archive-sub">مقالات بلغة بسيطة عن كلمات المرور والتشفير ومفاتيح API والمصادقة، للمطوّرين والمستخدمين المهتمين بالأمان.</p>
+    <span class="post-count">12 مقالًا</span>
+  </div>
+
+  <div class="filter-row">
+    <div class="ftabs" role="tablist" aria-label="التصفية حسب الموضوع">
+      <button class="ftab active" role="tab" aria-selected="true"  data-filter="all"            onclick="filter(this,'all')">الكل</button>
+      <button class="ftab"        role="tab" aria-selected="false" data-filter="passwords"      onclick="filter(this,'passwords')">كلمات المرور</button>
+      <button class="ftab"        role="tab" aria-selected="false" data-filter="encryption"     onclick="filter(this,'encryption')">التشفير</button>
+      <button class="ftab"        role="tab" aria-selected="false" data-filter="keys"           onclick="filter(this,'keys')">المفاتيح</button>
+      <button class="ftab"        role="tab" aria-selected="false" data-filter="authentication" onclick="filter(this,'authentication')">المصادقة</button>
+    </div>
+    <span class="filter-count" id="filter-count">عرض 12 من 12</span>
+  </div>
+
+  <div class="posts-grid" id="posts-grid" role="list">
+
+    <a class="post-card" href="/blog/two-factor-authentication-explained" data-cat="authentication" role="listitem" aria-label="شرح المصادقة الثنائية">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(99,102,241,0.08))">
+        <div class="post-cover-icon" style="background:rgba(34,197,94,0.12);color:#4ade80">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(34,197,94,0.1);color:#4ade80">المصادقة</span>
+          <span class="post-date">سبتمبر 2025</span>
+        </div>
+        <div class="post-title">شرح المصادقة الثنائية: TOTP والرسائل النصية (SMS) ومفاتيح الأمان المادية</div>
+        <p class="post-excerpt">ليست كل طرق المصادقة الثنائية (2FA) متساوية. يمكن اختطاف رموز الرسائل النصية عبر تبديل شريحة SIM، وتطبيقات TOTP أفضل، ومفاتيح الأمان المادية منيعة ضد التصيّد. إليك كيف تعمل كل طريقة.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/env-secrets-management" data-cat="keys" role="listitem" aria-label="كيف تخزّن أسرار .env">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(239,68,68,0.06))">
+        <div class="post-cover-icon" style="background:rgba(245,158,11,0.12);color:#fbbf24">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(245,158,11,0.1);color:#fbbf24">المفاتيح</span>
+          <span class="post-date">أغسطس 2025</span>
+        </div>
+        <div class="post-title">كيف تخزّن متغيرات البيئة والأسرار بأمان</div>
+        <p class="post-excerpt">تسببت ملفات ‎.env المرفوعة إلى git في بعض أكبر تسريبات البيانات في السنوات الأخيرة. دليل عملي من بيئة التطوير المحلية حتى بيئة الإنتاج.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/password-entropy-explained" data-cat="passwords" role="listitem" aria-label="شرح إنتروبيا كلمة المرور">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(14,165,233,0.08))">
+        <div class="post-cover-icon" style="background:rgba(99,102,241,0.12);color:#818cf8">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(99,102,241,0.1);color:#818cf8">كلمات المرور</span>
+          <span class="post-date">يوليو 2025</span>
+        </div>
+        <div class="post-title">شرح إنتروبيا كلمة المرور: لماذا العشوائية هي كل ما يهم</div>
+        <p class="post-excerpt">تقيس الإنتروبيا (مقدار العشوائية) مدى صعوبة توقّع كلمة المرور. فقد تبدو كلمة المرور معقدة ومع ذلك يسهل تخمينها. إليك الحساب بشرح بسيط.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/password-manager-vs-browser" data-cat="passwords" role="listitem" aria-label="مدير كلمات المرور أم المتصفح">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(239,68,68,0.08),rgba(245,158,11,0.1))">
+        <div class="post-cover-icon" style="background:rgba(239,68,68,0.1);color:#f87171">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(239,68,68,0.08);color:#f87171">كلمات المرور</span>
+          <span class="post-date">يونيو 2025</span>
+        </div>
+        <div class="post-title">مدير كلمات المرور أم المتصفح: أيهما أكثر أمانًا؟</div>
+        <p class="post-excerpt">كلمات المرور المحفوظة في المتصفح مريحة، لكن البرامج الخبيثة والوصول المادي إلى الجهاز وتسريبات المزامنة قد تكشفها كلها دفعة واحدة. إليك مقارنة صريحة.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/wifi-password-security" data-cat="passwords" role="listitem" aria-label="WPA2 وأمان كلمة مرور الواي فاي">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(20,184,166,0.08))">
+        <div class="post-cover-icon" style="background:rgba(34,197,94,0.12);color:#4ade80">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M10.54 16.1a6 6 0 012.92 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(34,197,94,0.1);color:#4ade80">كلمات المرور</span>
+          <span class="post-date">مايو 2025</span>
+        </div>
+        <div class="post-title">WPA2 وWEP: لماذا تهمّ كلمة مرور الواي فاي</div>
+        <p class="post-excerpt">كُسر WEP عام 2007، وكسره اليوم يستغرق ثوانٍ. وقوة WPA2 من قوة كلمة المرور التي تختارها. إليك ما يحدث فعلًا عند مهاجمة شبكة الواي فاي.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/jwt-secrets-explained" data-cat="keys" role="listitem" aria-label="ما هو سرّ JWT">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(168,85,247,0.08))">
+        <div class="post-cover-icon" style="background:rgba(99,102,241,0.12);color:#818cf8">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(99,102,241,0.1);color:#818cf8">المفاتيح</span>
+          <span class="post-date">أبريل 2025</span>
+        </div>
+        <div class="post-title">ما هو سرّ JWT وكيف يعمل؟</div>
+        <p class="post-excerpt">تعتمد ملايين التطبيقات على رموز JWT في المصادقة، لكن السرّ الضعيف أو المسرَّب يجعل تزويرها سهلًا للغاية. إليك كيف يعمل التوقيع.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/unbreakable-password-2025" data-cat="passwords" role="listitem" aria-label="كيف تنشئ كلمة مرور لا يمكن كسرها">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(139,92,246,0.08))">
+        <div class="post-cover-icon" style="background:rgba(99,102,241,0.12);color:#818cf8">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(99,102,241,0.1);color:#818cf8">كلمات المرور</span>
+          <span class="post-date">أبريل 2025</span>
+        </div>
+        <div class="post-title">كيف تنشئ كلمة مرور لا تُكسر في 2025</div>
+        <p class="post-excerpt">يكرر معظم الناس استخدام كلمات المرور الثلاث نفسها في كل مكان. إليك ما تقوله أبحاث الأمان الحديثة فعلًا عن إنشاء بيانات دخول لا يمكن كسرها.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/api-keys-vs-passwords" data-cat="keys" role="listitem" aria-label="مفاتيح API مقابل كلمات المرور">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(239,68,68,0.08))">
+        <div class="post-cover-icon" style="background:rgba(245,158,11,0.12);color:#fbbf24">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(245,158,11,0.1);color:#fbbf24">المفاتيح</span>
+          <span class="post-date">فبراير 2025</span>
+        </div>
+        <div class="post-title">مفاتيح API مقابل كلمات المرور: ما الفرق؟</div>
+        <p class="post-excerpt">مفاتيح API ليست كلمات مرور، ومعاملتهما بالطريقة نفسها خطأ أمني جسيم. تعرّف على الصيغة الصحيحة وطريقة التخزين ونهج التبديل المناسب لكل منهما.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/aes-256-explained" data-cat="encryption" role="listitem" aria-label="شرح تشفير AES-256">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(14,165,233,0.08))">
+        <div class="post-cover-icon" style="background:rgba(34,197,94,0.12);color:#4ade80">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(34,197,94,0.1);color:#4ade80">التشفير</span>
+          <span class="post-date">مارس 2025</span>
+        </div>
+        <div class="post-title">شرح تشفير AES-256 بلغة بسيطة</div>
+        <p class="post-excerpt">تعتمد الحكومات والبنوك على AES-256 لحماية أكثر بياناتها حساسية. نشرح معناه، ولماذا يهم طول المفتاح، وكيف تولّد مفتاحًا بأمان.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/sha256-hashing-explained" data-cat="encryption" role="listitem" aria-label="شرح SHA-256">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(248,113,113,0.1),rgba(239,68,68,0.06))">
+        <div class="post-cover-icon" style="background:rgba(248,113,113,0.12);color:#f87171">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(248,113,113,0.1);color:#f87171">التشفير</span>
+          <span class="post-date">أبريل 2026</span>
+        </div>
+        <div class="post-title">شرح SHA-256: كيف تعمل دوال التجزئة التشفيرية</div>
+        <p class="post-excerpt">يُستخدم SHA-256 في TLS وBitcoin وGit وتوقيعات JWT، لكنه خيار خاطئ لكلمات المرور. تعرّف على وظيفته وطريقة عمله ومتى لا ينبغي استخدامه.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/base64-encoding-explained" data-cat="keys" role="listitem" aria-label="شرح ترميز Base64">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(52,211,153,0.1),rgba(14,165,233,0.08))">
+        <div class="post-cover-icon" style="background:rgba(52,211,153,0.12);color:#34d399">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(52,211,153,0.1);color:#34d399">المفاتيح</span>
+          <span class="post-date">أبريل 2026</span>
+        </div>
+        <div class="post-title">شرح ترميز Base64: ما هو ومتى تستخدمه</div>
+        <p class="post-excerpt">Base64 موجود في كل مكان: في JWT، وHTTP Basic Auth، وروابط البيانات (data URI)، ومرفقات البريد الإلكتروني. لكنه ليس تشفيرًا. إليك ما يفعله فعلًا ومتى تلجأ إليه.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="post-card" href="/blog/uuid-guid-explained" data-cat="keys" role="listitem" aria-label="شرح UUID مقابل GUID">
+      <div class="post-cover" style="background:linear-gradient(135deg,rgba(251,146,60,0.1),rgba(245,158,11,0.08))">
+        <div class="post-cover-icon" style="background:rgba(251,146,60,0.12);color:#fb923c">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/></svg>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-tag" style="background:rgba(251,146,60,0.1);color:#fb923c">المفاتيح</span>
+          <span class="post-date">أبريل 2026</span>
+        </div>
+        <div class="post-title">UUID أم GUID: ما الفرق ومتى تستخدم كلًّا منهما</div>
+        <p class="post-excerpt">UUID وGUID شيء واحد، لكن الإصدار الذي تختاره (v4 أو v7) يُحدث فرقًا كبيرًا في أداء قاعدة البيانات. إليك الشرح الكامل.</p>
+        <span class="post-read">اقرأ الدليل <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+    </a>
+
+  </div><!-- /posts-grid -->
+
+  <div class="cta-banner">
+    <h2>تحتاج إلى مفتاح آمن الآن؟</h2>
+    <p>تعمل كل المولّدات بالكامل داخل متصفحك، فلا يُخزَّن أي شيء ولا يُرسَل.</p>
+    <div class="cta-tools">
+      <a href="/" class="cta-tool-btn primary">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        كل المولّدات
+      </a>
+      <a href="/wifi-password-generator" class="cta-tool-btn">كلمة مرور الواي فاي</a>
+      <a href="/jwt-secret-generator" class="cta-tool-btn">سرّ JWT</a>
+      <a href="/api-key-generator" class="cta-tool-btn">مفتاح API</a>
+      <a href="/aes-256-key-generator" class="cta-tool-btn">مفتاح AES-256</a>
+      <a href="/passphrase-generator" class="cta-tool-btn">عبارة مرور</a>
+      <a href="/uuid-generator" class="cta-tool-btn">مولّد UUID</a>
+      <a href="/hash-generator" class="cta-tool-btn">مولّد التجزئة</a>
+      <a href="/base64-encoder" class="cta-tool-btn">أداة ترميز Base64</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="logo" style="display:inline-flex">
+        <span class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        Zecure
+      </a>
+      <p>مولّد مجاني لكلمات المرور والمفاتيح يعمل داخل متصفحك. بلا خادم، وبلا تتبّع، ودون تسجيل.</p>
+    </div>
+    <div class="footer-col">
+      <h4>الأدوات</h4>
+      <ul>
+        <li><a href="/">مولّد كلمات المرور</a></li>
+        <li><a href="/passphrase-generator">مولّد عبارات المرور</a></li>
+        <li><a href="/api-key-generator">مولّد مفاتيح API</a></li>
+        <li><a href="/jwt-secret-generator">مولّد أسرار JWT</a></li>
+        <li><a href="/aes-256-key-generator">مولّد مفاتيح AES-256</a></li>
+        <li><a href="/wifi-password-generator">مولّد كلمات مرور الواي فاي</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>مواضيع المدونة</h4>
+      <ul>
+        <li><a href="/blog/">كل المقالات</a></li>
+        <li><a href="/blog/unbreakable-password-2025">كلمات المرور القوية</a></li>
+        <li><a href="/blog/aes-256-explained">التشفير</a></li>
+        <li><a href="/blog/jwt-secrets-explained">أسرار JWT</a></li>
+        <li><a href="/blog/two-factor-authentication-explained">دليل المصادقة الثنائية (2FA)</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>قانوني</h4>
+      <ul>
+        <li><a href="/privacy">سياسة الخصوصية</a></li>
+        <li><a href="/terms">الشروط والأحكام</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Zecure.net — مولّد مجاني لكلمات مرور آمنة</p>
+    <p>تُولَّد كل المفاتيح محليًا · لا نجمع أي بيانات</p>
+  </div>
+</footer>
+
+<script>
+function toggleTheme(){
+  const h=document.documentElement;
+  const next=h.getAttribute('data-theme')==='light'?'dark':'light';
+  h.setAttribute('data-theme',next);
+  localStorage.setItem('zecure-theme',next);
+}
+
+function filter(btn, cat) {
+  document.querySelectorAll('.ftab').forEach(b=>{
+    b.classList.toggle('active',b===btn);
+    b.setAttribute('aria-selected',String(b===btn));
+  });
+  const cards = document.querySelectorAll('.post-card');
+  let shown = 0;
+  cards.forEach(c=>{
+    const match = cat==='all' || c.dataset.cat===cat;
+    c.hidden = !match;
+    if(match) shown++;
+  });
+  document.getElementById('filter-count').textContent=`عرض ${shown} من ${cards.length}`;
+}
+</script>

@@ -1,0 +1,1496 @@
+<!--meta
+{
+  "title": "مولّد كلمات المرور مجانًا — أنشئ كلمات مرور عشوائية قوية فورًا | Zecure",
+  "description": "أنشئ كلمات مرور ومفاتيح سرية قوية وعشوائية في ثوانٍ. استخدم مولّد كلمات المرور المجاني للواي فاي ومفاتيح API ورموز JWT وتشفير AES. خاص 100% — يعمل داخل متصفحك، دون تسجيل، ولا تُخزَّن أي بيانات.",
+  "keywords": "مولد كلمات المرور, مولد كلمات مرور عشوائية, مولد كلمة مرور قوية, كلمة سر قوية, إنشاء كلمة مرور قوية, مولد كلمات مرور مجاني, كلمة مرور عشوائية بالرموز والأرقام, مولد كلمة مرور الواي فاي, مولد مفتاح API, مولد JWT secret, مولد مفتاح AES 256, كيف أنشئ كلمة مرور قوية",
+  "robots": "index, follow",
+  "ogType": "website",
+  "ogTitle": "مولّد كلمات المرور مجانًا — أنشئ كلمات مرور عشوائية قوية فورًا | Zecure",
+  "ogDescription": "أنشئ كلمات مرور ومفاتيح سرية قوية وعشوائية للواي فاي ومفاتيح API ورموز JWT وتشفير AES. خاص 100%، ويعمل دون اتصال بالإنترنت — دون الحاجة إلى تسجيل.",
+  "sitemap": true
+}
+-->
+<!--head-->
+<meta property="og:image" content="https://zecure.net/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="مولّد كلمات المرور مجانًا — أنشئ كلمات مرور عشوائية قوية فورًا | Zecure">
+  <meta name="twitter:description" content="أنشئ كلمات مرور ومفاتيح سرية قوية وعشوائية للواي فاي ومفاتيح API ورموز JWT وتشفير AES. مجاني وخاص ويعمل دون اتصال بالإنترنت.">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","url":"https://zecure.net/","name":"Zecure","description":"مولّد كلمات مرور مجاني — كلمات مرور ومفاتيح عشوائية آمنة تشفيريًا، تُنشأ داخل متصفحك.","inLanguage":"ar"},{"@type":"WebApplication","name":"مولّد كلمات المرور","inLanguage":"ar","url":"https://zecure.net/","applicationCategory":"SecurityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","inLanguage":"ar","mainEntity":[{"@type":"Question","name":"كيف يُنشئ Zecure كلمات مرور آمنة؟","acceptedAnswer":{"@type":"Answer","text":"يستخدم Zecure الدالة window.crypto.getRandomValues() — مولّد CSPRNG الخاص بالمتصفح. يتم التوليد بالكامل داخل متصفحك، ولا يُرسَل أي شيء إلى خادم."}},{"@type":"Question","name":"هل تُخزَّن كلمات المرور في أي مكان؟","acceptedAnswer":{"@type":"Answer","text":"لا. تُنشأ القيم داخل متصفحك ولا تغادر جهازك أبدًا. لا يوجد خادم ولا قاعدة بيانات ولا تسجيل."}}]}]}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── Design tokens ─────────────────────────────────────── */
+    :root {
+      --bg:        #09090b;
+      --surface:   #18181b;
+      --surface2:  #27272a;
+      --border:    #3f3f46;
+      --border-s:  #27272a;
+      --accent:    #6366f1;
+      --accent-h:  #4f46e5;
+      --accent-s:  rgba(99,102,241,0.12);
+      --accent-t:  rgba(99,102,241,0.06);
+      --green:     #22c55e;
+      --green-s:   rgba(34,197,94,0.1);
+      --amber:     #f59e0b;
+      --red:       #ef4444;
+      --purple:    #a855f7;
+      --text:      #fafafa;
+      --text-2:    #a1a1aa;
+      --text-3:    #71717a;
+      --text-4:    #52525b;
+      --sans:      'Inter', system-ui, sans-serif;
+      --mono:      'JetBrains Mono', 'Fira Code', monospace;
+      --r:         8px;
+      --r-sm:      6px;
+      --r-lg:      12px;
+      color-scheme: dark;
+    }
+    [data-theme="light"] {
+      --bg:        #ffffff;
+      --surface:   #fafafa;
+      --surface2:  #f4f4f5;
+      --border:    #e4e4e7;
+      --border-s:  #f4f4f5;
+      --accent:    #4f46e5;
+      --accent-h:  #4338ca;
+      --accent-s:  rgba(79,70,229,0.08);
+      --accent-t:  rgba(79,70,229,0.04);
+      --green:     #16a34a;
+      --green-s:   rgba(22,163,74,0.08);
+      --amber:     #d97706;
+      --red:       #dc2626;
+      --purple:    #7c3aed;
+      --text:      #09090b;
+      --text-2:    #52525b;
+      --text-3:    #71717a;
+      --text-4:    #a1a1aa;
+      color-scheme: light;
+    }
+    /* ── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--accent-s); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    /* ── Skip link ─────────────────────────────────────────── */
+    .skip-link {
+      position: absolute; top: -60px; left: 1rem;
+      background: var(--accent); color: #fff;
+      font-size: 0.875rem; font-weight: 500;
+      padding: 0.5rem 1rem; border-radius: var(--r-sm);
+      z-index: 9999; text-decoration: none;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 1rem; }
+    /* ── Header ────────────────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-s);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 1.5rem; height: 56px;
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; color: var(--text);
+      font-weight: 600; font-size: 0.9375rem;
+      letter-spacing: -0.01em; flex-shrink: 0;
+    }
+    .logo-mark {
+      width: 28px; height: 28px; border-radius: var(--r-sm);
+      background: var(--accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-links {
+      display: flex; list-style: none; gap: 0.125rem; flex: 1;
+    }
+    .nav-links a {
+      display: block; color: var(--text-2); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      padding: 0.375rem 0.75rem; border-radius: var(--r-sm);
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--surface2); }
+    .nav-right {
+      display: flex; align-items: center; gap: 0.5rem; margin-left: auto;
+    }
+    .kbd-hint {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-size: 0.75rem; color: var(--text-3);
+    }
+    kbd {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-bottom-width: 2px; border-radius: 4px;
+      font-family: var(--mono); font-size: 0.7rem; color: var(--text-2);
+      padding: 0.1rem 0.4rem; line-height: 1.4;
+    }
+    .icon-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      background: transparent; border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text-2); cursor: pointer;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .icon-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface2); }
+    .icon-btn .sun { display: none; }
+    .icon-btn .moon { display: block; }
+    [data-theme="light"] .icon-btn .sun  { display: block; }
+    [data-theme="light"] .icon-btn .moon { display: none; }
+    .nav-regen-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--accent); color: #fff;
+      font-family: var(--sans); font-size: 0.8125rem; font-weight: 500;
+      padding: 0.375rem 0.875rem; border: none; border-radius: var(--r-sm);
+      cursor: pointer; transition: background 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .nav-regen-btn:hover { background: var(--accent-h); }
+    .nav-regen-btn:active { transform: scale(0.98); }
+    .hamburger {
+      display: none; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      background: transparent; border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text-2); cursor: pointer;
+    }
+    @media (max-width: 640px) {
+      .nav-links, .kbd-hint { display: none; }
+      .hamburger { display: flex; }
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 56px; inset-x: 0;
+      background: var(--bg); border-bottom: 1px solid var(--border-s);
+      padding: 0.75rem; z-index: 99; flex-direction: column; gap: 0.25rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--text-2); text-decoration: none; font-size: 0.9rem;
+      font-weight: 500; padding: 0.65rem 0.75rem; border-radius: var(--r-sm);
+      transition: color 0.15s, background 0.15s;
+    }
+    .mobile-menu a:hover { color: var(--text); background: var(--surface2); }
+    .mobile-menu .m-regen {
+      margin-top: 0.25rem; background: var(--accent); color: #fff !important;
+      text-align: center;
+    }
+    /* ── Main layout ───────────────────────────────────────── */
+    main { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    /* ── Hero ──────────────────────────────────────────────── */
+    #hero {
+      padding: 5rem 0 4rem;
+      text-align: center;
+      position: relative;
+    }
+    /* Dot grid */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, var(--border-s) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%);
+      pointer-events: none;
+    }
+    .hero-pills {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.75rem;
+      position: relative;
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text-2); font-size: 0.75rem; font-weight: 500;
+      padding: 0.25rem 0.75rem; border-radius: 100px;
+    }
+    .pill-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 2px var(--green-s);
+    }
+    .hero-h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      max-width: 760px;
+      margin: 0 auto 1.25rem;
+      position: relative;
+    }
+    .hero-h1 mark {
+      background: none;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 1rem; font-weight: 400;
+      color: var(--text-2); line-height: 1.7;
+      max-width: 520px; margin: 0 auto 2.25rem;
+      position: relative;
+    }
+    .hero-actions {
+      display: flex; gap: 0.75rem;
+      justify-content: center; flex-wrap: wrap;
+      position: relative; margin-bottom: 3.5rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      padding: 0.625rem 1.375rem; border-radius: var(--r);
+      cursor: pointer; transition: all 0.15s; text-decoration: none;
+      border: none; line-height: 1;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+    }
+    .btn-primary:hover { background: var(--accent-h); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(99,102,241,0.35); }
+    .btn-primary:active { transform: translateY(0); box-shadow: none; }
+    .btn-secondary {
+      background: var(--surface); color: var(--text-2);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { color: var(--text); border-color: var(--text-4); background: var(--surface2); }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+      position: relative;
+    }
+    .stat-item {
+      text-align: center; display: flex; flex-direction: column; gap: 0.2rem;
+    }
+    .stat-n {
+      font-size: 1.375rem; font-weight: 700;
+      color: var(--text); letter-spacing: -0.03em;
+    }
+    .stat-l {
+      font-size: 0.75rem; color: var(--text-3);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    /* ── Filter tabs ───────────────────────────────────────── */
+    .gen-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+    }
+    .filter-tabs {
+      display: flex; gap: 0.25rem;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 0.25rem; border-radius: var(--r);
+    }
+    .ftab {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-size: 0.8125rem; font-weight: 500; color: var(--text-3);
+      background: transparent; border: none; padding: 0.375rem 0.75rem;
+      border-radius: var(--r-sm); cursor: pointer;
+      transition: color 0.15s, background 0.15s; white-space: nowrap;
+    }
+    .ftab:hover { color: var(--text-2); background: var(--surface2); }
+    .ftab.active { background: var(--bg); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    [data-theme="light"] .ftab.active { box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .tab-count {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--surface2); color: var(--text-3);
+      font-size: 0.7rem; min-width: 18px; height: 18px;
+      padding: 0 4px; border-radius: 4px;
+    }
+    .ftab.active .tab-count { background: var(--accent-s); color: var(--accent); }
+    .regen-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-2); font-family: var(--sans); font-size: 0.8125rem;
+      font-weight: 500; padding: 0.375rem 0.875rem;
+      border-radius: var(--r); cursor: pointer;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .regen-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface2); }
+    .regen-btn svg { transition: transform 0.4s ease; }
+    .regen-btn:hover svg { transform: rotate(180deg); }
+    /* ── Cards grid ────────────────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 1024px) { .cards-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 580px) { .cards-grid { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border-s);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      animation: fadeUp 0.4s ease both;
+    }
+    .card:hover {
+      border-color: var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    }
+    [data-theme="light"] .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card-head {
+      padding: 0.875rem 1rem 0.75rem;
+      border-bottom: 1px solid var(--border-s);
+      display: flex; align-items: center; gap: 0.65rem;
+    }
+    .card-icon {
+      width: 32px; height: 32px; border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-label {
+      font-size: 0.8125rem; font-weight: 600; color: var(--text);
+      flex: 1; min-width: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .card-badge {
+      font-size: 0.7rem; font-weight: 500;
+      padding: 0.15rem 0.5rem; border-radius: 4px;
+      flex-shrink: 0;
+    }
+    /* Strength meter */
+    .strength-row {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1rem 0;
+    }
+    .strength-segs {
+      display: flex; gap: 3px; flex: 1;
+    }
+    .seg {
+      flex: 1; height: 3px; border-radius: 2px;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+    .strength-lbl {
+      font-size: 0.7rem; font-weight: 500;
+      color: var(--text-3); width: 52px; text-align: right;
+    }
+    /* Key list */
+    .card-body { padding: 0.625rem 0.75rem 0.75rem; }
+    .key-list { display: flex; flex-direction: column; gap: 0.3rem; }
+    .key-row {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      background: var(--bg); border: 1px solid var(--border-s);
+      border-radius: var(--r-sm);
+      transition: border-color 0.15s;
+    }
+    .key-row:hover { border-color: var(--border); }
+    [data-theme="light"] .key-row { background: var(--surface2); }
+    .key-val {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--text);
+      flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      user-select: all; cursor: text;
+    }
+    .key-row.flash .key-val { color: var(--green); }
+    .copy-btn {
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 5px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-3); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .copy-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface2); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); background: var(--green-s); }
+    .copy-btn svg.check { display: none; }
+    .copy-btn svg.clip  { display: block; }
+    .copy-btn.copied svg.check { display: block; }
+    .copy-btn.copied svg.clip  { display: none; }
+    /* Accent colors per theme */
+    .c-indigo .card-icon { background: rgba(99,102,241,0.1); color: #818cf8; }
+    .c-violet .card-icon { background: rgba(139,92,246,0.1); color: #a78bfa; }
+    .c-green  .card-icon { background: rgba(34,197,94,0.1);  color: #4ade80; }
+    .c-amber  .card-icon { background: rgba(245,158,11,0.1); color: #fbbf24; }
+    .c-red    .card-icon { background: rgba(239,68,68,0.1);  color: #f87171; }
+    .c-sky    .card-icon { background: rgba(14,165,233,0.1); color: #38bdf8; }
+    .c-indigo .card-badge { background: rgba(99,102,241,0.1);  color: #818cf8; }
+    .c-violet .card-badge { background: rgba(139,92,246,0.1); color: #a78bfa; }
+    .c-green  .card-badge { background: rgba(34,197,94,0.1);  color: #4ade80; }
+    .c-amber  .card-badge { background: rgba(245,158,11,0.1); color: #fbbf24; }
+    .c-red    .card-badge { background: rgba(239,68,68,0.1);  color: #f87171; }
+    .c-sky    .card-badge { background: rgba(14,165,233,0.1); color: #38bdf8; }
+    .c-indigo .key-val { color: #818cf8; }
+    .c-violet .key-val { color: #a78bfa; }
+    .c-green  .key-val { color: #4ade80; }
+    .c-amber  .key-val { color: #fbbf24; }
+    .c-red    .key-val { color: #f87171; }
+    .c-sky    .key-val { color: #38bdf8; }
+    [data-theme="light"] .c-indigo .card-icon { background: rgba(99,102,241,0.08); color: #4f46e5; }
+    [data-theme="light"] .c-violet .card-icon { background: rgba(139,92,246,0.08); color: #7c3aed; }
+    [data-theme="light"] .c-green  .card-icon { background: rgba(22,163,74,0.08);  color: #16a34a; }
+    [data-theme="light"] .c-amber  .card-icon { background: rgba(217,119,6,0.08);  color: #d97706; }
+    [data-theme="light"] .c-red    .card-icon { background: rgba(220,38,38,0.08);  color: #dc2626; }
+    [data-theme="light"] .c-sky    .card-icon { background: rgba(2,132,199,0.08);  color: #0284c7; }
+    [data-theme="light"] .c-indigo .card-badge { background: rgba(99,102,241,0.08); color: #4f46e5; }
+    [data-theme="light"] .c-violet .card-badge { background: rgba(139,92,246,0.08); color: #7c3aed; }
+    [data-theme="light"] .c-green  .card-badge { background: rgba(22,163,74,0.08);  color: #16a34a; }
+    [data-theme="light"] .c-amber  .card-badge { background: rgba(217,119,6,0.08);  color: #d97706; }
+    [data-theme="light"] .c-red    .card-badge { background: rgba(220,38,38,0.08);  color: #dc2626; }
+    [data-theme="light"] .c-sky    .card-badge { background: rgba(2,132,199,0.08);  color: #0284c7; }
+    [data-theme="light"] .c-indigo .key-val { color: #4f46e5; }
+    [data-theme="light"] .c-violet .key-val { color: #7c3aed; }
+    [data-theme="light"] .c-green  .key-val { color: #16a34a; }
+    [data-theme="light"] .c-amber  .key-val { color: #d97706; }
+    [data-theme="light"] .c-red    .key-val { color: #dc2626; }
+    [data-theme="light"] .c-sky    .key-val { color: #0284c7; }
+    /* ── Section wrapper ───────────────────────────────────── */
+    .section {
+      padding: 5rem 0;
+      border-top: 1px solid var(--border-s);
+    }
+    .section-label {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+    .section-label span {
+      display: inline-block; width: 16px; height: 1px; background: var(--accent); opacity: 0.6;
+    }
+    .section-h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700; letter-spacing: -0.025em;
+      color: var(--text); line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-h2 em { font-style: normal; color: var(--accent); }
+    /* ── About section ─────────────────────────────────────── */
+    #about .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+    }
+    @media (max-width: 768px) { #about .about-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .about-body p {
+      font-size: 0.9375rem; color: var(--text-2); line-height: 1.75; margin-bottom: 1rem;
+    }
+    .about-body code {
+      font-family: var(--mono); font-size: 0.85em;
+      background: var(--surface2); color: var(--accent);
+      padding: 0.15em 0.45em; border-radius: 4px;
+    }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1.5rem; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      font-size: 0.9rem; color: var(--text-2); line-height: 1.55;
+    }
+    .feature-list li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 16px; height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: contain; background-repeat: no-repeat;
+      margin-top: 0.18rem;
+    }
+    /* Terminal block */
+    .code-block {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--r-lg); overflow: hidden; margin-top: 1.75rem;
+    }
+    [data-theme="light"] .code-block { background: var(--surface2); }
+    .code-titlebar {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border-s);
+      background: var(--surface);
+    }
+    .tb-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .code-body {
+      padding: 1.1rem 1.25rem;
+      font-family: var(--mono); font-size: 0.8rem;
+      line-height: 1.9; color: var(--text-2);
+    }
+    .tk-cm { color: var(--text-4); }
+    .tk-kw { color: #818cf8; }
+    .tk-fn { color: #38bdf8; }
+    .tk-st { color: #4ade80; }
+    .tk-nm { color: #fb923c; }
+    [data-theme="light"] .tk-kw { color: #4f46e5; }
+    [data-theme="light"] .tk-fn { color: #0284c7; }
+    [data-theme="light"] .tk-st { color: #16a34a; }
+    /* Info cards */
+    .info-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+    }
+    @media (max-width: 400px) { .info-grid { grid-template-columns: 1fr; } }
+    .info-card {
+      background: var(--surface2); border: 1px solid var(--border-s);
+      border-radius: var(--r-lg); padding: 1rem 1.1rem;
+      transition: border-color 0.15s;
+    }
+    .info-card:hover { border-color: var(--border); }
+    .info-card-icon {
+      width: 32px; height: 32px; border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.65rem;
+    }
+    .info-card h3 { font-size: 0.8125rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+    .info-card p  { font-size: 0.8rem; color: var(--text-2); line-height: 1.6; }
+    /* ── FAQ ───────────────────────────────────────────────── */
+    #faq .faq-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 0.75rem;
+    }
+    @media (max-width: 768px) { #faq .faq-grid { grid-template-columns: 1fr; } }
+    .faq-item {
+      background: var(--surface); border: 1px solid var(--border-s);
+      border-radius: var(--r-lg); overflow: hidden; transition: border-color 0.15s;
+    }
+    .faq-item:hover { border-color: var(--border); }
+    .faq-q {
+      width: 100%; background: none; border: none;
+      color: var(--text-2); font-family: var(--sans); font-size: 0.875rem;
+      font-weight: 500; text-align: left;
+      padding: 1rem 1.1rem; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      transition: color 0.15s, background 0.15s;
+    }
+    .faq-q:hover { color: var(--text); background: var(--surface2); }
+    .faq-item.open .faq-q { color: var(--text); }
+    .faq-chevron { flex-shrink: 0; color: var(--text-4); transition: transform 0.25s ease, color 0.15s; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--accent); }
+    .faq-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .faq-item.open .faq-body { max-height: 600px; }
+    .faq-body > p,
+    .faq-body > .step-list {
+      padding: 0 1.1rem 1rem;
+      border-top: 1px solid var(--border-s);
+      padding-top: 0.875rem;
+    }
+    .faq-body > p {
+      font-size: 0.875rem; color: var(--text-2); line-height: 1.75;
+    }
+    /* Steps */
+    .step-list { display: flex; flex-direction: column; gap: 0.65rem; }
+    .step {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+    }
+    .step-n {
+      flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+      background: var(--accent-s); border: 1px solid rgba(99,102,241,0.25);
+      color: var(--accent); font-size: 0.65rem; font-weight: 600;
+      display: flex; align-items: center; justify-content: center; margin-top: 0.15rem;
+    }
+    .step-body strong {
+      display: block; font-size: 0.8125rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem;
+    }
+    .step-body p { font-size: 0.8rem; color: var(--text-2); line-height: 1.6; }
+    /* ── Blog ──────────────────────────────────────────────── */
+    #blog .blog-top {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .blog-link {
+      font-size: 0.8125rem; font-weight: 500; color: var(--accent);
+      text-decoration: none; display: flex; align-items: center; gap: 0.3rem;
+      transition: gap 0.15s;
+    }
+    .blog-link:hover { gap: 0.5rem; }
+    .blog-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem;
+    }
+    @media (max-width: 900px) { .blog-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 560px) { .blog-grid { grid-template-columns: 1fr; } }
+    .blog-card {
+      background: var(--surface); border: 1px solid var(--border-s);
+      border-radius: var(--r-lg); overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      cursor: pointer; text-decoration: none;
+    }
+    .blog-card:hover {
+      border-color: var(--border); transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+    }
+    [data-theme="light"] .blog-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .blog-cover {
+      height: 120px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .blog-cover::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .blog-cover-icon {
+      position: relative; z-index: 1; width: 40px; height: 40px;
+      border-radius: var(--r); display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    [data-theme="light"] .blog-cover::before { background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px); }
+    .blog-info { padding: 1rem 1.1rem 1.1rem; display: flex; flex-direction: column; flex: 1; }
+    .blog-meta {
+      display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem;
+    }
+    .blog-cat {
+      font-size: 0.7rem; font-weight: 500; padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+    }
+    .blog-date { font-size: 0.72rem; color: var(--text-3); }
+    .blog-title {
+      font-size: 0.9375rem; font-weight: 600; color: var(--text);
+      line-height: 1.4; margin-bottom: 0.5rem;
+    }
+    .blog-excerpt {
+      font-size: 0.8125rem; color: var(--text-2); line-height: 1.65;
+      flex: 1; margin-bottom: 0.875rem;
+    }
+    .blog-read {
+      font-size: 0.8rem; font-weight: 500; color: var(--accent);
+      display: flex; align-items: center; gap: 0.3rem;
+      transition: gap 0.15s;
+    }
+    .blog-read:hover { gap: 0.5rem; }
+    /* ── Footer ────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border-s);
+      padding: 3rem 0 2rem;
+      margin-top: 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+      display: grid; grid-template-columns: 1.75fr 1fr 1fr 1fr; gap: 3rem;
+    }
+    @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+    @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+    .footer-brand p {
+      font-size: 0.8125rem; color: var(--text-3); line-height: 1.65;
+      margin-top: 0.75rem; max-width: 260px;
+    }
+    .footer-col h4 {
+      font-size: 0.75rem; font-weight: 600; color: var(--text-2);
+      letter-spacing: 0.04em; margin-bottom: 0.875rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .footer-col a {
+      font-size: 0.8125rem; color: var(--text-3); text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-col a:hover { color: var(--text-2); }
+    .footer-bottom {
+      max-width: 1200px; margin: 2rem auto 0; padding: 1.25rem 1.5rem 0;
+      border-top: 1px solid var(--border-s);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+    .footer-bottom p { font-size: 0.75rem; color: var(--text-3); }
+    /* ── Toast ─────────────────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.8125rem; font-weight: 500;
+      padding: 0.6rem 1.25rem; border-radius: 100px;
+      z-index: 9999; opacity: 0; pointer-events: none; white-space: nowrap;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast-icon { color: var(--green); }
+    /* ── Scanning animation ────────────────────────────────── */
+    @keyframes flashKey {
+      0%,100% { opacity: 1; } 50% { opacity: 0.4; }
+    }
+    .scanning .key-val { animation: flashKey 0.5s ease; }
+    /* Mobile tweaks */
+    @media (max-width: 640px) {
+      #hero { padding: 3.5rem 0 3rem; }
+      .hero-stats { gap: 1.5rem; }
+      main { padding: 0 1rem; }
+    }
+  </style>
+  <style>
+    html[dir=rtl] .skip-link{left:auto;right:1rem}
+    html[dir=rtl] .nav-right{margin-left:0;margin-right:auto}
+    html[dir=rtl] .strength-lbl{text-align:left}
+    html[dir=rtl] .faq-q{text-align:right}
+    html[dir=rtl] :is(.hero-h1,.section-h2,.section-label,.stat-l,.stat-n,.logo,.footer-col h4){letter-spacing:0}
+  </style>
+<!--body-->
+<a href="#generator" class="skip-link">انتقل إلى المولّد</a>
+
+<!-- Header -->
+<header>
+  <div class="nav-inner">
+    <a href="#" class="logo" aria-label="الصفحة الرئيسية لـ Zecure">
+      <div class="logo-mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      Zecure
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#generator">المولّد</a></li>
+      <li><a href="/password-generator">كلمة المرور</a></li>
+      <li><a href="/passphrase-generator">عبارة المرور</a></li>
+      <li><a href="/api-key-generator">مفتاح API</a></li>
+      <li><a href="/jwt-secret-generator">سرّ JWT</a></li>
+      <li><a href="/blog/">المدونة</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <span class="kbd-hint" aria-label="اضغط R لإعادة التوليد">
+        <kbd>R</kbd> لإعادة التوليد
+      </span>
+      <button class="icon-btn" id="theme-btn" aria-label="تبديل المظهر" onclick="toggleTheme()">
+        <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="nav-regen-btn" onclick="regenerateAll()" aria-label="توليد مفاتيح جديدة">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        إعادة التوليد
+      </button>
+      <button class="hamburger" aria-label="فتح القائمة" aria-expanded="false" onclick="toggleMenu(this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" aria-label="التنقل على الجوال">
+  <a href="#generator" onclick="closeMenu()">المولّد</a>
+  <a href="/passphrase-generator" onclick="closeMenu()">عبارة المرور</a>
+  <a href="/api-key-generator" onclick="closeMenu()">مفتاح API</a>
+  <a href="/jwt-secret-generator" onclick="closeMenu()">سرّ JWT</a>
+  <a href="/blog/" onclick="closeMenu()">المدونة</a>
+  <a href="#generator" class="m-regen" onclick="regenerateAll();closeMenu();return false;">إعادة توليد الكل</a>
+</nav>
+
+<main>
+
+  <!-- Hero -->
+  <section id="hero" aria-labelledby="hero-title">
+    <div class="hero-pills">
+      <div class="pill">
+        <span class="pill-dot" aria-hidden="true"></span>
+        داخل متصفحك فقط — دون أي اتصال بالخادم
+      </div>
+      <div class="pill">مجاني دائمًا</div>
+      <div class="pill">دون تسجيل</div>
+    </div>
+
+    <h1 class="hero-h1" id="hero-title">
+      <mark>مولّد كلمات المرور</mark> المجاني —<br>كلمات مرور ومفاتيح عشوائية قوية.
+    </h1>
+
+    <p class="hero-sub">
+      يعمل بواجهة Web Crypto API، وبالكامل داخل متصفحك.
+      لا شيء يُسجَّل أو يُخزَّن أو يُرسَل.
+    </p>
+
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="regenerateAll()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        توليد كل المفاتيح
+      </button>
+      <a href="#about" class="btn btn-secondary">
+        كيف يعمل
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-stats" role="list" aria-label="أرقام رئيسية">
+      <div class="stat-item" role="listitem">
+        <span class="stat-n">256 بت</span>
+        <span class="stat-l">أقصى إنتروبيا</span>
+      </div>
+      <div class="stat-item" role="listitem">
+        <span class="stat-n">12</span>
+        <span class="stat-l">أنواع المفاتيح</span>
+      </div>
+      <div class="stat-item" role="listitem">
+        <span class="stat-n">0</span>
+        <span class="stat-l">بيانات مُرسَلة</span>
+      </div>
+      <div class="stat-item" role="listitem">
+        <span class="stat-n">مجاني</span>
+        <span class="stat-l">دائمًا</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Generator -->
+  <section id="generator" aria-labelledby="gen-heading" style="padding-bottom: 4rem;">
+    <div class="gen-header">
+      <div class="filter-tabs" role="tablist" aria-label="تصفية أنواع المفاتيح" id="filter-tabs">
+        <button class="ftab active" role="tab" aria-selected="true"  data-filter="all" onclick="setFilter(this,'all')">
+          الكل <span class="tab-count" id="cnt-all">12</span>
+        </button>
+        <button class="ftab" role="tab" aria-selected="false" data-filter="passwords" onclick="setFilter(this,'passwords')">
+          كلمات المرور <span class="tab-count" id="cnt-passwords">4</span>
+        </button>
+        <button class="ftab" role="tab" aria-selected="false" data-filter="keys" onclick="setFilter(this,'keys')">
+          المفاتيح <span class="tab-count" id="cnt-keys">5</span>
+        </button>
+        <button class="ftab" role="tab" aria-selected="false" data-filter="wifi" onclick="setFilter(this,'wifi')">
+          الواي فاي <span class="tab-count" id="cnt-wifi">3</span>
+        </button>
+      </div>
+      <button class="regen-btn" onclick="regenerateAll()" aria-label="إعادة توليد الكل">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        إعادة التوليد
+      </button>
+    </div>
+
+    <div class="cards-grid" id="cards-grid" role="list" aria-label="مولّدات كلمات المرور والمفاتيح">
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section" aria-labelledby="about-heading">
+    <div class="about-inner">
+      <div class="about-body">
+        <p class="section-label"><span></span>كيف يعمل</p>
+        <h2 class="section-h2" id="about-heading">مصمَّم ليكون <em>آمنًا</em> تشفيريًا</h2>
+        <p>
+          تستخدم معظم مولّدات كلمات المرور <code>Math.random()</code> — وهي دالة شبه عشوائية يمكن التنبؤ بنتائجها ولا تصلح للاستخدامات الأمنية. أما Zecure فيستخدم <code>window.crypto.getRandomValues()</code>، وهو مولّد CSPRNG نفسه الذي يعتمد عليه نظام تشغيلك.
+        </p>
+        <p>
+          تُنشأ كل كلمة مرور ومفتاح ورمز محليًا داخل متصفحك. لا يوجد خادم. افصل اتصالك بالإنترنت وأعد تحميل الصفحة — وسيعمل بالطريقة نفسها تمامًا.
+        </p>
+        <ul class="feature-list">
+          <li>CSPRNG — مولّد أرقام شبه عشوائية آمن تشفيريًا</li>
+          <li>أسلوب أخذ العينات بالرفض (rejection sampling) يزيل انحياز باقي القسمة (modulo bias) عند اختيار الأحرف</li>
+          <li>لا طلبات شبكة، ولا ملفات تعريف ارتباط (cookies)، ولا تحليلات، ولا تسجيل على الخادم</li>
+          <li>افحص الشيفرة المصدرية بنفسك — افتح DevTools ← Sources</li>
+          <li>يعمل دون اتصال بالإنترنت بعد التحميل الأول</li>
+        </ul>
+
+        <div class="code-block" dir="ltr" aria-label="شيفرة: مصدر الإنتروبيا">
+          <div class="code-titlebar">
+            <div class="tb-dot" style="background:#ff5f57"></div>
+            <div class="tb-dot" style="background:#febc2e"></div>
+            <div class="tb-dot" style="background:#28c840"></div>
+            <span style="font-size:0.72rem;color:var(--text-3);margin-left:0.5rem;font-family:var(--mono)">entropy.js</span>
+          </div>
+          <div class="code-body">
+            <div><span class="tk-cm">// CSPRNG المتصفح — المصدر نفسه الذي يستخدمه نظام التشغيل</span></div>
+            <div><span class="tk-kw">function</span> <span class="tk-fn">secureBytes</span>(n) {</div>
+            <div>&nbsp; <span class="tk-kw">const</span> arr = <span class="tk-kw">new</span> Uint8Array(n);</div>
+            <div>&nbsp; <span class="tk-fn">crypto.getRandomValues</span>(arr);</div>
+            <div>&nbsp; <span class="tk-kw">return</span> arr; <span class="tk-cm">// لا يغادر متصفحك أبدًا ✓</span></div>
+            <div>}</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="info-grid">
+          <a href="/password-generator" class="info-card">
+            <div class="info-card-icon" style="background:rgba(99,102,241,0.1);color:#818cf8">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>كلمات مرور عشوائية</h3>
+            <p>أحرف كبيرة وصغيرة وأرقام ورموز. من 8 إلى 64 حرفًا. جاهزة لأي خدمة.</p>
+          </a>
+          <div class="info-card">
+            <div class="info-card-icon" style="background:rgba(34,197,94,0.1);color:#4ade80">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h3>مفاتيح API و JWT</h3>
+            <p>مفاتيح UUID v4 و Base64 ومفاتيح توقيع من الأحرف والأرقام للمطوّرين.</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon" style="background:rgba(245,158,11,0.1);color:#fbbf24">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M10.54 16.1a6 6 0 0 1 2.92 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            </div>
+            <h3>كلمات مرور الواي فاي</h3>
+            <p>مفاتيح WPA2 (63 حرفًا) ومفاتيح WEP سداسية عشرية (128/256 بت).</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon" style="background:rgba(139,92,246,0.1);color:#a78bfa">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <h3>عبارات المرور</h3>
+            <p>عبارات مرور من كلمات بأسلوب XKCD/diceware. إنتروبيا عالية وسهلة التذكر.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section" aria-labelledby="faq-heading">
+    <div style="text-align:center;margin-bottom:2.5rem">
+      <p class="section-label" style="justify-content:center"><span></span>أسئلة متكررة</p>
+      <h2 class="section-h2" id="faq-heading"><em>الأسئلة الشائعة</em> عن كلمات المرور والأمان</h2>
+    </div>
+    <div class="faq-grid" id="faq-container"></div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog" class="section" aria-labelledby="blog-heading">
+    <div class="blog-top">
+      <div>
+        <p class="section-label"><span></span>معرفة أمنية</p>
+        <h2 class="section-h2" id="blog-heading"><em>أدلة</em> كلمات المرور والأمان</h2>
+      </div>
+      <a href="#blog" class="blog-link">
+        كل المقالات
+        <svg class="flip-rtl" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+    <div class="blog-grid" id="blog-grid"></div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo" aria-label="الصفحة الرئيسية لـ Zecure">
+        <div class="logo-mark" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        Zecure
+      </a>
+      <p>مولّد مجاني لكلمات المرور والمفاتيح يعمل داخل متصفحك. لا خادم، ولا تتبّع، ولا تسجيل.</p>
+    </div>
+    <div class="footer-col">
+      <h4>أدوات الأمان</h4>
+      <ul>
+        <li><a href="/passphrase-generator">مولّد عبارات المرور</a></li>
+        <li><a href="/api-key-generator">مولّد مفاتيح API</a></li>
+        <li><a href="/jwt-secret-generator">مولّد أسرار JWT</a></li>
+        <li><a href="/wifi-password-generator">مولّد كلمات مرور الواي فاي</a></li>
+        <li><a href="/aes-256-key-generator">مولّد مفاتيح AES-256</a></li>
+        <li><a href="/linux-commands">مرجع أوامر Linux السريع</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>مولّدات للتسلية</h4>
+      <ul>
+        <li><a href="/funny-password-generator">كلمة مرور مضحكة (الباندا)</a></li>
+        <li><a href="/movie-password-generator">كلمة مرور الأفلام</a></li>
+        <li><a href="/zodiac-password-generator">كلمة مرور الأبراج</a></li>
+        <li><a href="/gamer-password-generator">كلمة مرور اللاعبين (RPG)</a></li>
+        <li><a href="/superhero-password-generator">كلمة مرور الأبطال الخارقين</a></li>
+        <li><a href="/space-password-generator">كلمة مرور الفضاء</a></li>
+        <li><a href="/no-as-a-service">الرفض كخدمة (No as a Service)</a></li>
+        <li><a href="/password-roaster">منتقد كلمات المرور</a></li>
+        <li><a href="/dev-excuse-generator">مولّد أعذار المطوّرين</a></li>
+        <li><a href="/meeting-decline-generator">الاعتذار عن الاجتماعات</a></li>
+        <li><a href="/error-message-generator">مولّد رسائل الخطأ</a></li>
+        <li><a href="/tech-horoscope">الأبراج التقنية</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>تعلّم</h4>
+      <ul>
+        <li><a href="/blog/">مدونة الأمان</a></li>
+        <li><a href="/blog/password-entropy-explained">إنتروبيا كلمات المرور</a></li>
+        <li><a href="/blog/aes-256-explained">دليل AES-256</a></li>
+        <li><a href="/privacy">سياسة الخصوصية</a></li>
+        <li><a href="/terms">الشروط والأحكام</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Zecure.net — مولّد كلمات مرور آمن ومجاني</p>
+    <p>تُنشأ كل المفاتيح محليًا · لا تُجمع أي بيانات · دون تسجيل</p>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite" aria-atomic="true">
+  <svg class="toast-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+  تم النسخ إلى الحافظة
+</div>
+
+<script>
+// ─── Theme ───────────────────────────────────────────────────
+(function() {
+  const t = localStorage.getItem('zecure-theme');
+  if (t) document.documentElement.setAttribute('data-theme', t);
+})();
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+
+// ─── Mobile menu ─────────────────────────────────────────────
+function toggleMenu(btn) {
+  const m = document.getElementById('mobile-menu');
+  const open = m.classList.toggle('open');
+  btn.setAttribute('aria-expanded', String(open));
+}
+function closeMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  const btn = document.querySelector('.hamburger');
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+// ─── CSPRNG ───────────────────────────────────────────────────
+function secureInt(max) {
+  const limit = 0x100000000 - (0x100000000 % max);
+  const a = new Uint32Array(1);
+  do { crypto.getRandomValues(a); } while (a[0] >= limit);
+  return a[0] % max;
+}
+const secureChar = (s) => s[secureInt(s.length)];
+const genPass = (len, cs) => Array.from({length:len}, () => secureChar(cs)).join('');
+function genHex(bytes) {
+  const a = new Uint8Array(bytes); crypto.getRandomValues(a);
+  return Array.from(a, b => b.toString(16).padStart(2,'0')).join('');
+}
+function genB64(bytes) {
+  const a = new Uint8Array(bytes); crypto.getRandomValues(a);
+  return btoa(String.fromCharCode(...a)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+}
+function genUUID() {
+  const a = new Uint8Array(16); crypto.getRandomValues(a);
+  a[6]=(a[6]&0x0f)|0x40; a[8]=(a[8]&0x3f)|0x80;
+  const h = Array.from(a, b => b.toString(16).padStart(2,'0')).join('');
+  return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`;
+}
+
+// ─── Charsets ─────────────────────────────────────────────────
+const C = {
+  l:'abcdefghijklmnopqrstuvwxyz', u:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  d:'0123456789', s:'!@#$%^&*()-_=+[]{}|;:,.<>?',
+  b62:'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+};
+C.full = C.l+C.u+C.d+C.s;
+C.lud  = C.l+C.u+C.d;
+C.wpa  = C.l+C.u+C.d+'!@#$%^&*()_+-=[]{}|;,./<>?';
+
+// ─── Passphrases ─────────────────────────────────────────────
+const ADJ  = ['amber','azure','black','brave','bright','calm','clean','clear','cold','crisp','dark','deep','fast','fierce','firm','frosty','gold','great','green','hard','iron','keen','light','long','loud','mild','neat','noble','pale','proud','pure','quick','quiet','rare','rich','safe','sharp','short','slim','soft','solid','stark','still','stone','strong','swift','tall','thin','true','vast','warm','white','wide','wild','wise'];
+const NOUN = ['arch','bay','bolt','bridge','cave','cliff','cloud','core','cove','dawn','depth','dust','edge','field','flame','fleet','forge','frost','gate','glade','glow','grove','hawk','helm','hill','horn','ice','isle','lake','land','maze','mill','mist','moon','moor','mount','oak','path','peak','pine','pool','port','pulse','reef','ridge','rift','root','rush','sage','salt','sand','seal','shore','slate','slope','star','stone','storm','thorn','tide','trail','vale','vault','wave','well','wynd'];
+const genPhrase = () => `${ADJ[secureInt(ADJ.length)]}-${NOUN[secureInt(NOUN.length)]}-${NOUN[secureInt(NOUN.length)]}-${1000+secureInt(9000)}${'!@#$%&*'[secureInt(7)]}`;
+
+// ─── Strength ─────────────────────────────────────────────────
+function strength(pw) {
+  let cs=0;
+  if(/[a-z]/.test(pw))cs+=26; if(/[A-Z]/.test(pw))cs+=26;
+  if(/[0-9]/.test(pw))cs+=10; if(/[^a-zA-Z0-9]/.test(pw))cs+=33;
+  const e = cs>0 ? Math.log2(Math.pow(cs,pw.length)) : 0;
+  if(e<40) return {segs:1, color:'var(--red)',   label:'ضعيفة'};
+  if(e<60) return {segs:2, color:'var(--amber)',  label:'مقبولة'};
+  if(e<90) return {segs:3, color:'var(--green)',  label:'قوية'};
+  return           {segs:4, color:'var(--accent)', label:'حصينة'};
+}
+
+// ─── Categories ───────────────────────────────────────────────
+const CATS = [
+  { id:'random',    group:'passwords', color:'c-indigo',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+    label:'كلمة مرور عشوائية', badge:'8–15 حرفًا',
+    count:6, strength:true, gen:()=>genPass(8+secureInt(8),C.full) },
+
+  { id:'memorable', group:'passwords', color:'c-violet',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+    label:'عبارة مرور', badge:'بأسلوب XKCD',
+    count:5, strength:true, gen:genPhrase },
+
+  { id:'strong', group:'passwords', color:'c-green',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    label:'كلمة مرور قوية', badge:'16–20 حرفًا',
+    count:6, strength:true,
+    gen:()=>{const len=16+secureInt(5);const base=[C.l,C.u,C.d,C.s].map(s=>secureChar(s)).join('');const rest=genPass(len-4,C.full);return [...(base+rest)].sort(()=>secureInt(2)-1).join('');} },
+
+  { id:'fortknox', group:'passwords', color:'c-red',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+    label:'فورت نوكس', badge:'30–42 حرفًا',
+    count:5, strength:true, gen:()=>genPass(30+secureInt(13),C.full) },
+
+  { id:'uuid', group:'keys', color:'c-green',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/></svg>`,
+    label:'مفتاح API (UUID v4)', badge:'RFC 4122',
+    count:6, strength:false, gen:genUUID },
+
+  { id:'secret', group:'keys', color:'c-violet',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>`,
+    label:'مفتاح سري (Base64)', badge:'256 بت',
+    count:5, strength:false, gen:()=>genB64(32) },
+
+  { id:'jwt', group:'keys', color:'c-sky',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+    label:'سرّ JWT', badge:'64 حرفًا',
+    count:5, strength:false, gen:()=>genPass(64,C.b62) },
+
+  { id:'aes256', group:'keys', color:'c-amber',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    label:'مفتاح AES-256', badge:'64 حرفًا (hex)',
+    count:5, strength:false, gen:()=>genHex(32) },
+
+  { id:'dbpass', group:'keys', color:'c-green',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
+    label:'كلمة مرور قاعدة البيانات', badge:'أحرف وأرقام',
+    count:5, strength:true, gen:()=>genPass(20+secureInt(6),C.lud) },
+
+  { id:'wpa2', group:'wifi', color:'c-sky',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M10.54 16.1a6 6 0 0 1 2.92 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>`,
+    label:'مفتاح واي فاي WPA2', badge:'63 حرفًا',
+    count:5, strength:false, gen:()=>genPass(63,C.wpa) },
+
+  { id:'wep128', group:'wifi', color:'c-amber',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>`,
+    label:'WEP بطول 128 بت', badge:'26 حرفًا (hex)',
+    count:4, strength:false, gen:()=>genHex(13) },
+
+  { id:'wep256', group:'wifi', color:'c-amber',
+    icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>`,
+    label:'WEP بطول 256 بت', badge:'58 حرفًا (hex)',
+    count:4, strength:false, gen:()=>genHex(29) },
+];
+
+let activeFilter = 'all';
+
+function setFilter(btn, filter) {
+  activeFilter = filter;
+  document.querySelectorAll('.ftab').forEach(b => {
+    b.classList.toggle('active', b === btn);
+    b.setAttribute('aria-selected', String(b === btn));
+  });
+  renderCards();
+}
+
+function escAttr(s) { return s.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+
+function renderCards() {
+  const grid = document.getElementById('cards-grid');
+  const visible = activeFilter === 'all' ? CATS : CATS.filter(c => c.group === activeFilter);
+  grid.innerHTML = '';
+
+  visible.forEach((cat, i) => {
+    const vals = Array.from({length:cat.count}, () => cat.gen());
+    const s = cat.strength ? strength(vals[0]) : null;
+
+    const card = document.createElement('div');
+    card.className = `card ${cat.color}`;
+    card.id = `card-${cat.id}`;
+    card.style.animationDelay = `${i * 0.035}s`;
+    card.setAttribute('role', 'listitem');
+
+    const strengthHTML = s ? `
+      <div class="strength-row" aria-label="القوة: ${s.label}">
+        <div class="strength-segs">
+          ${[1,2,3,4].map(n=>`<div class="seg" style="background:${n<=s.segs?s.color:'var(--border)'}"></div>`).join('')}
+        </div>
+        <span class="strength-lbl" style="color:${s.color}">${s.label}</span>
+      </div>` : '';
+
+    const rowsHTML = vals.map((v,ri) => `
+      <div class="key-row" id="kr-${cat.id}-${ri}">
+        <span class="key-val" dir="ltr" title="${v}">${v}</span>
+        <button class="copy-btn" onclick="copyVal(this,'${escAttr(v)}','${cat.id}-${ri}')" aria-label="نسخ">
+          <svg class="clip" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg class="check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+      </div>`).join('');
+
+    card.innerHTML = `
+      <div class="card-head">
+        <div class="card-icon">${cat.icon}</div>
+        <span class="card-label">${cat.label}</span>
+        <span class="card-badge">${cat.badge}</span>
+      </div>
+      ${strengthHTML}
+      <div class="card-body"><div class="key-list">${rowsHTML}</div></div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ─── Regenerate ───────────────────────────────────────────────
+function regenerateAll() {
+  renderCards();
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.add('scanning');
+    setTimeout(() => c.classList.remove('scanning'), 500);
+  });
+}
+
+// ─── Copy ─────────────────────────────────────────────────────
+function copyVal(btn, val, id) {
+  navigator.clipboard.writeText(val).then(() => {
+    btn.classList.add('copied');
+    const row = document.getElementById(`kr-${id}`);
+    if (row) { row.classList.add('flash'); setTimeout(() => row.classList.remove('flash'), 500); }
+    setTimeout(() => btn.classList.remove('copied'), 2000);
+    showToast('تم النسخ إلى الحافظة');
+  }).catch(() => {
+    const t = document.createElement('textarea');
+    t.value = val; t.style.cssText='position:fixed;top:-9999px';
+    document.body.appendChild(t); t.select(); document.execCommand('copy');
+    document.body.removeChild(t); showToast('تم النسخ إلى الحافظة');
+  });
+}
+
+// ─── Toast ────────────────────────────────────────────────────
+let toastT;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.querySelector('[role]') && (t.lastChild.textContent = ' '+msg);
+  t.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ─── FAQ ──────────────────────────────────────────────────────
+const FAQS = [
+  { q: 'كيف يُنشئ Zecure كلمات مرور آمنة؟',
+    steps: [
+      { t:'يستدعي المتصفح window.crypto.getRandomValues()', b:'هذا هو مولّد CSPRNG الخاص بالمنصة — المصدر نفسه الذي تستخدمه بروتوكولات TLS وتوليد مفاتيح SSH ومجمّعات الإنتروبيا في نظام التشغيل. وهو ليس Math.random().' },
+      { t:'تُنتَج البايتات العشوائية الخام محليًا', b:'لا يُرسَل أي طلب عبر الشبكة. تأتي الإنتروبيا من عتاد جهازك. لا شيء يغادر جهازك أثناء التوليد أو بعده.' },
+      { t:'أخذ العينات بالرفض يزيل الانحياز', b:'الطريقة البسيطة char[random % charset.length] فيها انحياز باقي القسمة (modulo bias). يتجاهل Zecure القيم الواقعة خارج النطاق الصالح ويعيد المحاولة، فيحصل كل حرف على احتمال متساوٍ تمامًا.' },
+      { t:'تُعرض النتيجة — وهذا كل شيء', b:'لا يستقبل أي خادم هذه القيم. افصل الواي فاي وأعد التحميل — وستعمل الأداة بالطريقة نفسها تمامًا. يمكنك التحقق من ذلك في DevTools ← Network: صفر طلبات.' },
+    ]
+  },
+  { q: 'كيف أنشئ كلمة مرور قوية؟ (خطوة بخطوة)',
+    steps: [
+      { t:'استخدم 16 حرفًا أو أكثر', b:'الطول هو العامل الأكبر على الإطلاق. كل حرف إضافي يضاعف وقت الكسر أُسّيًا. استخدم 20 حرفًا أو أكثر لحسابات البنوك والبريد الإلكتروني وحسابات التطوير.' },
+      { t:'امزج أنواع الأحرف الأربعة', b:'الأحرف الكبيرة والصغيرة والأرقام والرموز توسّع مساحة البحث من 26 إلى 95 حرفًا لكل موضع — مما يجعل هجوم القوة الغاشمة أصعب بنحو 10¹⁶ مرة.' },
+      { t:'تجنّب المعلومات الشخصية', b:'الأسماء وتواريخ الميلاد وأسماء الحيوانات الأليفة والفرق المفضلة هي أول ما تجرّبه كل أدوات الكسر الحديثة. والمولّد العشوائي يتجاوز كل ذلك.' },
+      { t:'استخدم كلمة مرور فريدة لكل حساب', b:'حشو بيانات الاعتماد (credential stuffing) — أي تجربة كلمات المرور المسرّبة على خدمات متعددة — هو الأسلوب الأول للاستيلاء على الحسابات. يجب ألا يؤدي اختراق واحد إلى كشف بقية حساباتك.' },
+      { t:'خزّنها في مدير كلمات المرور', b:'Bitwarden (مجاني ومفتوح المصدر) أو 1Password. مع مدير كلمات المرور تحتاج إلى تذكّر كلمة مرور رئيسية قوية واحدة فقط، لا 200.' },
+    ]
+  },
+  { q: 'هل تُخزَّن كلمات المرور المولّدة أو تُسجَّل في أي مكان؟',
+    a: 'لا. كل شيء يُنشأ داخل متصفحك باستخدام JavaScript. لا يوجد خادم خلفي ولا قاعدة بيانات ولا نظام تحليلات. القيم لا تغادر جهازك أبدًا. افتح DevTools ← Network أثناء التوليد — ولن ترى أي طلب.'
+  },
+  { q: 'ما مفتاح التشفير بطول 256 بت وكيف أستخدمه؟',
+    steps: [
+      { t:'32 بايت = 64 حرفًا سداسيًا عشريًا', b:'المفتاح بطول 256 بت هو 32 بايت عشوائيًا بالضبط. وعند كتابته بالنظام السداسي العشري (0–9، a–f) يصبح 64 حرفًا. كل رقمين سداسيين = بايت واحد = 8 بت.' },
+      { t:'يُستخدم مع التشفير المتماثل AES-256', b:'AES-256 هي خوارزمية التشفير التي تستخدمها الحكومات ومزوّدو الخدمات السحابية وكل اتصال TLS. المفتاح نفسه يُستخدم للتشفير وفك التشفير.' },
+      { t:'2²⁵⁶ مفتاحًا محتملًا تجعل هجوم القوة الغاشمة مستحيلًا', b:'أي نحو 10⁷⁷ احتمالًا — أكثر من العدد التقديري للذرات في الكون المرئي.' },
+      { t:'لا تكتبه مباشرة في الشيفرة المصدرية', b:'خزّنه في متغير بيئة (.env) أو في مدير أسرار (AWS SSM، HashiCorp Vault) أو كسرّ في CI/CD. ولا ترفعه إلى git أبدًا.' },
+    ]
+  },
+  { q: 'كيف أضبط كلمة مرور آمنة للواي فاي؟',
+    steps: [
+      { t:'ولّد مفتاح WPA2 من الأعلى', b:'انسخ أي قيمة من بطاقة «مفتاح واي فاي WPA2» — 63 حرفًا عشوائيًا، وهو الحد الأقصى في WPA2.' },
+      { t:'سجّل الدخول إلى لوحة إدارة الراوتر', b:'عادةً عبر 192.168.1.1 أو 192.168.0.1 في متصفحك. راجع الملصق على الراوتر لمعرفة بيانات دخول المسؤول الافتراضية.' },
+      { t:'افتح إعدادات Wireless ← Security', b:'اضبط الوضع على WPA2-Personal (أو WPA3 إن كان متاحًا). الصق عبارة المرور التي ولّدتها في حقل كلمة المرور.' },
+      { t:'احفظ وأعد توصيل كل الأجهزة', b:'خزّن عبارة المرور الجديدة في مدير كلمات المرور لتتمكن من إعادة توصيل الأجهزة دون الحاجة إلى إعادة التوليد.' },
+    ]
+  },
+  { q: 'ما سرّ JWT ولماذا يهم طول المفتاح؟',
+    a: 'يوقّع سرّ JWT رموز المصادقة — وإذا كُشف، يستطيع المهاجم تزوير الرموز وانتحال هوية أي مستخدم. استخدم 256 بت (32 بايت) على الأقل من البيانات العشوائية. تولّد بطاقة «سرّ JWT» في الأعلى 64 حرفًا عشوائيًا من الأحرف والأرقام. لا تُعِد استخدام الأسرار بين البيئات المختلفة، ولا ترفعها أبدًا إلى نظام إدارة الإصدارات.'
+  },
+  { q: 'كم مرة يجب أن أغيّر كلمات المرور؟',
+    a: 'يوصي NIST SP 800-63B (2024) بتغيير كلمات المرور فقط عند وجود دليل على اختراقها — لا وفق جدول زمني ثابت. فالتغيير الإجباري يؤدي إلى أنماط يمكن توقعها (Password1 ثم Password2) أضعف من كلمة مرور قوية ثابتة. أكثر الخطوات تأثيرًا: كلمة مرور فريدة لكل خدمة، ومدير كلمات المرور، والمصادقة الثنائية (2FA).'
+  },
+  { q: 'هل عبارات المرور آمنة مثل كلمات المرور العشوائية؟',
+    a: 'العبارة «<bdi>amber-forge-tide-4821!</bdi>» مكوّنة من 25 حرفًا. كلمة المرور المختلطة بطول 25 حرفًا لها إنتروبيا مماثلة أو أعلى، لكن عبارة المرور أسهل بكثير في الكتابة والتذكر. عبارات المرور المكوّنة من 4 كلمات التي يولّدها Zecure تحمل أكثر من 50 بت من الإنتروبيا — أي ما يعادل كلمة مرور عشوائية تمامًا من 9 أحرف — وهي أسهل بكثير في الاستخدام على أجهزة التحكم بالتلفاز وأجهزة الألعاب والأجهزة المشتركة.'
+  },
+];
+
+function renderFAQ() {
+  const el = document.getElementById('faq-container');
+  el.innerHTML = FAQS.map((f, i) => {
+    let body;
+    if (f.steps) {
+      body = `<div class="step-list">${f.steps.map((s,n) => `
+        <div class="step">
+          <span class="step-n">${n+1}</span>
+          <div class="step-body"><strong>${s.t}</strong><p>${s.b}</p></div>
+        </div>`).join('')}</div>`;
+    } else {
+      body = `<p>${f.a}</p>`;
+    }
+    return `
+    <div class="faq-item" id="fi-${i}">
+      <button class="faq-q" onclick="toggleFAQ(${i})" aria-expanded="false" aria-controls="fb-${i}">
+        <span>${f.q}</span>
+        <svg class="faq-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-body" id="fb-${i}" role="region">${body}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleFAQ(i) {
+  const item = document.getElementById(`fi-${i}`);
+  const btn  = item.querySelector('.faq-q');
+  const open = item.classList.toggle('open');
+  btn.setAttribute('aria-expanded', String(open));
+  if (open) {
+    document.querySelectorAll('.faq-item').forEach(el => {
+      if (el !== item) { el.classList.remove('open'); el.querySelector('.faq-q').setAttribute('aria-expanded','false'); }
+    });
+  }
+}
+
+// ─── Blog ─────────────────────────────────────────────────────
+const POSTS = [
+  {
+    bg: 'linear-gradient(135deg,rgba(99,102,241,0.12),rgba(139,92,246,0.08))',
+    iconBg: 'rgba(99,102,241,0.12)', iconColor: '#818cf8',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    cat:'دليل أمني', catBg:'rgba(99,102,241,0.1)', catColor:'#818cf8',
+    date:'أبريل 2025',
+    href:'/blog/how-to-create-strong-random-password',
+    title:'كيف تنشئ كلمة مرور عشوائية قوية — دليل شامل',
+    excerpt:'الطول يتفوّق على التعقيد. نشرح السبب بدقة، ونستعرض مفهوم الإنتروبيا، ونقدّم لك قائمة تحقق عملية لكلمات مرور يصعب كسرها فعلًا.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(99,102,241,0.12),rgba(139,92,246,0.08))',
+    iconBg: 'rgba(99,102,241,0.12)', iconColor: '#818cf8',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    cat:'مقارنة', catBg:'rgba(99,102,241,0.1)', catColor:'#818cf8',
+    date:'أبريل 2025',
+    href:'/blog/random-password-vs-passphrase',
+    title:'كلمة مرور عشوائية أم عبارة مرور: أيهما تستخدم؟',
+    excerpt:'لكلٍّ من كلمات المرور العشوائية وعبارات المرور بأسلوب XKCD مكانها. نقارن بينهما من حيث الإنتروبيا وسهولة التذكر ومتى تستخدم كلًّا منهما.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(245,158,11,0.1),rgba(239,68,68,0.08))',
+    iconBg: 'rgba(245,158,11,0.1)', iconColor: '#fbbf24',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    cat:'للمطوّرين', catBg:'rgba(245,158,11,0.1)', catColor:'#fbbf24',
+    date:'أبريل 2025',
+    href:'/blog/bcrypt-vs-argon2',
+    title:'bcrypt أم Argon2: أي دالة تجزئة لكلمات المرور تستخدم؟',
+    excerpt:'bcrypt و Argon2id هما أبرز خوارزميتين لتجزئة كلمات المرور. نقارن بينهما من حيث صعوبة الذاكرة (memory hardness) ومقاومة هجمات GPU وإمكانات الضبط، وأيهما تختار لمشاريعك الجديدة.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(99,102,241,0.12),rgba(139,92,246,0.08))',
+    iconBg: 'rgba(99,102,241,0.12)', iconColor: '#818cf8',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    cat:'دليل أمني', catBg:'rgba(99,102,241,0.1)', catColor:'#818cf8',
+    date:'أبريل 2025',
+    href:'/blog/unbreakable-password-2025',
+    title:'كيف تنشئ كلمة مرور عصيّة على الكسر في 2025',
+    excerpt:'يعيد معظم الناس استخدام كلمات المرور الثلاث نفسها في كل مكان. إليك ما تقوله أبحاث الأمان الحديثة فعلًا عن إنشاء بيانات دخول لا يمكن كسرها.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(34,197,94,0.1),rgba(14,165,233,0.08))',
+    iconBg: 'rgba(34,197,94,0.1)', iconColor: '#4ade80',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
+    cat:'شرح', catBg:'rgba(34,197,94,0.1)', catColor:'#4ade80',
+    date:'مارس 2025',
+    href:'/blog/aes-256-explained',
+    title:'شرح تشفير AES-256 بلغة بسيطة',
+    excerpt:'تعتمد الحكومات والبنوك على AES-256 لحماية أكثر بياناتها حساسية. نوضح ما يعنيه، ولماذا يهم طول المفتاح، وكيف تولّد مفتاحًا بأمان.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(245,158,11,0.1),rgba(239,68,68,0.08))',
+    iconBg: 'rgba(245,158,11,0.1)', iconColor: '#fbbf24',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    cat:'للمطوّرين', catBg:'rgba(245,158,11,0.1)', catColor:'#fbbf24',
+    date:'فبراير 2025',
+    href:'/blog/api-keys-vs-passwords',
+    title:'مفاتيح API مقابل كلمات المرور: ما الفرق؟',
+    excerpt:'مفاتيح API ليست كلمات مرور — والتعامل معهما بالطريقة نفسها خطأ أمني جسيم. تعرّف على الصيغة الصحيحة وطريقة التخزين وأسلوب التدوير المناسب لكلٍّ منهما.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(99,102,241,0.1),rgba(168,85,247,0.08))',
+    iconBg: 'rgba(99,102,241,0.1)', iconColor: '#818cf8',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    cat:'للمطوّرين', catBg:'rgba(99,102,241,0.1)', catColor:'#818cf8',
+    date:'أبريل 2025',
+    href:'/blog/jwt-secrets-explained',
+    title:'ما سرّ JWT وكيف يعمل؟',
+    excerpt:'تعتمد ملايين التطبيقات على رموز JWT في المصادقة — لكن السرّ الضعيف أو المسرَّب يجعل تزويرها أمرًا سهلًا للغاية. إليك كيف يعمل التوقيع وكيف يبدو السرّ الآمن.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(34,197,94,0.1),rgba(20,184,166,0.08))',
+    iconBg: 'rgba(34,197,94,0.1)', iconColor: '#4ade80',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5h21M1.5 12h21M5 8.5V19a1 1 0 001 1h12a1 1 0 001-1V8.5M9 8.5V6a3 3 0 016 0v2.5"/></svg>`,
+    cat:'دليل أمني', catBg:'rgba(34,197,94,0.1)', catColor:'#4ade80',
+    date:'مايو 2025',
+    href:'/blog/wifi-password-security',
+    title:'WPA2 و WEP ولماذا تهم كلمة مرور الواي فاي',
+    excerpt:'كُسر WEP في 2007 ولا يستغرق كسره اليوم سوى ثوانٍ. وأمان WPA2 لا يتجاوز قوة كلمة المرور التي تختارها. إليك ما يحدث فعلًا عند مهاجمة شبكة الواي فاي لديك.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(239,68,68,0.08),rgba(245,158,11,0.1))',
+    iconBg: 'rgba(239,68,68,0.08)', iconColor: '#f87171',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>`,
+    cat:'دليل أمني', catBg:'rgba(239,68,68,0.08)', catColor:'#f87171',
+    date:'يونيو 2025',
+    href:'/blog/password-manager-vs-browser',
+    title:'مدير كلمات المرور أم المتصفح: أيهما أكثر أمانًا؟',
+    excerpt:'كلمات المرور المحفوظة في المتصفح مريحة — لكن البرمجيات الخبيثة والوصول المادي إلى الجهاز واختراق الحساب المتزامن قد تكشفها كلها دفعة واحدة. إليك مقارنة صريحة.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(99,102,241,0.1),rgba(14,165,233,0.08))',
+    iconBg: 'rgba(99,102,241,0.1)', iconColor: '#818cf8',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+    cat:'شرح', catBg:'rgba(99,102,241,0.1)', catColor:'#818cf8',
+    date:'يوليو 2025',
+    href:'/blog/password-entropy-explained',
+    title:'شرح إنتروبيا كلمة المرور: لماذا العشوائية هي الشيء الوحيد المهم',
+    excerpt:'تقيس الإنتروبيا مدى صعوبة التنبؤ بكلمة المرور. قد تبدو كلمة المرور معقدة ومع ذلك يسهل تخمينها. إليك الحسابات وراء ما يجعل كلمة المرور قوية فعلًا.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(245,158,11,0.1),rgba(239,68,68,0.06))',
+    iconBg: 'rgba(245,158,11,0.1)', iconColor: '#fbbf24',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    cat:'للمطوّرين', catBg:'rgba(245,158,11,0.1)', catColor:'#fbbf24',
+    date:'أغسطس 2025',
+    href:'/blog/env-secrets-management',
+    title:'كيف تخزّن متغيرات البيئة والأسرار بأمان',
+    excerpt:'تسببت ملفات .env المرفوعة إلى git في بعض أكبر تسريبات البيانات في السنوات الأخيرة. إليك دليلًا عمليًا لإدارة الأسرار — من بيئة التطوير المحلية إلى بيئة الإنتاج.',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(34,197,94,0.1),rgba(99,102,241,0.08))',
+    iconBg: 'rgba(34,197,94,0.1)', iconColor: '#4ade80',
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+    cat:'دليل أمني', catBg:'rgba(34,197,94,0.1)', catColor:'#4ade80',
+    date:'سبتمبر 2025',
+    href:'/blog/two-factor-authentication-explained',
+    title:'شرح المصادقة الثنائية (2FA): تطبيقات TOTP والرسائل النصية والمفاتيح المادية',
+    excerpt:'ليست كل أساليب 2FA متساوية. يمكن اعتراض رموز الرسائل النصية عبر تبديل شريحة SIM. تطبيقات TOTP أفضل. والمفاتيح المادية مقاومة للتصيّد. إليك كيف تعمل كل طريقة وأيها تستخدم.',
+  },
+];
+
+function renderBlog() {
+  document.getElementById('blog-grid').innerHTML = POSTS.map(p => `
+    <a class="blog-card" href="${p.href}" tabindex="0" role="article" aria-label="${p.title}">
+      <div class="blog-cover" style="background:${p.bg}">
+        <div class="blog-cover-icon" style="background:${p.iconBg};color:${p.iconColor}">${p.icon}</div>
+      </div>
+      <div class="blog-info">
+        <div class="blog-meta">
+          <span class="blog-cat" style="background:${p.catBg};color:${p.catColor}">${p.cat}</span>
+          <span class="blog-date">${p.date}</span>
+        </div>
+        <div class="blog-title">${p.title}</div>
+        <p class="blog-excerpt">${p.excerpt}</p>
+        <span class="blog-read">
+          اقرأ المقال
+          <svg class="flip-rtl" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </span>
+      </div>
+    </a>`).join('');
+}
+
+// ─── Keyboard ─────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if ((e.key==='r'||e.key==='R') && !['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) regenerateAll();
+  if (e.key==='Escape') closeMenu();
+});
+
+// ─── Init ─────────────────────────────────────────────────────
+renderCards();
+renderFAQ();
+renderBlog();
+</script>

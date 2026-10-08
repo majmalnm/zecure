@@ -1,0 +1,360 @@
+<!--meta
+{
+  "title": "شرح تشفير AES-256 بلغة بسيطة | مدونة Zecure",
+  "description": "تعتمد الحكومات والبنوك على AES-256 لحماية أكثر بياناتها حساسية. نشرح معناه، ولماذا يهم طول المفتاح، وكيف تولّد مفتاحًا بأمان.",
+  "keywords": "تشفير AES-256, ما هو تشفير AES, كيف يعمل AES, شرح AES 256, توليد مفتاح AES-256, التشفير المتماثل",
+  "ogType": "article",
+  "ogTitle": "شرح تشفير AES-256 بلغة بسيطة",
+  "ogDescription": "ما هو AES-256 فعلًا، وكيف يعمل، ولماذا يهم توليد المفتاح أكثر من الخوارزمية نفسها.",
+  "sitemap": true
+}
+-->
+<!--head-->
+<script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","inLanguage":"ar","headline":"شرح تشفير AES-256 بلغة بسيطة","author":{"@type":"Organization","name":"Zecure"},"publisher":{"@type":"Organization","name":"Zecure","url":"https://zecure.net"},"datePublished":"2025-03-01","description":"شرح مبسّط لتشفير AES-256: كيف يعمل، ولماذا يحظى بالثقة، وكيف تولّد مفاتيح آمنة."}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b; --surface: #18181b; --surface2: #27272a;
+      --border: #3f3f46; --border-s: #27272a;
+      --accent: #6366f1; --accent-h: #4f46e5; --accent-s: rgba(99,102,241,0.12);
+      --green: #22c55e; --green-s: rgba(34,197,94,0.1);
+      --amber: #f59e0b; --red: #ef4444;
+      --text: #fafafa; --text-2: #a1a1aa; --text-3: #71717a; --text-4: #52525b;
+      --sans: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --r: 8px; --r-sm: 6px; --r-lg: 12px;
+      color-scheme: dark;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --surface: #fafafa; --surface2: #f4f4f5;
+      --border: #e4e4e7; --border-s: #f4f4f5;
+      --accent: #4f46e5; --accent-h: #4338ca; --accent-s: rgba(79,70,229,0.08);
+      --green: #16a34a; --green-s: rgba(22,163,74,0.08);
+      --amber: #d97706; --red: #dc2626;
+      --text: #09090b; --text-2: #52525b; --text-3: #71717a; --text-4: #a1a1aa;
+      color-scheme: light;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.6; min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--accent-s); color: var(--text); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+    body > header { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-s); }
+    .nav-inner { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; height: 56px; display: flex; align-items: center; gap: 1rem; }
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.9375rem; letter-spacing: -0.01em; }
+    .logo-mark { width: 28px; height: 28px; border-radius: var(--r-sm); background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; }
+    .back-link { margin-left: auto; display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-2); font-size: 0.8125rem; font-weight: 500; text-decoration: none; padding: 0.375rem 0.75rem; border-radius: var(--r-sm); border: 1px solid var(--border); transition: all 0.15s; cursor: pointer; }
+    .back-link:hover { color: var(--text); background: var(--surface2); border-color: var(--text-4); }
+    .icon-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: transparent; border: 1px solid var(--border); border-radius: var(--r-sm); color: var(--text-2); cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; }
+    .icon-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface2); }
+    .icon-btn .sun { display: none; } .icon-btn .moon { display: block; }
+    [data-theme="light"] .icon-btn .sun { display: block; } [data-theme="light"] .icon-btn .moon { display: none; }
+    .article-wrap { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .article-hero { padding: 3.5rem 0 2.5rem; }
+    .article-category { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--green-s); color: var(--green); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .article-h1 { font-size: clamp(1.75rem, 4vw, 2.625rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; color: var(--text); margin-bottom: 1rem; }
+    .article-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .article-meta span { font-size: 0.8125rem; color: var(--text-3); display: flex; align-items: center; gap: 0.35rem; }
+    .article-meta .sep { width: 3px; height: 3px; border-radius: 50%; background: var(--text-4); }
+    .article-lead { font-size: 1.0625rem; color: var(--text-2); line-height: 1.75; border-left: 3px solid var(--green); padding-left: 1.25rem; margin-bottom: 2.5rem; }
+    .article-body { padding-bottom: 4rem; }
+    .article-body h2 { font-size: 1.3125rem; font-weight: 600; letter-spacing: -0.015em; color: var(--text); margin: 2.5rem 0 0.875rem; }
+    .article-body h3 { font-size: 1.0625rem; font-weight: 600; color: var(--text); margin: 1.75rem 0 0.625rem; }
+    .article-body p { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; margin-bottom: 1.25rem; }
+    .article-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .article-body ul, .article-body ol { margin: 0.5rem 0 1.25rem 1.5rem; }
+    .article-body li { font-size: 0.9375rem; color: var(--text-2); line-height: 1.8; margin-bottom: 0.35rem; }
+    .article-body strong { color: var(--text); font-weight: 600; }
+    .article-body code { font-family: var(--mono); font-size: 0.8125rem; background: var(--surface2); color: var(--accent); padding: 0.15rem 0.45rem; border-radius: 4px; }
+    pre.code-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 1.25rem 1.5rem; overflow-x: auto; margin: 0.5rem 0 1.5rem; }
+    pre.code-block code { background: none; color: var(--text-2); font-size: 0.8125rem; padding: 0; line-height: 1.7; }
+    .tk-kw { color: #818cf8; } .tk-fn { color: #67e8f9; } .tk-st { color: #4ade80; } .tk-cm { color: var(--text-4); }
+    [data-theme="light"] .tk-kw { color: #4f46e5; } [data-theme="light"] .tk-fn { color: #0284c7; } [data-theme="light"] .tk-st { color: #16a34a; }
+    .callout { display: flex; gap: 1rem; background: var(--surface); border: 1px solid var(--border-s); border-left: 3px solid var(--accent); border-radius: var(--r-lg); padding: 1.125rem 1.25rem; margin: 1.5rem 0; }
+    .callout-icon { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .callout p { margin: 0; font-size: 0.875rem; }
+    .callout.warn { border-left-color: var(--amber); } .callout.warn .callout-icon { color: var(--amber); }
+    .callout.good { border-left-color: var(--green); } .callout.good .callout-icon { color: var(--green); }
+    /* AES diagram */
+    .aes-diagram { background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto; }
+    .aes-flow { display: flex; align-items: center; gap: 0; flex-wrap: nowrap; min-width: 600px; }
+    .aes-box { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 0.625rem 0.875rem; text-align: center; flex: 1; }
+    .aes-box .label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.2rem; }
+    .aes-box .val { font-family: var(--mono); font-size: 0.75rem; color: var(--text-2); }
+    .aes-box.highlight { background: var(--accent-s); border-color: var(--accent); }
+    .aes-box.highlight .val { color: var(--accent); }
+    .aes-arrow { color: var(--text-4); padding: 0 0.25rem; flex-shrink: 0; font-size: 1.1rem; }
+    .key-sizes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 1rem 0 1.5rem; }
+    .ks-cell { background: var(--surface); padding: 1rem; text-align: center; }
+    .ks-bits { font-family: var(--mono); font-size: 1.375rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+    .ks-bits.active { color: var(--accent); }
+    .ks-rounds { font-size: 0.75rem; color: var(--text-3); margin-bottom: 0.3rem; }
+    .ks-tag { display: inline-block; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.1rem 0.5rem; border-radius: 100px; }
+    .ks-tag.gov { background: var(--accent-s); color: var(--accent); }
+    .ks-tag.ok { background: var(--green-s); color: var(--green); }
+    .stat-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 1.5rem 0 2rem; }
+    .stat-cell { background: var(--surface); padding: 1.25rem; text-align: center; }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-size: 0.75rem; color: var(--text-3); }
+    hr.divider { border: none; border-top: 1px solid var(--border-s); margin: 2.5rem 0; }
+    .related { padding: 2.5rem 0 4rem; border-top: 1px solid var(--border-s); }
+    .related-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 1.25rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .related-card { display: block; background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 1.25rem; text-decoration: none; transition: border-color 0.15s, background 0.15s; cursor: pointer; }
+    .related-card:hover { border-color: var(--border); background: var(--surface2); }
+    .related-cat { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .related-card-title { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 0.4rem; }
+    .related-card-date { font-size: 0.75rem; color: var(--text-3); }
+    .article-cta { background: var(--surface); border: 1px solid var(--border-s); border-radius: var(--r-lg); padding: 2rem; text-align: center; margin: 2.5rem 0; }
+    .article-cta h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .article-cta p { font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--sans); font-size: 0.875rem; font-weight: 500; padding: 0.6rem 1.375rem; border-radius: var(--r); cursor: pointer; transition: all 0.15s; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; border: none; }
+    .btn-primary:hover { background: var(--accent-h); }
+  </style>
+  <style>
+    html[dir=rtl] .back-link{margin-left:0;margin-right:auto}
+    html[dir=rtl] .article-lead{border-left:none;padding-left:0;border-right:3px solid var(--green);padding-right:1.25rem}
+    html[dir=rtl] .article-body ul,html[dir=rtl] .article-body ol{margin:.5rem 1.5rem 1.25rem 0}
+    html[dir=rtl] .callout{border-left:1px solid var(--border-s);border-right:3px solid var(--accent)}
+    html[dir=rtl] .callout.warn{border-right-color:var(--amber)}
+    html[dir=rtl] .callout.good{border-right-color:var(--green)}
+  </style>
+<!--body-->
+<header>
+  <nav class="nav-inner" aria-label="التنقل في الموقع">
+    <a href="/" class="logo" aria-label="الصفحة الرئيسية لـ Zecure">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </span>
+      Zecure
+    </a>
+    <a href="/#blog" class="back-link">
+      <svg class="flip-rtl" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      كل المقالات
+    </a>
+    <button class="icon-btn" id="theme-btn" aria-label="تبديل المظهر" onclick="toggleTheme()">
+      <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <div class="article-wrap">
+    <article>
+      <header class="article-hero">
+        <div class="article-category">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          شرح
+        </div>
+        <h1 class="article-h1">شرح تشفير AES-256 بلغة بسيطة</h1>
+        <div class="article-meta">
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            مارس 2025
+          </span>
+          <span class="sep"></span>
+          <span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            قراءة 8 دقائق
+          </span>
+          <span class="sep"></span>
+          <span>بقلم فريق Zecure</span>
+        </div>
+        <p class="article-lead">تستخدم الحكومات والبنوك AES-256 لحماية أكثر بياناتها حساسية: رموز إطلاق الأسلحة النووية، والمعاملات المالية، والسجلات الطبية. إليك ما يعنيه فعلًا، ولماذا يهم طول المفتاح، وكيف تولّد مفتاحًا بأمان.</p>
+      </header>
+
+      <div class="article-body">
+
+        <h2>ما هو AES؟</h2>
+        <p>AES اختصار لـ <strong>Advanced Encryption Standard</strong> (معيار التشفير المتقدم). وهو شيفرة كتلية متماثلة: "متماثلة" تعني أن المفتاح نفسه يُستخدم لتشفير البيانات وفك تشفيرها، و"كتلية" تعني أنها تعمل على أجزاء ثابتة الحجم (كتل من 128 بت) بدلًا من تدفق متواصل من البيانات.</p>
+        <p>اختارت NIST معيار AES عام 2001 بعد مسابقة علنية استمرت 5 سنوات. قدّم الخوارزمية الأصلية، واسمها Rijndael، عالِما تشفير بلجيكيان هما Joan Daemen وVincent Rijmen. وقد صُممت لتكون فعّالة على العتاد والبرمجيات، ومقاوِمة لكل الهجمات المعروفة، وأن تبقى آمنة لعقود.</p>
+        <p><strong>بعد أربعة وعشرين عامًا، لم ينجح أي هجوم تحليل تشفيري في كسر AES عمليًا.</strong> الثغرة الوحيدة المعروفة هي سوء إدارة المفاتيح: توليد مفتاح ضعيف، أو الإخفاق في حمايته.</p>
+
+        <h2>أطوال المفاتيح الثلاثة</h2>
+        <p>يأتي AES في ثلاثة أشكال تختلف حسب طول المفتاح:</p>
+
+        <div class="key-sizes">
+          <div class="ks-cell">
+            <div class="ks-bits">128-bit</div>
+            <div class="ks-rounds">10 جولات</div>
+            <span class="ks-tag ok">جيد</span>
+          </div>
+          <div class="ks-cell">
+            <div class="ks-bits">192-bit</div>
+            <div class="ks-rounds">12 جولة</div>
+            <span class="ks-tag ok">قوي</span>
+          </div>
+          <div class="ks-cell">
+            <div class="ks-bits active">256-bit</div>
+            <div class="ks-rounds">14 جولة</div>
+            <span class="ks-tag gov">NSA Suite B</span>
+          </div>
+        </div>
+
+        <p>يُعدّ AES-128 بالفعل غير قابل للكسر حسابيًا: فعدد المفاتيح الممكنة نحو 3.4×10<sup>38</sup> فقط، والبحث الشامل فيها مستحيل بالتقنيات الحالية أو المتوقعة. أما AES-256 فيضاعف طول المفتاح، فيرتفع فضاء المفاتيح إلى 1.16×10<sup>77</sup>، أي ما يقارب مربع عدد الذرات في الكون المرئي. وهو الإصدار الذي اعتمدته NSA للمعلومات المصنّفة "سري للغاية".</p>
+
+        <div class="callout">
+          <span class="callout-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </span>
+          <p>حتى حاسوب كمّي نظري يشغّل خوارزمية Grover لن يفعل أكثر من خفض الأمان الفعلي لـ AES-256 من 256 بت إلى 128 بت، وهذا يبقى غير قابل للكسر. لذلك يُعدّ AES-256 مقاومًا للحوسبة الكمّية من الناحية العملية.</p>
+        </div>
+
+        <h2>كيف يعمل AES فعلًا</h2>
+        <p>يحوّل AES كتلة من 128 بت من النص الأصلي إلى كتلة من 128 بت من النص المشفّر عبر سلسلة من <em>الجولات</em> الرياضية. تطبّق كل جولة أربع عمليات على شبكة من 4×4 بايت (تُسمى "الحالة"):</p>
+
+        <ol>
+          <li><strong>SubBytes</strong>: تستبدل كل بايت باستبدال غير خطي من جدول بحث ثابت (S-box)، فتزيل العلاقات الخطية في البيانات</li>
+          <li><strong>ShiftRows</strong>: تُزيح كل صف من الحالة إزاحة دورية بمقدار مختلف، فتنشر التأثير عبر الأعمدة</li>
+          <li><strong>MixColumns</strong>: تضرب كل عمود في كثير حدود ثابت، فتمزج البايتات داخل كل عمود</li>
+          <li><strong>AddRoundKey</strong>: تطبّق عملية XOR بين الحالة ومفتاح فرعي مشتق من المفتاح الرئيسي عبر جدولة المفاتيح</li>
+        </ol>
+
+        <p>اختيرت هذه العمليات بعناية بحيث يؤدي تغيير بت واحد في المدخلات إلى قلب نحو نصف بتات المخرجات (وهذا ما يُعرف بـ"تأثير الانهيار"). وبعد 14 جولة في AES-256 تصبح العلاقة بين النص الأصلي والنص المشفّر مبهمة تمامًا.</p>
+
+        <div class="aes-diagram" aria-label="مخطط مراحل تشفير AES">
+          <div class="aes-flow">
+            <div class="aes-box">
+              <div class="label">النص الأصلي</div>
+              <div class="val">كتلة 128 بت</div>
+            </div>
+            <div class="aes-arrow">←</div>
+            <div class="aes-box highlight">
+              <div class="label">XOR مع المفتاح</div>
+              <div class="val">+مفتاح الجولة</div>
+            </div>
+            <div class="aes-arrow">←</div>
+            <div class="aes-box">
+              <div class="label">جولة ×14</div>
+              <div class="val">Sub · Shift · Mix · Add</div>
+            </div>
+            <div class="aes-arrow">←</div>
+            <div class="aes-box highlight">
+              <div class="label">النص المشفّر</div>
+              <div class="val">كتلة 128 بت</div>
+            </div>
+          </div>
+        </div>
+
+        <h2>السرّ في المفتاح، لا في الخوارزمية</h2>
+        <p>خوارزمية AES علنية. الخوارزمية وجداول S-box وكل تفاصيل طريقة عملها منشورة ومتاحة للجميع. وهذا مقصود: الأمان القائم على الإخفاء ليس أمانًا. ينص مبدأ Kerckhoffs على أن نظام التشفير يجب أن يبقى آمنًا حتى لو كان كل شيء عنه معروفًا للعامة، باستثناء المفتاح.</p>
+        <p><strong>هذا يعني أن أمان AES-256 كله يقوم على شيء واحد: المفتاح.</strong> المفتاح بطول 256 بت هو 32 بايت من البيانات. إذا حصل عليه مهاجم، عبر التصيّد أو خادم مُخترَق أو من داخل الكود الخاص بك، يصبح فك تشفير كل البيانات المشفّرة ممكنًا فورًا، ولا تعود قوة التشفير ذات قيمة.</p>
+
+        <div class="callout warn">
+          <span class="callout-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </span>
+          <p><strong>خطأ شائع:</strong> اشتقاق مفتاح AES من كلمة مرور بتطبيق دالة التجزئة عليها مباشرة. يبدو أن <code>SHA256(password)</code> ينتج 256 بت، لكن إذا كانت كلمة المرور المُدخلة ضعيفة فالمفتاح ضعيف أيضًا. استخدم دائمًا دالة اشتقاق مفاتيح (KDF) مناسبة مثل PBKDF2 أو bcrypt أو Argon2 مع قيمة ملح (salt) عند اشتقاق المفاتيح من كلمات المرور.</p>
+        </div>
+
+        <h2>توليد مفتاح AES-256 سليم</h2>
+        <p>يجب أن يكون مفتاح AES-256 السليم <strong>32 بايت من البيانات العشوائية الآمنة تشفيريًا</strong>. وعمليًا يُمثَّل عادةً بـ 64 حرفًا ست عشريًا (hex) أو بسلسلة base64 من 44 حرفًا.</p>
+
+        <pre class="code-block"><code><span class="tk-cm">// Node.js — توليد مفتاح AES-256 آمن تشفيريًا</span>
+<span class="tk-kw">const</span> { randomBytes } = require(<span class="tk-st">'crypto'</span>);
+<span class="tk-kw">const</span> key = <span class="tk-fn">randomBytes</span>(32).<span class="tk-fn">toString</span>(<span class="tk-st">'hex'</span>);
+<span class="tk-cm">// → e.g. "a3f2...8b1c" (64 hex chars = 256 bits)</span>
+
+<span class="tk-cm">// المتصفح — الشيء نفسه باستخدام Web Crypto API</span>
+<span class="tk-kw">const</span> keyBytes = <span class="tk-kw">new</span> <span class="tk-fn">Uint8Array</span>(32);
+<span class="tk-fn">crypto.getRandomValues</span>(keyBytes);
+<span class="tk-kw">const</span> keyHex = <span class="tk-fn">Array.from</span>(keyBytes)
+  .<span class="tk-fn">map</span>(b => b.<span class="tk-fn">toString</span>(16).<span class="tk-fn">padStart</span>(2, <span class="tk-st">'0'</span>))
+  .<span class="tk-fn">join</span>(<span class="tk-st">''</span>);</code></pre>
+
+        <div class="callout good">
+          <span class="callout-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <p>مولّد مفاتيح AES-256 في Zecure يفعل هذا بالضبط: <code>getRandomValues(new Uint8Array(32))</code> ثم يرمّز النتيجة بصيغة hex. يُولَّد المفتاح بالكامل داخل متصفحك، ولا يُرسَل إلى أي مكان.</p>
+        </div>
+
+        <h2>أنماط AES: ECB مقابل CBC مقابل GCM</h2>
+        <p>AES شيفرة كتلية، أي أنها تشفّر 128 بت بالضبط في كل مرة. أما البيانات الحقيقية (التي لا يكون طولها دائمًا 128 بت بالضبط) فتحتاج إلى "نمط تشغيل" يحدد كيفية ربط الكتل المتعددة ببعضها:</p>
+
+        <ul>
+          <li><strong>ECB (Electronic Codebook)</strong>: يشفّر كل كتلة على حدة. <em>لا تستخدمه أبدًا.</em> فالكتل المتطابقة في النص الأصلي تنتج كتلًا متطابقة في النص المشفّر، مما يكشف الأنماط في البيانات.</li>
+          <li><strong>CBC (Cipher Block Chaining)</strong>: يطبّق XOR بين كل كتلة والنص المشفّر السابق قبل التشفير. يتطلب متجه تهيئة عشوائيًا (IV). أفضل من ECB، لكن هجمات padding oracle تبقى مصدر قلق.</li>
+          <li><strong>GCM (Galois/Counter Mode)</strong>: المعيار الحديث. يوفّر السرية <em>والسلامة</em> معًا (تشفير موثَّق). استخدم GCM ما لم يكن لديك سبب محدد لعدم استخدامه.</li>
+        </ul>
+
+        <h2>أين يُستخدم AES-256</h2>
+
+        <div class="stat-strip">
+          <div class="stat-cell">
+            <div class="stat-num">HTTPS</div>
+            <div class="stat-label">يستخدم TLS 1.3 خوارزمية AES-256-GCM كتشفير افتراضي</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">AWS S3</div>
+            <div class="stat-label">التشفير من جهة الخادم (SSE-S3) يستخدم AES-256</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">FileVault</div>
+            <div class="stat-label">تشفير الأقراص في macOS يستخدم AES-256-XTS</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">Signal</div>
+            <div class="stat-label">تشفير الرسائل من طرف إلى طرف يستخدم AES-256-CBC</div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <h2>الخلاصة</h2>
+        <p>لن يُكسر AES-256 في أي وقت قريب. الخوارزمية نفسها متينة؛ والهجمات تحدث على مستوى التنفيذ: مفاتيح ضعيفة، أو استخدام نمط ECB، أو غياب المصادقة، أو كشف مادة المفاتيح. إذا كنت تطبّق AES-256 في تطبيقك:</p>
+        <ol>
+          <li>استخدم نمط GCM، لا ECB ولا CBC</li>
+          <li>ولّد المفاتيح باستخدام CSPRNG (مولّد أرقام عشوائية آمن تشفيريًا) مثل <code>randomBytes</code> أو <code>getRandomValues</code></li>
+          <li>لا تضع المفاتيح مباشرة في الكود المصدري أبدًا</li>
+          <li>بدّل المفاتيح دوريًا، وعند الاشتباه في تسريبها</li>
+          <li>خزّن المفاتيح في مدير أسرار (AWS Secrets Manager أو HashiCorp Vault)، لا في ملفات env مرفوعة إلى git</li>
+        </ol>
+
+        <div class="article-cta">
+          <h3>ولّد مفتاح AES-256 آمنًا</h3>
+          <p>احصل فورًا على مفتاح عشوائي آمن تشفيريًا بطول 256 بت، بترميز hex أو base64، يُولَّد محليًا داخل متصفحك.</p>
+          <a href="/" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            افتح مولّد Zecure
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <section class="related" aria-label="مقالات ذات صلة">
+      <p class="related-title">المزيد من المدونة</p>
+      <div class="related-grid">
+        <a href="/blog/unbreakable-password-2025" class="related-card">
+          <div class="related-cat">دليل أمني</div>
+          <div class="related-card-title">كيف تنشئ كلمة مرور لا تُكسر في 2025</div>
+          <div class="related-card-date">أبريل 2025</div>
+        </a>
+        <a href="/blog/jwt-secrets-explained" class="related-card">
+          <div class="related-cat">للمطوّرين</div>
+          <div class="related-card-title">ما هو سرّ JWT وكيف يعمل؟</div>
+          <div class="related-card-date">أبريل 2025</div>
+        </a>
+        <a href="/blog/api-keys-vs-passwords" class="related-card">
+          <div class="related-cat">للمطوّرين</div>
+          <div class="related-card-title">مفاتيح API مقابل كلمات المرور: ما الفرق؟</div>
+          <div class="related-card-date">فبراير 2025</div>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('zecure-theme', next);
+}
+</script>
