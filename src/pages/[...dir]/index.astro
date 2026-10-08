@@ -1,0 +1,17 @@
+---
+import Page from '../../layouts/Page.astro';
+import { pages, type Page as P } from '../../lib/site';
+
+// Directory index pages: 'index' -> dist/index.html, 'blog/index' -> dist/blog/index.html (served at /blog/)
+export function getStaticPaths() {
+  return pages
+    .filter((page) => page.key === 'index' || page.key.endsWith('/index'))
+    .map((page) => {
+      const dir = [page.lang === 'en' ? '' : page.lang, page.key.replace(/\/?index$/, '')].filter(Boolean).join('/');
+      return { params: { dir: dir || undefined }, props: { page } };
+    });
+}
+
+const { page } = Astro.props as { page: P };
+---
+<Page page={page} />

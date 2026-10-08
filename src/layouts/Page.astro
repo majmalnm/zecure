@@ -1,0 +1,59 @@
+---
+import { type Page, SITE, urlPath, alternates, localizeLinks } from '../lib/site';
+
+interface Props { page: Page }
+const { page } = Astro.props;
+const { lang, key, meta } = page;
+const rtl = lang === 'ar';
+const canonical = SITE + urlPath(lang, key);
+const alts = alternates(key);
+const other = alts.find((a) => a.lang !== lang);
+const switchLabel = other?.lang === 'ar' ? 'العربية' : 'English';
+
+let body = localizeLinks(lang, page.body);
+if (other) {
+  // Language switcher sits next to the theme toggle, which every page header has.
+  const sw = `<a class="lang-switch" href="${new URL(other.href).pathname}" hreflang="${other.lang}" lang="${other.lang}">${switchLabel}</a>`;
+  body = body.replace(/<button class="icon-btn"/, `${sw}<button class="icon-btn"`);
+}
+const head = localizeLinks(lang, page.head);
+const icon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Csvg x='20' y='20' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E%3C/svg%3E";
+---
+<!DOCTYPE html>
+<html lang={lang} dir={rtl ? 'rtl' : 'ltr'} data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{meta.title}</title>
+  {meta.description && <meta name="description" content={meta.description}>}
+  {meta.keywords && <meta name="keywords" content={meta.keywords}>}
+  <meta name="author" content="Zecure">
+  <link rel="canonical" href={canonical}>
+  {alts.length > 1 && alts.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href}>)}
+  {alts.length > 1 && <link rel="alternate" hreflang="x-default" href={alts.find((a) => a.lang === 'en')!.href}>}
+  <link rel="icon" type="image/svg+xml" href={icon}>
+  {meta.ogType && <meta property="og:type" content={meta.ogType}>}
+  {meta.ogTitle && <meta property="og:title" content={meta.ogTitle}>}
+  {meta.ogDescription && <meta property="og:description" content={meta.ogDescription}>}
+  <meta property="og:url" content={canonical}>
+  <meta property="og:locale" content={rtl ? 'ar_AR' : 'en_US'}>
+  {meta.robots && <meta name="robots" content={meta.robots}>}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <Fragment set:html={head} />
+  {rtl && <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">}
+  <style is:inline>
+    .lang-switch{display:inline-flex;align-items:center;height:30px;padding:0 .625rem;margin-inline-end:.375rem;border-radius:8px;border:1px solid var(--border,rgba(127,127,127,.25));color:var(--text-2,inherit);font-size:.8125rem;font-weight:500;text-decoration:none;white-space:nowrap}
+    .lang-switch:hover{color:var(--text-1,inherit);border-color:var(--text-3,currentColor)}
+    html[dir=rtl]{--sans:'IBM Plex Sans Arabic','Inter',system-ui,-apple-system,sans-serif}
+    html[dir=rtl] body{line-height:1.8}
+    html[dir=rtl] :is(pre,code,kbd,samp,[dir=ltr]){direction:ltr;unicode-bidi:isolate}
+    html[dir=rtl] pre{text-align:left}
+    html[dir=rtl] .flip-rtl{transform:scaleX(-1)}
+  </style>
+</head>
+<body>
+<script is:inline>(function(){const t=localStorage.getItem('zecure-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();</script>
+<Fragment set:html={body} />
+</body>
+</html>

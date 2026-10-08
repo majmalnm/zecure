@@ -1,0 +1,13 @@
+{
+  "name": "zecure",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "cp CHANGELOG.md public/CHANGELOG.md && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.3.7"
+  }
+}

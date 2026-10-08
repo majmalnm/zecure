@@ -1,0 +1,17 @@
+---
+import Page from '../layouts/Page.astro';
+import { pages, type Page as P } from '../lib/site';
+
+// Leaf pages: 'password-generator' -> dist/password-generator.html, served at /password-generator
+export function getStaticPaths() {
+  return pages
+    .filter((page) => page.key !== 'index' && !page.key.endsWith('/index'))
+    .map((page) => ({
+      params: { slug: (page.lang === 'en' ? '' : `${page.lang}/`) + page.key },
+      props: { page },
+    }));
+}
+
+const { page } = Astro.props as { page: P };
+---
+<Page page={page} />

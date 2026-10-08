@@ -122,3 +122,18 @@ zecure/
 ## License
 
 MIT — free to use, modify, and self-host.
+
+## Development
+
+Built with [Astro](https://astro.build) and deployed as a Cloudflare Worker serving `dist/`.
+
+```bash
+npm install
+npm run dev     # local dev server
+npm run build   # outputs dist/
+```
+
+Page sources live in `src/site/<lang>/<page>.html` (`en` is the source of truth, `ar` is the Arabic/RTL version).
+Each file has a `<!--meta {json} -->` block, the page's own head HTML after `<!--head-->`, and its body after `<!--body-->`.
+`src/layouts/Page.astro` adds the shared head (canonical, hreflang, Open Graph, fonts, theme script).
+`sitemap.xml` and `_redirects` (old `.html` URLs → clean URLs, 301) are generated at build time.

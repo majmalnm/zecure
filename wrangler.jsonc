@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "zecure",
+  "compatibility_date": "2026-04-23",
+  "observability": {
+    "enabled": true
+  },
+  // Built by `npm run build`; only the Astro output is served (not the repo root).
+  "assets": {
+    "directory": "./dist"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
